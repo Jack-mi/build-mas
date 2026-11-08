@@ -1,0 +1,149 @@
+{
+  "installed_module": "<temp-root>/buildmas-wheel-final-cxgh6pxs/builder/lib/python3.12/site-packages/build_mas/network.py",
+  "deterministic_sandbox_relay": {
+    "receipt": {
+      "id": "relay",
+      "kind": "codex_smoke",
+      "required": true,
+      "status": "passed",
+      "exit_code": 0,
+      "evidence_ref": "<temp-root>/buildmas-installed-network-final-tromusd4/relay-evidence/relay.json",
+      "execution_environment": {
+        "HOME": "<temp-root>/buildmas-installed-network-final-tromusd4/relay-evidence/buildmas-check-iosu7n2y",
+        "TMPDIR": "<temp-root>/buildmas-installed-network-final-tromusd4/relay-evidence/buildmas-check-iosu7n2y",
+        "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-installed-network-final-tromusd4/relay-evidence/buildmas-check-iosu7n2y",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "model_endpoint_pins": [
+        {
+          "host": "model.example",
+          "port": 443,
+          "addresses": [
+            "93.184.216.34"
+          ]
+        }
+      ],
+      "sandbox_loopback_ports": [
+        65337
+      ],
+      "output": "{\"relay\": \"passed\", \"undeclared\": \"denied\", \"direct\": \"denied\"}\n",
+      "argv": [
+        "<temp-root>/buildmas-wheel-final-cxgh6pxs/builder/bin/python",
+        "relay_probe.py"
+      ],
+      "duration_ms": 55
+    },
+    "upstream_connection": [
+      [
+        "93.184.216.34",
+        443
+      ]
+    ],
+    "listener_closed_after_check": true,
+    "upstream_fixture": "local socketpair substitutes only the pinned upstream; no remote TLS/model behavior asserted"
+  },
+  "local_provider_sdk_regression": {
+    "source_receipt": "<temp-root>/buildmas-network-live-regression-w_7hc2nm/evidence/live.json",
+    "status": "passed",
+    "provider_scope": "configured loopback provider; not remote-model validation",
+    "duration_ms": 10679,
+    "output": {
+      "tag": "LABEL:HELLO"
+    },
+    "tokens": 36910,
+    "turns": 1,
+    "packets": [
+      {
+        "id": "normalize",
+        "status": "passed",
+        "thread_id": "01a1bb81-77ae-7af0-a2f0-5680fdb04e7f",
+        "turn_id": "01a1bb81-780d-7b91-ad02-9a077302f6b0",
+        "skills": [
+          {
+            "name": "shipping-label",
+            "lifecycle": "verified",
+            "loading": "explicit_SkillInput",
+            "eval_cases": [
+              "hello produces LABEL:HELLO"
+            ]
+          }
+        ],
+        "tools": [
+          {
+            "name": "format_label",
+            "transport": "mcp_cli_registry",
+            "exit_code": 0,
+            "output": {
+              "tag": "LABEL:HELLO"
+            },
+            "call_id": "exec-c4424847-ae04-4cd2-9043-79d0c1cefe63"
+          }
+        ]
+      }
+    ]
+  },
+  "remote_model_end_to_end": {
+    "status": "unverified",
+    "credentials_sent": false,
+    "reason": "Routed official-host resolver returns private addresses and is rejected; earlier transport probe returned URLError, not proof of HTTPS/model execution."
+  },
+  "installed_local_provider_sdk_regression": {
+    "source_receipt": "<temp-root>/buildmas-installed-sdk-regression-_o5sc579/evidence/live.json",
+    "status": "passed",
+    "installed_python": "<temp-root>/buildmas-wheel-final-cxgh6pxs/builder/bin/python",
+    "provider_scope": "configured loopback provider; not remote-model validation",
+    "duration_ms": 11508,
+    "output": {
+      "tag": "LABEL:HELLO"
+    },
+    "tokens": 34269,
+    "turns": 1,
+    "checks": [
+      {
+        "id": "host_structure",
+        "status": "passed"
+      },
+      {
+        "id": "compile",
+        "status": "passed"
+      },
+      {
+        "id": "tool",
+        "status": "passed"
+      },
+      {
+        "id": "live",
+        "status": "passed"
+      }
+    ],
+    "packets": [
+      {
+        "id": "normalize",
+        "status": "passed",
+        "thread_id": "01a1bb86-c5cd-72f2-9620-0de6e402ebeb",
+        "turn_id": "01a1bb86-c62e-7062-92ab-e255a86d7c61",
+        "skills": [
+          {
+            "name": "shipping-label",
+            "lifecycle": "verified",
+            "loading": "explicit_SkillInput",
+            "eval_cases": [
+              "hello produces LABEL:HELLO"
+            ]
+          }
+        ],
+        "tools": [
+          {
+            "name": "format_label",
+            "transport": "mcp_cli_registry",
+            "exit_code": 0,
+            "output": {
+              "tag": "LABEL:HELLO"
+            },
+            "call_id": "exec-1fc2fbc5-b666-49c1-9de3-826da18785e4"
+          }
+        ]
+      }
+    ]
+  }
+}

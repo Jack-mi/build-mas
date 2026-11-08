@@ -1,0 +1,72 @@
+{
+  "observed_on": "2026-11-09",
+  "scope": "Current final reviewed templates and local macOS/provider trial; not production reliability",
+  "results": {
+    "builder_import": "<temp-root>/buildmas-release-wheel-20261109.6NrogCM8LJ/builder/lib/python3.12/site-packages/build_mas/__init__.py",
+    "existing_cli_apply": {
+      "status": "completed",
+      "verification": "passed",
+      "target_environment_selected": true,
+      "approved_candidate_environment_selected": true
+    },
+    "existing_mcp_apply": {
+      "status": "completed",
+      "verification": "passed",
+      "tools": [
+        "buildmas_apply",
+        "buildmas_invoke",
+        "buildmas_preflight",
+        "buildmas_read",
+        "buildmas_status",
+        "buildmas_verify"
+      ],
+      "cli_status_equal": true
+    },
+    "installed_target": {
+      "status": "passed",
+      "output": {
+        "tag": "LABEL:HELLO"
+      },
+      "tokens": 39151,
+      "package_read_only": true,
+      "package_bytes_unchanged": true,
+      "checkpoint_private": true,
+      "state_outside_package": true,
+      "mcp": {
+        "tools": [
+          "mas_read",
+          "mas_run",
+          "mas_status",
+          "mas_verify"
+        ],
+        "cached_cli_result_equal": true,
+        "verification": "passed"
+      },
+      "receipt": {
+        "thread_id": "01a1bd8b-7896-7091-be16-44927a50368d",
+        "turn_id": "01a1bd8b-7918-72b1-abc0-109e4a355c01",
+        "skills": [
+          {
+            "name": "shipping-label",
+            "lifecycle": "verified",
+            "loading": "explicit_SkillInput",
+            "eval_cases": [
+              "hello produces LABEL:HELLO"
+            ]
+          }
+        ],
+        "tools": [
+          {
+            "name": "format_label",
+            "transport": "mcp_cli_registry",
+            "exit_code": 0,
+            "output": {
+              "tag": "LABEL:HELLO"
+            },
+            "call_id": "exec-3a1a6962-1593-4e4e-8a8d-305ed7d3ccc7"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,931 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "AgentSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "purpose": {
+          "maxLength": 100000,
+          "minLength": 1,
+          "title": "Purpose",
+          "type": "string"
+        },
+        "instructions": {
+          "maxLength": 100000,
+          "minLength": 1,
+          "title": "Instructions",
+          "type": "string"
+        },
+        "thread_strategy": {
+          "default": "reuse",
+          "enum": [
+            "reuse",
+            "fresh"
+          ],
+          "title": "Thread Strategy",
+          "type": "string"
+        },
+        "skills": {
+          "items": {
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+            "type": "string"
+          },
+          "title": "Skills",
+          "type": "array"
+        },
+        "tools": {
+          "items": {
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+            "type": "string"
+          },
+          "title": "Tools",
+          "type": "array"
+        },
+        "sandbox": {
+          "default": "read_only",
+          "enum": [
+            "read_only",
+            "workspace_write"
+          ],
+          "title": "Sandbox",
+          "type": "string"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "effort": {
+          "anyOf": [
+            {
+              "enum": [
+                "minimal",
+                "low",
+                "medium",
+                "high",
+                "xhigh"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Effort"
+        },
+        "timeout_seconds": {
+          "default": 120,
+          "maximum": 600,
+          "minimum": 1,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "purpose",
+        "instructions"
+      ],
+      "title": "AgentSpec",
+      "type": "object"
+    },
+    "AssertionSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "title": "Field",
+          "type": "string"
+        },
+        "operator": {
+          "enum": [
+            "equals",
+            "nonempty",
+            "contains",
+            "input_equals"
+          ],
+          "title": "Operator",
+          "type": "string"
+        },
+        "value": {
+          "default": null,
+          "title": "Value"
+        },
+        "transform": {
+          "default": "identity",
+          "enum": [
+            "identity",
+            "upper",
+            "lower",
+            "strip"
+          ],
+          "title": "Transform",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "operator"
+      ],
+      "title": "AssertionSpec",
+      "type": "object"
+    },
+    "Baseline": {
+      "additionalProperties": false,
+      "properties": {
+        "single_agent_sufficient": {
+          "title": "Single Agent Sufficient",
+          "type": "boolean"
+        },
+        "reason": {
+          "maxLength": 100000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "comparison": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Comparison",
+          "type": "array"
+        }
+      },
+      "required": [
+        "single_agent_sufficient",
+        "reason"
+      ],
+      "title": "Baseline",
+      "type": "object"
+    },
+    "Budget": {
+      "additionalProperties": false,
+      "properties": {
+        "max_turns": {
+          "default": 16,
+          "maximum": 200,
+          "minimum": 1,
+          "title": "Max Turns",
+          "type": "integer"
+        },
+        "max_tokens": {
+          "default": 600000,
+          "maximum": 2000000,
+          "minimum": 100,
+          "title": "Max Tokens",
+          "type": "integer"
+        },
+        "timeout_seconds": {
+          "default": 240,
+          "maximum": 3600,
+          "minimum": 1,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        },
+        "max_parallel": {
+          "default": 3,
+          "maximum": 12,
+          "minimum": 1,
+          "title": "Max Parallel",
+          "type": "integer"
+        },
+        "max_repairs": {
+          "default": 2,
+          "maximum": 2,
+          "minimum": 0,
+          "title": "Max Repairs",
+          "type": "integer"
+        }
+      },
+      "title": "Budget",
+      "type": "object"
+    },
+    "CheckSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "artifact",
+            "compile",
+            "import",
+            "unittest",
+            "pytest",
+            "cli_smoke",
+            "codex_smoke",
+            "tool_smoke",
+            "migration"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "target": {
+          "default": "",
+          "title": "Target",
+          "type": "string"
+        },
+        "arguments": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 30,
+          "title": "Arguments",
+          "type": "array"
+        },
+        "expected": {
+          "default": null,
+          "title": "Expected"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "timeout_seconds": {
+          "default": 60,
+          "maximum": 600,
+          "minimum": 1,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        },
+        "expected_json": {
+          "default": null,
+          "title": "Expected Json"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "title": "CheckSpec",
+      "type": "object"
+    },
+    "Condition": {
+      "additionalProperties": false,
+      "properties": {
+        "packet": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Packet",
+          "type": "string"
+        },
+        "field": {
+          "title": "Field",
+          "type": "string"
+        },
+        "equals": {
+          "title": "Equals"
+        }
+      },
+      "required": [
+        "packet",
+        "field",
+        "equals"
+      ],
+      "title": "Condition",
+      "type": "object"
+    },
+    "Controls": {
+      "additionalProperties": false,
+      "properties": {
+        "write_roots": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Write Roots",
+          "type": "array"
+        },
+        "forbidden_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Forbidden Actions",
+          "type": "array"
+        },
+        "trust_boundaries": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Trust Boundaries",
+          "type": "array"
+        },
+        "budget": {
+          "$ref": "#/$defs/Budget"
+        }
+      },
+      "title": "Controls",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "reference": {
+          "title": "Reference",
+          "type": "string"
+        },
+        "finding": {
+          "title": "Finding",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "observed",
+            "inferred",
+            "missing"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "reference",
+        "finding",
+        "status"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "InterfaceSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "library",
+            "cli",
+            "mcp",
+            "plugin",
+            "http",
+            "worker"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "entrypoint": {
+          "title": "Entrypoint",
+          "type": "string"
+        },
+        "operations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Operations",
+          "type": "array"
+        },
+        "host": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Host"
+        }
+      },
+      "required": [
+        "type",
+        "entrypoint",
+        "operations"
+      ],
+      "title": "InterfaceSpec",
+      "type": "object"
+    },
+    "Orchestration": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "default": "sequential",
+          "enum": [
+            "sequential",
+            "parallel",
+            "iterative"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "max_parallel": {
+          "default": 1,
+          "maximum": 12,
+          "minimum": 1,
+          "title": "Max Parallel",
+          "type": "integer"
+        },
+        "result_packets": {
+          "items": {
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Result Packets",
+          "type": "array"
+        },
+        "integration": {
+          "default": "Preserve every packet status, result, and evidence.",
+          "title": "Integration",
+          "type": "string"
+        }
+      },
+      "required": [
+        "result_packets"
+      ],
+      "title": "Orchestration",
+      "type": "object"
+    },
+    "RuntimeDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "enum": [
+            "none",
+            "codex_sdk",
+            "other",
+            "unknown"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "const": "codex_sdk",
+          "default": "codex_sdk",
+          "title": "Target",
+          "type": "string"
+        },
+        "action": {
+          "enum": [
+            "new",
+            "reuse",
+            "migrate",
+            "inspect"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "migration_notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Migration Notes",
+          "type": "array"
+        },
+        "parity_claim": {
+          "default": "unverified",
+          "enum": [
+            "not_applicable",
+            "unverified",
+            "verified"
+          ],
+          "title": "Parity Claim",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "action"
+      ],
+      "title": "RuntimeDecision",
+      "type": "object"
+    },
+    "SkillSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Name",
+          "type": "string"
+        },
+        "trigger": {
+          "maxLength": 100000,
+          "minLength": 1,
+          "title": "Trigger",
+          "type": "string"
+        },
+        "procedure": {
+          "maxLength": 100000,
+          "minLength": 1,
+          "title": "Procedure",
+          "type": "string"
+        },
+        "references": {
+          "items": {
+            "type": "string"
+          },
+          "title": "References",
+          "type": "array"
+        },
+        "scripts": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scripts",
+          "type": "array"
+        },
+        "eval_cases": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Eval Cases",
+          "type": "array"
+        },
+        "lifecycle": {
+          "default": "generated",
+          "enum": [
+            "generated",
+            "discovered",
+            "loaded",
+            "verified"
+          ],
+          "title": "Lifecycle",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "trigger",
+        "procedure"
+      ],
+      "title": "SkillSpec",
+      "type": "object"
+    },
+    "ToolSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Name",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "builtin",
+            "cli",
+            "mcp"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "implementation": {
+          "title": "Implementation",
+          "type": "string"
+        },
+        "input_schema": {
+          "additionalProperties": true,
+          "title": "Input Schema",
+          "type": "object"
+        },
+        "output_schema": {
+          "additionalProperties": true,
+          "title": "Output Schema",
+          "type": "object"
+        },
+        "risk": {
+          "enum": [
+            "read_only",
+            "compute",
+            "write_local",
+            "external",
+            "destructive"
+          ],
+          "title": "Risk",
+          "type": "string"
+        },
+        "side_effect": {
+          "title": "Side Effect",
+          "type": "boolean"
+        },
+        "timeout_seconds": {
+          "default": 30,
+          "maximum": 300,
+          "minimum": 1,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        },
+        "approval": {
+          "default": "deny",
+          "enum": [
+            "deny",
+            "explicit",
+            "scope"
+          ],
+          "title": "Approval",
+          "type": "string"
+        },
+        "smoke_input": {
+          "default": null,
+          "title": "Smoke Input"
+        }
+      },
+      "required": [
+        "name",
+        "kind",
+        "implementation",
+        "input_schema",
+        "output_schema",
+        "risk",
+        "side_effect"
+      ],
+      "title": "ToolSpec",
+      "type": "object"
+    },
+    "VerificationSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "checks": {
+          "items": {
+            "$ref": "#/$defs/CheckSpec"
+          },
+          "minItems": 1,
+          "title": "Checks",
+          "type": "array"
+        },
+        "independent_review": {
+          "default": false,
+          "title": "Independent Review",
+          "type": "boolean"
+        },
+        "eval_cases": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Eval Cases",
+          "type": "array"
+        },
+        "required_evidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Required Evidence",
+          "type": "array"
+        },
+        "python": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Python"
+        }
+      },
+      "required": [
+        "checks"
+      ],
+      "title": "VerificationSpec",
+      "type": "object"
+    },
+    "WorkPacket": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "agent": {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "title": "Agent",
+          "type": "string"
+        },
+        "prompt": {
+          "maxLength": 100000,
+          "minLength": 1,
+          "title": "Prompt",
+          "type": "string"
+        },
+        "depends_on": {
+          "items": {
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+            "type": "string"
+          },
+          "title": "Depends On",
+          "type": "array"
+        },
+        "input_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Input Refs",
+          "type": "array"
+        },
+        "output_schema": {
+          "additionalProperties": true,
+          "title": "Output Schema",
+          "type": "object"
+        },
+        "acceptance": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Acceptance",
+          "type": "array"
+        },
+        "when": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Condition"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "retries": {
+          "default": 0,
+          "maximum": 2,
+          "minimum": 0,
+          "title": "Retries",
+          "type": "integer"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "assertions": {
+          "items": {
+            "$ref": "#/$defs/AssertionSpec"
+          },
+          "title": "Assertions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "agent",
+        "prompt",
+        "output_schema",
+        "acceptance"
+      ],
+      "title": "WorkPacket",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "revision": {
+      "default": 1,
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "objective": {
+      "maxLength": 100000,
+      "minLength": 1,
+      "title": "Objective",
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "new",
+        "adapt",
+        "migrate",
+        "refactor",
+        "diagnose"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "runtime": {
+      "$ref": "#/$defs/RuntimeDecision"
+    },
+    "inputs_schema": {
+      "additionalProperties": true,
+      "title": "Inputs Schema",
+      "type": "object"
+    },
+    "outputs_schema": {
+      "additionalProperties": true,
+      "title": "Outputs Schema",
+      "type": "object"
+    },
+    "done_conditions": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Done Conditions",
+      "type": "array"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "baseline": {
+      "$ref": "#/$defs/Baseline"
+    },
+    "agents": {
+      "items": {
+        "$ref": "#/$defs/AgentSpec"
+      },
+      "maxItems": 12,
+      "minItems": 1,
+      "title": "Agents",
+      "type": "array"
+    },
+    "skills": {
+      "items": {
+        "$ref": "#/$defs/SkillSpec"
+      },
+      "title": "Skills",
+      "type": "array"
+    },
+    "tools": {
+      "items": {
+        "$ref": "#/$defs/ToolSpec"
+      },
+      "title": "Tools",
+      "type": "array"
+    },
+    "interfaces": {
+      "items": {
+        "$ref": "#/$defs/InterfaceSpec"
+      },
+      "minItems": 1,
+      "title": "Interfaces",
+      "type": "array"
+    },
+    "work_packets": {
+      "items": {
+        "$ref": "#/$defs/WorkPacket"
+      },
+      "maxItems": 80,
+      "minItems": 1,
+      "title": "Work Packets",
+      "type": "array"
+    },
+    "orchestration": {
+      "$ref": "#/$defs/Orchestration"
+    },
+    "state": {
+      "additionalProperties": true,
+      "title": "State",
+      "type": "object"
+    },
+    "controls": {
+      "$ref": "#/$defs/Controls"
+    },
+    "verification": {
+      "$ref": "#/$defs/VerificationSpec"
+    },
+    "deferred": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Deferred",
+      "type": "array"
+    }
+  },
+  "required": [
+    "objective",
+    "mode",
+    "runtime",
+    "inputs_schema",
+    "outputs_schema",
+    "done_conditions",
+    "baseline",
+    "agents",
+    "interfaces",
+    "work_packets",
+    "orchestration",
+    "verification"
+  ],
+  "title": "ArchitectureSpec",
+  "type": "object"
+}

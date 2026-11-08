@@ -1,0 +1,88 @@
+{
+  "observed_on": "2026-11-09",
+  "scope": "Current installed builder; fresh retained candidate recovered after import-path support fix, without regenerating code. Local-provider execution, not production reliability/holdout.",
+  "original_run_id": "run_47f4d28bf19f3f5824464d50",
+  "recovery": {
+    "status": "approval_required",
+    "verification": "pending_live",
+    "run_id": "run_e15431ddb141e46f559b3f24",
+    "proposal_id": "prop_269221f4a6bf51477d1410ed"
+  },
+  "apply": {
+    "status": "completed",
+    "verification": "passed",
+    "run_id": "run_98aec9b90e120b5e2aaf4106",
+    "changed_files": [
+      "README.md",
+      "__init__.py",
+      "architecture.json",
+      "execution.py",
+      "library.py",
+      "mcp_server.py",
+      "preservation.json",
+      "pyproject.toml",
+      "request.json",
+      "tests/test_workflow.py",
+      "workflow.py"
+    ],
+    "error": null
+  },
+  "checks": [
+    {
+      "id": "host_structure",
+      "status": "passed",
+      "execution": null,
+      "error": null
+    },
+    {
+      "id": "workflow_artifact",
+      "status": "passed",
+      "execution": null,
+      "error": null
+    },
+    {
+      "id": "architecture_artifact",
+      "status": "passed",
+      "execution": null,
+      "error": null
+    },
+    {
+      "id": "request_artifact",
+      "status": "passed",
+      "execution": null,
+      "error": null
+    },
+    {
+      "id": "tests_artifact",
+      "status": "passed",
+      "execution": null,
+      "error": null
+    },
+    {
+      "id": "compile",
+      "status": "passed",
+      "execution": null,
+      "error": null
+    },
+    {
+      "id": "import",
+      "status": "passed",
+      "execution": null,
+      "error": null
+    },
+    {
+      "id": "offline_tests",
+      "status": "passed",
+      "execution": null,
+      "error": null
+    },
+    {
+      "id": "codex_execution",
+      "status": "passed",
+      "execution": "verified_package_template_with_sandboxed_project_tools",
+      "error": null
+    }
+  ],
+  "agent_count": 1,
+  "keep_preserved": true
+}

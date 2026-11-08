@@ -1,0 +1,144 @@
+{
+  "created_on": "2026-11-08",
+  "cases": [
+    {
+      "case": "new-single",
+      "run_id": "run_7c6047b93b44444a52287b3f",
+      "status": "completed",
+      "verification": "passed",
+      "file": "new-single.json"
+    },
+    {
+      "case": "existing-codex-edit",
+      "run_id": "run_0bd724c90c3d13810b0d2b0d",
+      "status": "completed",
+      "verification": "passed",
+      "file": "existing-codex-edit.json"
+    },
+    {
+      "case": "migration",
+      "run_id": "run_c4ec83e5faabec93d10a8d95",
+      "status": "completed",
+      "verification": "passed",
+      "file": "migration.json"
+    },
+    {
+      "case": "document-image-skill",
+      "run_id": "run_655e64a0895bd91cbbbe2cdc",
+      "status": "completed",
+      "verification": "passed",
+      "file": "document-image-skill.json"
+    },
+    {
+      "case": "diagnose-fix",
+      "run_id": "run_a2fd3a31eb037b69c412b012",
+      "status": "completed",
+      "verification": "passed",
+      "file": "diagnose-fix.json"
+    },
+    {
+      "case": "mas-reviewed",
+      "run_id": "run_3296f63537ed92376e1672a4",
+      "status": "completed",
+      "verification": "passed",
+      "file": "mas-reviewed.json"
+    },
+    {
+      "case": "single-refactor",
+      "run_id": "run_2cf71b793c0436dc02ea45f0",
+      "status": "completed",
+      "verification": "passed",
+      "file": "single-refactor.json"
+    }
+  ],
+  "caveats": [
+    "These are local scoped acceptance trials, not production validation.",
+    "Raw SDK conversation logs, credentials and provider configuration are excluded.",
+    "Older architecture examples are validation after tuning, not untouched holdout.",
+    "Account preflight currently has a routing timeout; preserved as unverified.",
+    "Remote-model end-to-end, Linux/Windows and production reliability are not established by local relay fixtures or model examples."
+  ],
+  "acceptance_completed_on": "2026-11-08",
+  "tests": {
+    "passed": 80,
+    "subtests_passed": 6,
+    "environments": [
+      "source venv",
+      "independent installed wheel"
+    ]
+  },
+  "wheel_sha256": "719da3ed1e9d17c6930fecfcefe0ed8a849bf3495a48260a6750668ca7b20424",
+  "final_host_equality": {
+    "codex": true,
+    "claude": true,
+    "opencode": true
+  },
+  "final_holdout_file": "final-construction-holdout.json",
+  "initial_holdout_failure_file": "unseen-initial-holdout.json",
+  "model_network": {
+    "file": "model-network.json",
+    "deterministic_sandbox_relay": "passed",
+    "source_local_provider_sdk": "passed",
+    "installed_local_provider_sdk": "passed",
+    "remote_model_end_to_end": "unverified"
+  },
+  "account_preflight": {
+    "file": "final-doctor.json",
+    "status": "account_unverified",
+    "exit_code": 4
+  },
+  "acceptance_scope": "Local macOS implementation, installed package and scoped live SDK fixtures; not a public release.",
+  "evidence_sha256": {
+    "architecture-validation.json": "27ca7a6e4bb0c9cbbe3ed3e3d67fcf0a66d8f77b8819cab15f2913ff6fe9494f",
+    "baseline-comparison.json": "10be6cbf12434e8fec35a7b736e716b055539e7db84dd6cdf56a18f9b344cf29",
+    "claude-same-fixture.json": "dd98f0a230ab1ef38a6f18cf916965c55970dd9f2bbafb53d4be11416ac60b77",
+    "codex-same-fixture.json": "f9be8b31ec679859c7bef4b5639684640fce3aecc6138325a70d043b32b90c17",
+    "diagnose-fix.json": "7059e0df513ea28deda18a661ad19f9860fae7b8f8121ef59ec1c91d69215d90",
+    "document-image-skill.json": "5e89a0a11dd9b1f2b5d1912dc7f9596ced920e8667367af099fc8077fa91c220",
+    "existing-codex-edit.json": "3d4520b92db847a31a802d99b8e948cebab0d405739f8c9b2bcffec748b85e20",
+    "final-construction-holdout.json": "e88d1ab4f1b9a22a2361ba1bad8dafdb7bdb8e7bbea68a29edd09f8f5516058f",
+    "final-doctor.json": "ace1882a1997d0dbfbb58e519b07a0ff37a31df39874fd776c9b6e78782095ac",
+    "final-installed-package.json": "ad8fd6961c1750a1be76a55875d41041d474a7188855baf9a806aacbdd7b487f",
+    "final-skill-tool.json": "013c097b3812c7367856d405d6dd98ff7c3cf49b1418c963c96a3179029fb108",
+    "host-calls.json": "5beab3da3a887147ea8466df7b0d3656330196a8b9dd8549f03361a839dff7d5",
+    "mas-reviewed.json": "30d7b21d3af8e0c476d3017bcdd4b4b1fbd1fe8fdb2a2f0eddb92de8a506b0ef",
+    "migration.json": "aed86ad7c9b11032d59079fd39ad19ff34258041077a40a4be0f921ede762dec",
+    "model-network.json": "875591610e48d137e1277aa7ad60857160a8360919856d828845bbdb0ad03037",
+    "new-single.json": "8fd06edf9ae92cd0c7441bfaf091d7f4a9b0d3d0b2b2f7b0abf371f88b3580e2",
+    "opencode-same-fixture.json": "c9a13853a830402a9e9f4ec1dbed5e4bc9927277507672de867e329c0d21c512",
+    "release-construction-import-gap.json": "92d0655f87b604736718267c8d99515f3b28de682e92ee08deff6e39d7dae30f",
+    "release-construction-initial.json": "421ae6077814193de1f5056eeb11aac5381014fd784a581746edfcd3b2054960",
+    "release-construction-status-gap.json": "17034c1476664d91312fbaa20a43d7fcb150bab65fd3ae517baffe7cee21f7c2",
+    "release-construction.json": "53f97e6a390253e3094330625b0fdca4ee12db500673ecd4fca92185cdc28c0f",
+    "release-installed.json": "048645e43b86788ddef0390267e9857d2211f6ad3594ecab993c82bf61ccd911",
+    "release-live.json": "5cbab5d8b881b7a212a04393a8a6a8a9404de62a2984d0f43f5fbe7387e8fc55",
+    "sdk-lifecycle.json": "8e12c4185df52808289b72c12352f9ecb817d278314589feeb46d95d265bbf57",
+    "sdk-permissions.json": "b1460753e9cc70219aa2066be4fbcf88d39b8bb3bda7354bd3ac8ca69dc2250c",
+    "single-refactor.json": "81b73571a4cb3d72291c9cb7382370a3a062ef22f777a9f9cbfb47bd564f3431",
+    "unseen-initial-holdout.json": "39f76db0074ea971f70091a39e95536c9534dbae38fd56e6f7b43626b1299223"
+  },
+  "public_redaction": "Machine home/temp/package paths use placeholders; full PATH values omitted. Observed outcomes remain unchanged.",
+  "release_revalidation": {
+    "observed_on": "2026-11-09",
+    "tests": {
+      "passed": 108,
+      "subtests_passed": 6,
+      "environments": [
+        "source venv",
+        "independent installed wheel"
+      ]
+    },
+    "wheel_sha256": "6b7d3b816ffd2fd1f3a68696ad496132f9bf90acad65118f993ae58f6936e28e",
+    "evidence": [
+      "release-live.json",
+      "release-installed.json",
+      "release-construction.json",
+      "release-construction-initial.json",
+      "release-construction-status-gap.json",
+      "release-construction-import-gap.json"
+    ],
+    "publication": {
+      "status": "pending"
+    }
+  }
+}

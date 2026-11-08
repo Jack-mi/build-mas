@@ -1,0 +1,456 @@
+{
+  "source_base": "<temp-root>/buildmas-mas-architecture-aocugefs",
+  "run": {
+    "id": "run_3296f63537ed92376e1672a4",
+    "session_id": "ses_37b57a3535f654b29e9afb5a",
+    "workspace_id": "ws_9053ca80af9b552d663e7344",
+    "operation": "apply",
+    "status": "completed",
+    "started_at": 1794144277.380845,
+    "owner_pid": 62568,
+    "proposal_id": "prop_69c11399703af66f00e427b2",
+    "before_snapshot": "64da06c76110d38534f4a73ef2bf4929545e25bddcef6035bac439375239fa1c",
+    "finished_at": 1794144345.635539,
+    "result": {
+      "status": "completed",
+      "operation": "apply",
+      "run_id": "run_3296f63537ed92376e1672a4",
+      "session_id": "ses_37b57a3535f654b29e9afb5a",
+      "workspace_id": "ws_9053ca80af9b552d663e7344",
+      "spec_revision": 1,
+      "verification": "passed",
+      "changed_files": [
+        "HOST_REMEDIATION.md",
+        "IMPLEMENTATION_EVIDENCE.md",
+        "README.md",
+        "__init__.py",
+        "architecture.json",
+        "baseline-evaluation.json",
+        "mcp_server.py",
+        "pyproject.toml",
+        "request.json",
+        "tests/__init__.py",
+        "tests/test_workflow.py",
+        "workflow.py"
+      ],
+      "artifacts": [],
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence": {
+            "template_sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+            "candidate_sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+            "comparison": "Whole-module AST equals the owning package template"
+          }
+        },
+        {
+          "id": "artifacts",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/artifacts.json",
+          "sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+          "duration_ms": 32
+        },
+        {
+          "id": "architecture_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/architecture_artifact.json",
+          "sha256": "73f46906e3303b25cb40e25f63448e800f3fbf2e22d2fda273c97f60ca51012d",
+          "duration_ms": 28
+        },
+        {
+          "id": "request_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/request_artifact.json",
+          "sha256": "782b72e85ccb99522353a9452ba4534ae1d9c05757b14ccf3cc48ec31b1c4fa5",
+          "duration_ms": 29
+        },
+        {
+          "id": "tests_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/tests_artifact.json",
+          "sha256": "dafab1dab5fc63506915d7e0d0c7efbc6d37b3fa4079c37a3c4f3eb3aeab84ff",
+          "duration_ms": 29
+        },
+        {
+          "id": "compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/compile.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-_rgr8o5j",
+            "TMPDIR": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-_rgr8o5j",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-_rgr8o5j",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 65
+        },
+        {
+          "id": "offline_behavior",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/offline_behavior.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-5ixc6k3j",
+            "TMPDIR": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-5ixc6k3j",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-5ixc6k3j",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "............\n----------------------------------------------------------------------\nRan 12 tests in 0.680s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_*.py"
+          ],
+          "duration_ms": 1426
+        },
+        {
+          "id": "live_codex",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/live_codex.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4",
+            "TMPDIR": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "{\"identity\": \"0329d3a08fbe70765bf4b7f822978f2b5b3f7975e256c54e1ca2491533c3d1d0\", \"request\": {\"left\": {\"ids\": [\"A\", \"B\"]}, \"right\": {\"ids\": [\"C\", \"D\"]}}, \"packets\": {\"left\": {\"status\": \"passed\", \"output\": {\"ids\": [\"A\", \"B\"]}, \"thread_id\": \"01a1bb55-f1d8-7792-962f-5bd0b7b66751\", \"turn_id\": \"01a1bb55-f1e7-7d33-9fb7-db85895d883b\", \"attempts\": 1, \"skills\": [], \"tools\": []}, \"right\": {\"status\": \"passed\", \"output\": {\"ids\": [\"C\", \"D\"]}, \"thread_id\": \"01a1bb55-f1d8-7792-962f-5beff9ffc088\", \"turn_id\": \"01a1bb55-f21c-73d2-bf30-063f6056fc92\", \"attempts\": 1, \"skills\": [], \"tools\": []}, \"final\": {\"status\": \"passed\", \"output\": {\"ids\": [\"A\", \"B\", \"C\", \"D\"], \"verdict\": \"passed\", \"evidence\": [\"left A,B\", \"right C,D\"]}, \"thread_id\": \"01a1bb56-00a8-7083-8d7b-b0e5dbf08b69\", \"turn_id\": \"01a1bb56-1078-7861-8837-0c5941006dce\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"left_worker\": \"01a1bb55-f1d8-7792-962f-5bd0b7b66751\", \"right_worker\": \"01a1bb55-f1d8-7792-962f-5beff9ffc088\", \"verifier\": \"01a1bb56-00a8-7083-8d7b-b0e5dbf08b69\"}, \"tokens\": 45047, \"turns\": 4, \"sdk_configuration\": {\"left_worker\": {\"cwd\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-left_worker-d8075zqa\", \"model\": \"gpt-6.1-sol\", \"effort\": \"low\", \"approval_mode\": \"deny_all\", \"config\": {\"project_doc_max_bytes\": 0, \"sandbox_mode\": \"read-only\", \"default_permissions\": \"workflow\", \"permissions\": {\"workflow\": {\"filesystem\": {\":minimal\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target\": \"deny\", \"<user-home>/Projects/build-mas/.venv\": \"read\", \"<user-home>/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-left_worker-d8075zqa\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.env\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.git\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.codex\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.claude\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.opencode\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.ssh\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.aws\": \"deny\"}, \"network\": {\"enabled\": false}}}, \"features\": {\"shell_tool\": false, \"apply_patch_freeform\": false, \"hooks\": false, \"apps\": false, \"multi_agent\": false}, \"web_search\": \"disabled\", \"shell_environment_policy\": {\"inherit\": \"none\", \"set\": {\"PATH\": \"<runtime PATH omitted>\", \"HOME\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-left_worker-d8075zqa\", \"TMPDIR\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-left_worker-d8075zqa\"}}, \"model_reasoning_effort\": \"low\"}}, \"right_worker\": {\"cwd\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-right_worker-l9jqx32y\", \"model\": \"gpt-6.1-sol\", \"effort\": \"low\", \"approval_mode\": \"deny_all\", \"config\": {\"project_doc_max_bytes\": 0, \"sandbox_mode\": \"read-only\", \"default_permissions\": \"workflow\", \"permissions\": {\"workflow\": {\"filesystem\": {\":minimal\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target\": \"deny\", \"<user-home>/Projects/build-mas/.venv\": \"read\", \"<user-home>/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-right_worker-l9jqx32y\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.env\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.git\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.codex\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.claude\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.opencode\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.ssh\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.aws\": \"deny\"}, \"network\": {\"enabled\": false}}}, \"features\": {\"shell_tool\": false, \"apply_patch_freeform\": false, \"hooks\": false, \"apps\": false, \"multi_agent\": false}, \"web_search\": \"disabled\", \"shell_environment_policy\": {\"inherit\": \"none\", \"set\": {\"PATH\": \"<runtime PATH omitted>\", \"HOME\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-right_worker-l9jqx32y\", \"TMPDIR\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-right_worker-l9jqx32y\"}}, \"model_reasoning_effort\": \"low\"}}, \"verifier\": {\"cwd\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-verifier-bgorrrx2\", \"model\": \"gpt-6.1-sol\", \"effort\": \"low\", \"approval_mode\": \"deny_all\", \"config\": {\"project_doc_max_bytes\": 0, \"sandbox_mode\": \"read-only\", \"default_permissions\": \"workflow\", \"permissions\": {\"workflow\": {\"filesystem\": {\":minimal\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target\": \"deny\", \"<user-home>/Projects/build-mas/.venv\": \"read\", \"<user-home>/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-verifier-bgorrrx2\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.env\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.git\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.codex\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.claude\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.opencode\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.ssh\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.aws\": \"deny\"}, \"network\": {\"enabled\": false}}}, \"features\": {\"shell_tool\": false, \"apply_patch_freeform\": false, \"hooks\": false, \"apps\": false, \"multi_agent\": false}, \"web_search\": \"disabled\", \"shell_environment_policy\": {\"inherit\": \"none\", \"set\": {\"PATH\": \"<runtime PATH omitted>\", \"HOME\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-verifier-bgorrrx2\", \"TMPDIR\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-verifier-bgorrrx2\"}}, \"model_reasoning_effort\": \"low\"}}}, \"output\": {\"ids\": [\"A\", \"B\", \"C\", \"D\"], \"verdict\": \"passed\", \"evidence\": [\"left A,B\", \"right C,D\"]}, \"duration_ms\": 11221, \"checkpoint_location\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/latest.json\"}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 11715
+        }
+      ],
+      "assumptions": [],
+      "unresolved": [],
+      "summary": "Applied the exact approved file proposal and reran deterministic checks",
+      "snapshot": "5ec37e1d3a6c273bbf596f75cd73a0485600cfa04b99e7db0d20d879de89dd16",
+      "backup_ref": "run_3296f63537ed92376e1672a4"
+    }
+  },
+  "verification": [
+    {
+      "status": "passed",
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence": {
+            "template_sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+            "candidate_sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+            "comparison": "Whole-module AST equals the owning package template"
+          }
+        },
+        {
+          "id": "artifacts",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/artifacts.json",
+          "sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+          "duration_ms": 32
+        },
+        {
+          "id": "architecture_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/architecture_artifact.json",
+          "sha256": "73f46906e3303b25cb40e25f63448e800f3fbf2e22d2fda273c97f60ca51012d",
+          "duration_ms": 28
+        },
+        {
+          "id": "request_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/request_artifact.json",
+          "sha256": "782b72e85ccb99522353a9452ba4534ae1d9c05757b14ccf3cc48ec31b1c4fa5",
+          "duration_ms": 29
+        },
+        {
+          "id": "tests_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/tests_artifact.json",
+          "sha256": "dafab1dab5fc63506915d7e0d0c7efbc6d37b3fa4079c37a3c4f3eb3aeab84ff",
+          "duration_ms": 29
+        },
+        {
+          "id": "compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/compile.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-_rgr8o5j",
+            "TMPDIR": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-_rgr8o5j",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-_rgr8o5j",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 65
+        },
+        {
+          "id": "offline_behavior",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/offline_behavior.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-5ixc6k3j",
+            "TMPDIR": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-5ixc6k3j",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-5ixc6k3j",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "............\n----------------------------------------------------------------------\nRan 12 tests in 0.680s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_*.py"
+          ],
+          "duration_ms": 1426
+        },
+        {
+          "id": "live_codex",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/live_codex.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4",
+            "TMPDIR": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "{\"identity\": \"0329d3a08fbe70765bf4b7f822978f2b5b3f7975e256c54e1ca2491533c3d1d0\", \"request\": {\"left\": {\"ids\": [\"A\", \"B\"]}, \"right\": {\"ids\": [\"C\", \"D\"]}}, \"packets\": {\"left\": {\"status\": \"passed\", \"output\": {\"ids\": [\"A\", \"B\"]}, \"thread_id\": \"01a1bb55-f1d8-7792-962f-5bd0b7b66751\", \"turn_id\": \"01a1bb55-f1e7-7d33-9fb7-db85895d883b\", \"attempts\": 1, \"skills\": [], \"tools\": []}, \"right\": {\"status\": \"passed\", \"output\": {\"ids\": [\"C\", \"D\"]}, \"thread_id\": \"01a1bb55-f1d8-7792-962f-5beff9ffc088\", \"turn_id\": \"01a1bb55-f21c-73d2-bf30-063f6056fc92\", \"attempts\": 1, \"skills\": [], \"tools\": []}, \"final\": {\"status\": \"passed\", \"output\": {\"ids\": [\"A\", \"B\", \"C\", \"D\"], \"verdict\": \"passed\", \"evidence\": [\"left A,B\", \"right C,D\"]}, \"thread_id\": \"01a1bb56-00a8-7083-8d7b-b0e5dbf08b69\", \"turn_id\": \"01a1bb56-1078-7861-8837-0c5941006dce\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"left_worker\": \"01a1bb55-f1d8-7792-962f-5bd0b7b66751\", \"right_worker\": \"01a1bb55-f1d8-7792-962f-5beff9ffc088\", \"verifier\": \"01a1bb56-00a8-7083-8d7b-b0e5dbf08b69\"}, \"tokens\": 45047, \"turns\": 4, \"sdk_configuration\": {\"left_worker\": {\"cwd\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-left_worker-d8075zqa\", \"model\": \"gpt-6.1-sol\", \"effort\": \"low\", \"approval_mode\": \"deny_all\", \"config\": {\"project_doc_max_bytes\": 0, \"sandbox_mode\": \"read-only\", \"default_permissions\": \"workflow\", \"permissions\": {\"workflow\": {\"filesystem\": {\":minimal\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target\": \"deny\", \"<user-home>/Projects/build-mas/.venv\": \"read\", \"<user-home>/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-left_worker-d8075zqa\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.env\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.git\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.codex\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.claude\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.opencode\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.ssh\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.aws\": \"deny\"}, \"network\": {\"enabled\": false}}}, \"features\": {\"shell_tool\": false, \"apply_patch_freeform\": false, \"hooks\": false, \"apps\": false, \"multi_agent\": false}, \"web_search\": \"disabled\", \"shell_environment_policy\": {\"inherit\": \"none\", \"set\": {\"PATH\": \"<runtime PATH omitted>\", \"HOME\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-left_worker-d8075zqa\", \"TMPDIR\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-left_worker-d8075zqa\"}}, \"model_reasoning_effort\": \"low\"}}, \"right_worker\": {\"cwd\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-right_worker-l9jqx32y\", \"model\": \"gpt-6.1-sol\", \"effort\": \"low\", \"approval_mode\": \"deny_all\", \"config\": {\"project_doc_max_bytes\": 0, \"sandbox_mode\": \"read-only\", \"default_permissions\": \"workflow\", \"permissions\": {\"workflow\": {\"filesystem\": {\":minimal\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target\": \"deny\", \"<user-home>/Projects/build-mas/.venv\": \"read\", \"<user-home>/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-right_worker-l9jqx32y\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.env\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.git\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.codex\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.claude\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.opencode\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.ssh\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.aws\": \"deny\"}, \"network\": {\"enabled\": false}}}, \"features\": {\"shell_tool\": false, \"apply_patch_freeform\": false, \"hooks\": false, \"apps\": false, \"multi_agent\": false}, \"web_search\": \"disabled\", \"shell_environment_policy\": {\"inherit\": \"none\", \"set\": {\"PATH\": \"<runtime PATH omitted>\", \"HOME\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-right_worker-l9jqx32y\", \"TMPDIR\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-right_worker-l9jqx32y\"}}, \"model_reasoning_effort\": \"low\"}}, \"verifier\": {\"cwd\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-verifier-bgorrrx2\", \"model\": \"gpt-6.1-sol\", \"effort\": \"low\", \"approval_mode\": \"deny_all\", \"config\": {\"project_doc_max_bytes\": 0, \"sandbox_mode\": \"read-only\", \"default_permissions\": \"workflow\", \"permissions\": {\"workflow\": {\"filesystem\": {\":minimal\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target\": \"deny\", \"<user-home>/Projects/build-mas/.venv\": \"read\", \"<user-home>/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-verifier-bgorrrx2\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.env\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.git\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.codex\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.claude\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.opencode\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.ssh\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/target/.aws\": \"deny\"}, \"network\": {\"enabled\": false}}}, \"features\": {\"shell_tool\": false, \"apply_patch_freeform\": false, \"hooks\": false, \"apps\": false, \"multi_agent\": false}, \"web_search\": \"disabled\", \"shell_environment_policy\": {\"inherit\": \"none\", \"set\": {\"PATH\": \"<runtime PATH omitted>\", \"HOME\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-verifier-bgorrrx2\", \"TMPDIR\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/workflow-role-verifier-bgorrrx2\"}}, \"model_reasoning_effort\": \"low\"}}}, \"output\": {\"ids\": [\"A\", \"B\", \"C\", \"D\"], \"verdict\": \"passed\", \"evidence\": [\"left A,B\", \"right C,D\"]}, \"duration_ms\": 11221, \"checkpoint_location\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/buildmas-check-1jn2qxv4/latest.json\"}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 11715
+        }
+      ],
+      "spec_revision": 1,
+      "snapshot": "5ec37e1d3a6c273bbf596f75cd73a0485600cfa04b99e7db0d20d879de89dd16",
+      "semantic_review": null,
+      "skills": []
+    },
+    {
+      "status": "passed",
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence": {
+            "template_sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+            "candidate_sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+            "comparison": "Whole-module AST equals the owning package template"
+          }
+        },
+        {
+          "id": "artifacts",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/artifacts.json",
+          "sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+          "duration_ms": 30
+        },
+        {
+          "id": "architecture_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/architecture_artifact.json",
+          "sha256": "73f46906e3303b25cb40e25f63448e800f3fbf2e22d2fda273c97f60ca51012d",
+          "duration_ms": 30
+        },
+        {
+          "id": "request_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/request_artifact.json",
+          "sha256": "782b72e85ccb99522353a9452ba4534ae1d9c05757b14ccf3cc48ec31b1c4fa5",
+          "duration_ms": 28
+        },
+        {
+          "id": "tests_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/tests_artifact.json",
+          "sha256": "dafab1dab5fc63506915d7e0d0c7efbc6d37b3fa4079c37a3c4f3eb3aeab84ff",
+          "duration_ms": 29
+        },
+        {
+          "id": "compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/compile.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-rr1spe1d",
+            "TMPDIR": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-rr1spe1d",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-rr1spe1d",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 65
+        },
+        {
+          "id": "offline_behavior",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/offline_behavior.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-r_7dpjbv",
+            "TMPDIR": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-r_7dpjbv",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-r_7dpjbv",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "............\n----------------------------------------------------------------------\nRan 12 tests in 0.661s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_*.py"
+          ],
+          "duration_ms": 1280
+        },
+        {
+          "id": "live_codex",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/live_codex.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl",
+            "TMPDIR": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "{\"identity\": \"0329d3a08fbe70765bf4b7f822978f2b5b3f7975e256c54e1ca2491533c3d1d0\", \"request\": {\"left\": {\"ids\": [\"A\", \"B\"]}, \"right\": {\"ids\": [\"C\", \"D\"]}}, \"packets\": {\"left\": {\"status\": \"passed\", \"output\": {\"ids\": [\"A\", \"B\"]}, \"thread_id\": \"01a1bb55-1ae7-70c1-910a-bd480474a102\", \"turn_id\": \"01a1bb55-1b25-7df0-8619-fc6c9b244bed\", \"attempts\": 1, \"skills\": [], \"tools\": []}, \"right\": {\"status\": \"passed\", \"output\": {\"ids\": [\"C\", \"D\"]}, \"thread_id\": \"01a1bb55-1ae7-70c1-910a-bd308d27fac4\", \"turn_id\": \"01a1bb55-1af4-7293-8077-ddc23c435049\", \"attempts\": 1, \"skills\": [], \"tools\": []}, \"final\": {\"status\": \"passed\", \"output\": {\"ids\": [\"A\", \"B\", \"C\", \"D\"], \"verdict\": \"passed\", \"evidence\": [\"left A,B\", \"right C,D\"]}, \"thread_id\": \"01a1bb55-329c-79b3-93c3-6b29d38bce65\", \"turn_id\": \"01a1bb55-3f6a-7942-94bc-1d218bb47364\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"right_worker\": \"01a1bb55-1ae7-70c1-910a-bd308d27fac4\", \"left_worker\": \"01a1bb55-1ae7-70c1-910a-bd480474a102\", \"verifier\": \"01a1bb55-329c-79b3-93c3-6b29d38bce65\"}, \"tokens\": 46264, \"turns\": 4, \"sdk_configuration\": {\"right_worker\": {\"cwd\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/workflow-role-right_worker-69nth08z\", \"model\": \"gpt-6.1-sol\", \"effort\": \"low\", \"approval_mode\": \"deny_all\", \"config\": {\"project_doc_max_bytes\": 0, \"sandbox_mode\": \"read-only\", \"default_permissions\": \"workflow\", \"permissions\": {\"workflow\": {\"filesystem\": {\":minimal\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4\": \"deny\", \"<user-home>/Projects/build-mas/.venv\": \"read\", \"<user-home>/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/workflow-role-right_worker-69nth08z\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.env\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.git\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.codex\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.claude\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.opencode\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.ssh\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.aws\": \"deny\"}, \"network\": {\"enabled\": false}}}, \"features\": {\"shell_tool\": false, \"apply_patch_freeform\": false, \"hooks\": false, \"apps\": false, \"multi_agent\": false}, \"web_search\": \"disabled\", \"shell_environment_policy\": {\"inherit\": \"none\", \"set\": {\"PATH\": \"<runtime PATH omitted>\", \"HOME\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/workflow-role-right_worker-69nth08z\", \"TMPDIR\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/workflow-role-right_worker-69nth08z\"}}, \"model_reasoning_effort\": \"low\"}}, \"left_worker\": {\"cwd\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/workflow-role-left_worker-mxuu_z_r\", \"model\": \"gpt-6.1-sol\", \"effort\": \"low\", \"approval_mode\": \"deny_all\", \"config\": {\"project_doc_max_bytes\": 0, \"sandbox_mode\": \"read-only\", \"default_permissions\": \"workflow\", \"permissions\": {\"workflow\": {\"filesystem\": {\":minimal\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4\": \"deny\", \"<user-home>/Projects/build-mas/.venv\": \"read\", \"<user-home>/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/workflow-role-left_worker-mxuu_z_r\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.env\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.git\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.codex\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.claude\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.opencode\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.ssh\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.aws\": \"deny\"}, \"network\": {\"enabled\": false}}}, \"features\": {\"shell_tool\": false, \"apply_patch_freeform\": false, \"hooks\": false, \"apps\": false, \"multi_agent\": false}, \"web_search\": \"disabled\", \"shell_environment_policy\": {\"inherit\": \"none\", \"set\": {\"PATH\": \"<runtime PATH omitted>\", \"HOME\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/workflow-role-left_worker-mxuu_z_r\", \"TMPDIR\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/workflow-role-left_worker-mxuu_z_r\"}}, \"model_reasoning_effort\": \"low\"}}, \"verifier\": {\"cwd\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/workflow-role-verifier-73t0329a\", \"model\": \"gpt-6.1-sol\", \"effort\": \"low\", \"approval_mode\": \"deny_all\", \"config\": {\"project_doc_max_bytes\": 0, \"sandbox_mode\": \"read-only\", \"default_permissions\": \"workflow\", \"permissions\": {\"workflow\": {\"filesystem\": {\":minimal\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4\": \"deny\", \"<user-home>/Projects/build-mas/.venv\": \"read\", \"<user-home>/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/workflow-role-verifier-73t0329a\": \"read\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.env\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.git\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.codex\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.claude\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.opencode\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.ssh\": \"deny\", \"<temp-root>/buildmas-mas-architecture-aocugefs/state/apply_staging/run_3296f63537ed92376e1672a4/.aws\": \"deny\"}, \"network\": {\"enabled\": false}}}, \"features\": {\"shell_tool\": false, \"apply_patch_freeform\": false, \"hooks\": false, \"apps\": false, \"multi_agent\": false}, \"web_search\": \"disabled\", \"shell_environment_policy\": {\"inherit\": \"none\", \"set\": {\"PATH\": \"<runtime PATH omitted>\", \"HOME\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/workflow-role-verifier-73t0329a\", \"TMPDIR\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/workflow-role-verifier-73t0329a\"}}, \"model_reasoning_effort\": \"low\"}}}, \"output\": {\"ids\": [\"A\", \"B\", \"C\", \"D\"], \"verdict\": \"passed\", \"evidence\": [\"left A,B\", \"right C,D\"]}, \"duration_ms\": 14129, \"checkpoint_location\": \"<temp-root>/buildmas-mas-architecture-aocugefs/state/evidence/run_3296f63537ed92376e1672a4/approved_candidate/buildmas-check-yc3xxhrl/latest.json\"}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 14576
+        }
+      ],
+      "spec_revision": 1,
+      "snapshot": "489718b17e804faeb4469cdcef7aada65c6e834d34ba8cb3065c3c559de60180",
+      "semantic_review": {
+        "verdict": "passed",
+        "covered_checks": [
+          "host_structure",
+          "artifacts",
+          "architecture_artifact",
+          "request_artifact",
+          "tests_artifact",
+          "compile",
+          "offline_behavior",
+          "live_codex"
+        ],
+        "evidence": [
+          "Read-only SHA-256 verification matched the frozen inventory for workflow.py, architecture.json, request.json, tests/test_workflow.py, baseline-evaluation.json and mcp_server.py; workflow.py also parsed successfully.",
+          "Supplied host_structure receipt records whole-module AST equality against the owning package template.",
+          "workflow.py implements scoped worker inputs, fresh isolated threads, disabled native tools and Skills, concurrency capped at two, validated dependency barriers, complete ExternalMessage handoff and fail-closed output assertions.",
+          "tests/test_workflow.py covers concurrency, sentinel projections, dependency handoff, worker and verifier mutations, refusals, missing responses, permissions, checkpoint verification and public MCP transport. Supplied offline_behavior receipt: exit 0, 12 tests, OK.",
+          "Supplied live_codex receipt records the required command, isolated BUILD_MAS_TEST_HOME, SDK configuration, distinct thread IDs and checkpoint; exit 0 with IDs [A,B,C,D], verdict passed and evidence [left A,B, right C,D].",
+          "baseline-evaluation.json records live baseline command receipts, latency and tokens, plus explicitly distinguished deterministic coverage mutations; it claims no multi-agent superiority."
+        ],
+        "unresolved": [],
+        "thread_id": "01a1bb55-52af-7761-8c1f-697f839909ae",
+        "turn_id": "01a1bb55-702c-7f93-bf0f-ea1633569cbc",
+        "candidate_hash": "560cc261750cccbf0a38ff5b967f355d63eb8f27542ef7c1f12d32638752489d"
+      },
+      "skills": []
+    }
+  ]
+}

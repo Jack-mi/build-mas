@@ -1,0 +1,149 @@
+{
+  "observed_on": "2026-11-09",
+  "scope": "Current final reviewed templates and local macOS/provider trial; not production reliability",
+  "results": {
+    "skill_cli": {
+      "status": "passed",
+      "checks": [
+        {
+          "id": "host_structure",
+          "status": "passed",
+          "execution": null,
+          "error": null
+        },
+        {
+          "id": "compile",
+          "status": "passed",
+          "execution": null,
+          "error": null
+        },
+        {
+          "id": "tool",
+          "status": "passed",
+          "execution": null,
+          "error": null
+        },
+        {
+          "id": "live",
+          "status": "passed",
+          "execution": "verified_package_template_with_sandboxed_project_tools",
+          "error": null
+        }
+      ],
+      "workflow": {
+        "status": "passed",
+        "output": {
+          "tag": "LABEL:HELLO"
+        },
+        "tokens": 37711,
+        "turns": 1
+      },
+      "receipts": [
+        {
+          "thread_id": "01a1bd8a-b9d6-7371-918c-3e86bb6d9f3a",
+          "turn_id": "01a1bd8a-b9e4-7190-8f78-1fccdf2c5f64",
+          "skills": [
+            {
+              "name": "shipping-label",
+              "lifecycle": "verified",
+              "loading": "explicit_SkillInput",
+              "eval_cases": [
+                "hello produces LABEL:HELLO"
+              ]
+            }
+          ],
+          "tools": [
+            {
+              "name": "format_label",
+              "transport": "mcp_cli_registry",
+              "exit_code": 0,
+              "output": {
+                "tag": "LABEL:HELLO"
+              },
+              "call_id": "exec-aef1e7bf-8f5e-4241-a8d4-d1e6d7e8f1a5"
+            }
+          ]
+        }
+      ]
+    },
+    "builtin_project_mcp": {
+      "status": "passed",
+      "checks": [
+        {
+          "id": "host_structure",
+          "status": "passed",
+          "execution": null,
+          "error": null
+        },
+        {
+          "id": "compile",
+          "status": "passed",
+          "execution": null,
+          "error": null
+        },
+        {
+          "id": "builtin",
+          "status": "passed",
+          "execution": "verified_package_template_with_sandboxed_project_tools",
+          "error": null
+        },
+        {
+          "id": "project_mcp",
+          "status": "passed",
+          "execution": "verified_package_template_with_sandboxed_project_tools",
+          "error": null
+        },
+        {
+          "id": "live",
+          "status": "passed",
+          "execution": "verified_package_template_with_sandboxed_project_tools",
+          "error": null
+        }
+      ],
+      "workflow": {
+        "status": "passed",
+        "output": {
+          "value": "EVIDENCE"
+        },
+        "tokens": 51789,
+        "turns": 1
+      },
+      "receipts": [
+        {
+          "thread_id": "01a1bd8a-faf5-7222-b4e7-76142710200b",
+          "turn_id": "01a1bd8a-fb00-7b31-8429-d705000b34b3",
+          "skills": [],
+          "tools": [
+            {
+              "name": "read_file",
+              "transport": "mcp_registry",
+              "exit_code": 0,
+              "output": {
+                "content": "EVIDENCE"
+              },
+              "call_id": "exec-ccd96ff0-91de-4d62-ad3a-b314b3b18ac3"
+            },
+            {
+              "name": "echo",
+              "transport": "mcp_registry",
+              "exit_code": 0,
+              "output": {
+                "value": "EVIDENCE"
+              },
+              "call_id": "exec-d37f70b9-5f99-42a2-98ca-59f8cbb6e35e"
+            }
+          ]
+        }
+      ]
+    },
+    "no_tools_isolation": {
+      "status": "passed",
+      "output": {
+        "value": "OK"
+      },
+      "undeclared_marker_created": false,
+      "tools": [],
+      "tokens": 24429
+    }
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "codex": {
+    "actual_tool_calls": [
+      {
+        "id": "item_1",
+        "type": "mcp_tool_call",
+        "server": "buildmas",
+        "tool": "buildmas_status",
+        "arguments": {
+          "session_id": "ses_88ed4835089da0c1e023ff02"
+        },
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\"id\": \"ses_88ed4835089da0c1e023ff02\", \"workspace_id\": \"ws_cfbdea06162a937841149903\", \"created_at\": 1794142604.872046, \"spec_revision\": 0, \"runs\": [], \"thread_id\": null, \"latest_run\": null}"
+            }
+          ],
+          "structured_content": {
+            "id": "ses_88ed4835089da0c1e023ff02",
+            "workspace_id": "ws_cfbdea06162a937841149903",
+            "created_at": 1794142604.872046,
+            "spec_revision": 0,
+            "runs": [],
+            "thread_id": null,
+            "latest_run": null
+          }
+        },
+        "error": null,
+        "status": "completed"
+      }
+    ],
+    "raw_source_local": "<temp-root>/buildmas-host-smoke-lgk6w11w/codex/output5.jsonl"
+  },
+  "claude": {
+    "actual_tool_calls": [
+      {
+        "type": "tool_use",
+        "id": "call_5e0ffd84b76b435ba3e014bd",
+        "name": "mcp__buildmas__buildmas_status",
+        "input": {
+          "session_id": "ses_a7bc8610ad538f60a869421d"
+        }
+      }
+    ],
+    "raw_source_local": "<temp-root>/buildmas-host-smoke-lgk6w11w/claude/output.jsonl"
+  },
+  "opencode": {
+    "actual_tool_calls": [
+      {
+        "partID": "prt_1bb2bc57a001BqSduob3TeMiBF",
+        "sessionID": "ses_e44d459e4ffedq44CIDk9m7mTm",
+        "messageID": "msg_1bb2bb86a001tG4wqAgrYugmFF",
+        "type": "tool",
+        "id": "call_ULJWdfJcQJPM3bD6odr3NCac",
+        "tool": "buildmas_buildmas_status",
+        "state": {
+          "status": "completed",
+          "input": {
+            "session_id": "ses_a7bc8610ad538f60a869421d"
+          },
+          "output": "{\"id\": \"ses_a7bc8610ad538f60a869421d\", \"workspace_id\": \"ws_cfbdea06162a937841149903\", \"created_at\": 1794141326.6574159, \"spec_revision\": 0, \"runs\": [], \"thread_id\": null, \"latest_run\": null}",
+          "title": "buildmas_buildmas_status",
+          "metadata": {
+            "metadata": {
+              "truncated": false
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "{\"id\": \"ses_a7bc8610ad538f60a869421d\", \"workspace_id\": \"ws_cfbdea06162a937841149903\", \"created_at\": 1794141326.6574159, \"spec_revision\": 0, \"runs\": [], \"thread_id\": null, \"latest_run\": null}"
+              }
+            ],
+            "providerCall": {
+              "executed": false
+            },
+            "providerResult": {
+              "executed": false
+            },
+            "rawInput": "{\"session_id\": \"ses_a7bc8610ad538f60a869421d\"}"
+          },
+          "time": {
+            "start": 1794141570426,
+            "end": 1794141570561
+          }
+        }
+      }
+    ],
+    "raw_source_local": "<temp-root>/buildmas-host-smoke-lgk6w11w/opencode/output2.jsonl"
+  }
+}

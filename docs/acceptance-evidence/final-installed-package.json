@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "workspace_id": "ws_8f23ccf9e120a2456d292a73",
+  "installed_package": "<temp-root>/buildmas-wheel-final-cxgh6pxs/builder/lib/python3.12/site-packages/build_mas/__init__.py",
+  "bundled_tool_template": true,
+  "bundled_network_relay": true,
+  "schema_count": 5,
+  "mcp_cli_equal": true,
+  "mcp_tools": [
+    "buildmas_preflight",
+    "buildmas_invoke",
+    "buildmas_verify",
+    "buildmas_status",
+    "buildmas_read",
+    "buildmas_apply"
+  ],
+  "wheel_sha256": "719da3ed1e9d17c6930fecfcefe0ed8a849bf3495a48260a6750668ca7b20424",
+  "installed_suite": {
+    "passed": 80,
+    "subtests_passed": 6
+  }
+}

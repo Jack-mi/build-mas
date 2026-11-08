@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "proposal_id": {
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+      "title": "Proposal Id",
+      "type": "string"
+    },
+    "expected_spec_revision": {
+      "minimum": 1,
+      "title": "Expected Spec Revision",
+      "type": "integer"
+    },
+    "expected_workspace_snapshot": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Expected Workspace Snapshot",
+      "type": "string"
+    },
+    "workspace_id": {
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+      "title": "Workspace Id",
+      "type": "string"
+    },
+    "idempotency_key": {
+      "maxLength": 160,
+      "minLength": 1,
+      "title": "Idempotency Key",
+      "type": "string"
+    },
+    "approval_reference": {
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+      "title": "Approval Reference",
+      "type": "string"
+    }
+  },
+  "required": [
+    "proposal_id",
+    "expected_spec_revision",
+    "expected_workspace_snapshot",
+    "workspace_id",
+    "idempotency_key",
+    "approval_reference"
+  ],
+  "title": "ApplyRequest",
+  "type": "object"
+}

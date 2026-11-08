@@ -1,0 +1,413 @@
+{
+  "source_base": "<temp-root>/buildmas-final-build-6ael2lb2",
+  "run": {
+    "id": "run_0bd724c90c3d13810b0d2b0d",
+    "session_id": "ses_67f33abb211e0897e69192b4",
+    "workspace_id": "ws_ca5a6726d55c8daa8af8f5c1",
+    "operation": "apply",
+    "status": "completed",
+    "started_at": 1794142690.330555,
+    "owner_pid": 44131,
+    "proposal_id": "prop_d246bb3e43b088eb8ba5b618",
+    "before_snapshot": "4d7a2585b59a35f836a4b52937a630c78f4c69edb4ffe9eb2b0d08e0d9a18a3f",
+    "finished_at": 1794142701.877324,
+    "result": {
+      "status": "completed",
+      "operation": "apply",
+      "run_id": "run_0bd724c90c3d13810b0d2b0d",
+      "session_id": "ses_67f33abb211e0897e69192b4",
+      "workspace_id": "ws_ca5a6726d55c8daa8af8f5c1",
+      "spec_revision": 2,
+      "verification": "passed",
+      "changed_files": [
+        "legacy_api.py",
+        "tests/test_legacy_api.py"
+      ],
+      "artifacts": [],
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null
+        },
+        {
+          "id": "request_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/request_artifact.json",
+          "sha256": "61089649a563a525014d86b167cbe5fae69e2fe431245d6bec5e65f298906b3a",
+          "duration_ms": 24
+        },
+        {
+          "id": "workflow_compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/workflow_compile.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 64
+        },
+        {
+          "id": "workflow_import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/workflow_import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('workflow')"
+          ],
+          "duration_ms": 384
+        },
+        {
+          "id": "offline_behavior",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/offline_behavior.json",
+          "output": ".......\n----------------------------------------------------------------------\nRan 7 tests in 0.010s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_workflow.py"
+          ],
+          "duration_ms": 669
+        },
+        {
+          "id": "live_normalization",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/live_normalization.json",
+          "output": "{\"identity\": \"1ce45902a1e46f038ebd842b79319e5d2ed282635e4b76a95600405729ad8e39\", \"request\": {\"text\": \"hello\"}, \"packets\": {\"normalize\": {\"status\": \"passed\", \"output\": {\"normalized\": \"HELLO\"}, \"thread_id\": \"01a1bb3c-f820-7a30-a421-8d4045c8381e\", \"turn_id\": \"01a1bb3c-f82d-78e0-ad59-3011f77813ec\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"normalizer\": \"01a1bb3c-f820-7a30-a421-8d4045c8381e\"}, \"tokens\": 9869, \"turns\": 1, \"output\": {\"normalized\": \"HELLO\"}, \"duration_ms\": 3471}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 3957
+        },
+        {
+          "id": "legacy_api_import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/legacy_api_import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('legacy_api')"
+          ],
+          "duration_ms": 391
+        },
+        {
+          "id": "legacy_api_behavior",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/legacy_api_behavior.json",
+          "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.004s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_legacy_api.py"
+          ],
+          "duration_ms": 421
+        }
+      ],
+      "assumptions": [],
+      "unresolved": [],
+      "summary": "Applied the exact approved file proposal and reran deterministic checks",
+      "snapshot": "88532c8084484a563ef611590a141d98e1732e835ed3d699528a911c245096e6",
+      "backup_ref": "run_0bd724c90c3d13810b0d2b0d"
+    }
+  },
+  "verification": [
+    {
+      "status": "passed",
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null
+        },
+        {
+          "id": "request_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/request_artifact.json",
+          "sha256": "61089649a563a525014d86b167cbe5fae69e2fe431245d6bec5e65f298906b3a",
+          "duration_ms": 24
+        },
+        {
+          "id": "workflow_compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/workflow_compile.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 64
+        },
+        {
+          "id": "workflow_import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/workflow_import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('workflow')"
+          ],
+          "duration_ms": 384
+        },
+        {
+          "id": "offline_behavior",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/offline_behavior.json",
+          "output": ".......\n----------------------------------------------------------------------\nRan 7 tests in 0.010s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_workflow.py"
+          ],
+          "duration_ms": 669
+        },
+        {
+          "id": "live_normalization",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/live_normalization.json",
+          "output": "{\"identity\": \"1ce45902a1e46f038ebd842b79319e5d2ed282635e4b76a95600405729ad8e39\", \"request\": {\"text\": \"hello\"}, \"packets\": {\"normalize\": {\"status\": \"passed\", \"output\": {\"normalized\": \"HELLO\"}, \"thread_id\": \"01a1bb3c-f820-7a30-a421-8d4045c8381e\", \"turn_id\": \"01a1bb3c-f82d-78e0-ad59-3011f77813ec\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"normalizer\": \"01a1bb3c-f820-7a30-a421-8d4045c8381e\"}, \"tokens\": 9869, \"turns\": 1, \"output\": {\"normalized\": \"HELLO\"}, \"duration_ms\": 3471}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 3957
+        },
+        {
+          "id": "legacy_api_import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/legacy_api_import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('legacy_api')"
+          ],
+          "duration_ms": 391
+        },
+        {
+          "id": "legacy_api_behavior",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/legacy_api_behavior.json",
+          "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.004s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_legacy_api.py"
+          ],
+          "duration_ms": 421
+        }
+      ],
+      "spec_revision": 2,
+      "snapshot": "88532c8084484a563ef611590a141d98e1732e835ed3d699528a911c245096e6",
+      "semantic_review": null,
+      "skills": []
+    },
+    {
+      "status": "passed",
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null
+        },
+        {
+          "id": "request_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/approved_candidate/request_artifact.json",
+          "sha256": "61089649a563a525014d86b167cbe5fae69e2fe431245d6bec5e65f298906b3a",
+          "duration_ms": 26
+        },
+        {
+          "id": "workflow_compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/approved_candidate/workflow_compile.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 59
+        },
+        {
+          "id": "workflow_import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/approved_candidate/workflow_import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('workflow')"
+          ],
+          "duration_ms": 397
+        },
+        {
+          "id": "offline_behavior",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/approved_candidate/offline_behavior.json",
+          "output": ".......\n----------------------------------------------------------------------\nRan 7 tests in 0.010s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_workflow.py"
+          ],
+          "duration_ms": 719
+        },
+        {
+          "id": "live_normalization",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/approved_candidate/live_normalization.json",
+          "output": "{\"identity\": \"1ce45902a1e46f038ebd842b79319e5d2ed282635e4b76a95600405729ad8e39\", \"request\": {\"text\": \"hello\"}, \"packets\": {\"normalize\": {\"status\": \"passed\", \"output\": {\"normalized\": \"HELLO\"}, \"thread_id\": \"01a1bb3c-e27f-7223-9642-3f89fb4d7a77\", \"turn_id\": \"01a1bb3c-e28d-7a11-b39e-6436277a08c9\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"normalizer\": \"01a1bb3c-e27f-7223-9642-3f89fb4d7a77\"}, \"tokens\": 9913, \"turns\": 1, \"output\": {\"normalized\": \"HELLO\"}, \"duration_ms\": 3080}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 3491
+        },
+        {
+          "id": "legacy_api_import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/approved_candidate/legacy_api_import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('legacy_api')"
+          ],
+          "duration_ms": 402
+        },
+        {
+          "id": "legacy_api_behavior",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-build-6ael2lb2/state/evidence/run_0bd724c90c3d13810b0d2b0d/approved_candidate/legacy_api_behavior.json",
+          "output": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_legacy_api.py"
+          ],
+          "duration_ms": 440
+        }
+      ],
+      "spec_revision": 2,
+      "snapshot": "9d03d43a47d8c136d95984cceed0bed2e0124109baefedbfcd9db891e4e40adc",
+      "semantic_review": null,
+      "skills": []
+    }
+  ]
+}

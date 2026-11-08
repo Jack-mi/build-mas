@@ -1,0 +1,82 @@
+{
+  "observed_on": "2026-11-09",
+  "scope": "Retained failed import-file check before runpy support. Candidate code/other offline checks passed; no target writes. Not a holdout success.",
+  "result": {
+    "status": "failed",
+    "operation": "build",
+    "run_id": "run_47f4d28bf19f3f5824464d50",
+    "verification": "failed",
+    "unresolved": [],
+    "summary": "Candidate did not pass verification; no target changes applied",
+    "usage": {
+      "turns": 7,
+      "tokens": 476194
+    },
+    "checks": [
+      {
+        "id": "host_structure",
+        "kind": "structure",
+        "status": "passed",
+        "error": null,
+        "exit_code": null
+      },
+      {
+        "id": "workflow_artifact",
+        "kind": "artifact",
+        "status": "passed",
+        "error": null,
+        "exit_code": null
+      },
+      {
+        "id": "architecture_artifact",
+        "kind": "artifact",
+        "status": "passed",
+        "error": null,
+        "exit_code": null
+      },
+      {
+        "id": "request_artifact",
+        "kind": "artifact",
+        "status": "passed",
+        "error": null,
+        "exit_code": null
+      },
+      {
+        "id": "tests_artifact",
+        "kind": "artifact",
+        "status": "passed",
+        "error": null,
+        "exit_code": null
+      },
+      {
+        "id": "compile",
+        "kind": "compile",
+        "status": "passed",
+        "error": null,
+        "exit_code": 0
+      },
+      {
+        "id": "import",
+        "kind": "import",
+        "status": "failed",
+        "error": null,
+        "exit_code": 1
+      },
+      {
+        "id": "offline_tests",
+        "kind": "unittest",
+        "status": "passed",
+        "error": null,
+        "exit_code": 0
+      },
+      {
+        "id": "codex_execution",
+        "kind": "codex_smoke",
+        "status": "pending_approval",
+        "error": null,
+        "exit_code": null
+      }
+    ],
+    "target_unchanged": true
+  }
+}

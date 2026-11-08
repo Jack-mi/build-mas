@@ -1,0 +1,359 @@
+{
+  "source_base": "<temp-root>/buildmas-migrate-current-8co183xt",
+  "run": {
+    "id": "run_c4ec83e5faabec93d10a8d95",
+    "session_id": "ses_967de47698417be210ee90ad",
+    "workspace_id": "ws_5c2667dfd5f4fad0b3663faa",
+    "operation": "apply",
+    "status": "completed",
+    "started_at": 1794143056.2761862,
+    "owner_pid": 47973,
+    "proposal_id": "prop_9c2100fdbf4e346cbc493683",
+    "before_snapshot": "00d7ea72526cee866e74145093c16afa54bae2a8e6b7c308a80e0b2621d1974e",
+    "finished_at": 1794143067.808293,
+    "result": {
+      "status": "completed",
+      "operation": "apply",
+      "run_id": "run_c4ec83e5faabec93d10a8d95",
+      "session_id": "ses_967de47698417be210ee90ad",
+      "workspace_id": "ws_5c2667dfd5f4fad0b3663faa",
+      "spec_revision": 3,
+      "verification": "passed",
+      "changed_files": [
+        "README.md",
+        "__init__.py",
+        "architecture.json",
+        "legacy.py",
+        "legacy_api.py",
+        "mcp_server.py",
+        "pyproject.toml",
+        "request.json",
+        "requirements.txt",
+        "tests/test_workflow.py",
+        "workflow.py"
+      ],
+      "artifacts": [],
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null
+        },
+        {
+          "id": "compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/compile.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 76
+        },
+        {
+          "id": "import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('workflow')"
+          ],
+          "duration_ms": 388
+        },
+        {
+          "id": "offline_tests",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/offline_tests.json",
+          "output": "...........\n----------------------------------------------------------------------\nRan 11 tests in 0.375s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_workflow.py"
+          ],
+          "duration_ms": 525
+        },
+        {
+          "id": "retirement",
+          "kind": "migration",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/retirement.json",
+          "duration_ms": 40
+        },
+        {
+          "id": "live_normalization",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/live_normalization.json",
+          "output": "{\"identity\": \"8051a489947d0906e798ee46341c9a87f9f71a4f27b240bde9449baaa946ecad\", \"request\": {\"text\": \"hello\"}, \"packets\": {\"normalize\": {\"status\": \"passed\", \"output\": {\"normalized\": \"HELLO\"}, \"thread_id\": \"01a1bb42-8e75-7592-bda3-4f01a4ff2fa3\", \"turn_id\": \"01a1bb42-8e85-7613-9e25-7a544cc2f56e\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"normalizer\": \"01a1bb42-8e75-7592-bda3-4f01a4ff2fa3\"}, \"tokens\": 9872, \"turns\": 1, \"output\": {\"normalized\": \"HELLO\"}, \"duration_ms\": 3729}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 4155
+        },
+        {
+          "id": "legacy_api_import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/legacy_api_import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('legacy_api')"
+          ],
+          "duration_ms": 374
+        }
+      ],
+      "assumptions": [],
+      "unresolved": [],
+      "summary": "Applied the exact approved file proposal and reran deterministic checks",
+      "snapshot": "2e3e5df9fe97d6bff8bf0212aa0083b9048261ed56f0bd22bf38482825fd6422",
+      "backup_ref": "run_c4ec83e5faabec93d10a8d95"
+    }
+  },
+  "verification": [
+    {
+      "status": "passed",
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null
+        },
+        {
+          "id": "compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/compile.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 76
+        },
+        {
+          "id": "import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('workflow')"
+          ],
+          "duration_ms": 388
+        },
+        {
+          "id": "offline_tests",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/offline_tests.json",
+          "output": "...........\n----------------------------------------------------------------------\nRan 11 tests in 0.375s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_workflow.py"
+          ],
+          "duration_ms": 525
+        },
+        {
+          "id": "retirement",
+          "kind": "migration",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/retirement.json",
+          "duration_ms": 40
+        },
+        {
+          "id": "live_normalization",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/live_normalization.json",
+          "output": "{\"identity\": \"8051a489947d0906e798ee46341c9a87f9f71a4f27b240bde9449baaa946ecad\", \"request\": {\"text\": \"hello\"}, \"packets\": {\"normalize\": {\"status\": \"passed\", \"output\": {\"normalized\": \"HELLO\"}, \"thread_id\": \"01a1bb42-8e75-7592-bda3-4f01a4ff2fa3\", \"turn_id\": \"01a1bb42-8e85-7613-9e25-7a544cc2f56e\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"normalizer\": \"01a1bb42-8e75-7592-bda3-4f01a4ff2fa3\"}, \"tokens\": 9872, \"turns\": 1, \"output\": {\"normalized\": \"HELLO\"}, \"duration_ms\": 3729}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 4155
+        },
+        {
+          "id": "legacy_api_import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/legacy_api_import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('legacy_api')"
+          ],
+          "duration_ms": 374
+        }
+      ],
+      "spec_revision": 3,
+      "snapshot": "2e3e5df9fe97d6bff8bf0212aa0083b9048261ed56f0bd22bf38482825fd6422",
+      "semantic_review": null,
+      "skills": []
+    },
+    {
+      "status": "passed",
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null
+        },
+        {
+          "id": "compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/approved_candidate/compile.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 79
+        },
+        {
+          "id": "import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/approved_candidate/import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('workflow')"
+          ],
+          "duration_ms": 408
+        },
+        {
+          "id": "offline_tests",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/approved_candidate/offline_tests.json",
+          "output": "...........\n----------------------------------------------------------------------\nRan 11 tests in 0.381s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_workflow.py"
+          ],
+          "duration_ms": 528
+        },
+        {
+          "id": "retirement",
+          "kind": "migration",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/approved_candidate/retirement.json",
+          "duration_ms": 43
+        },
+        {
+          "id": "live_normalization",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/approved_candidate/live_normalization.json",
+          "output": "{\"identity\": \"8051a489947d0906e798ee46341c9a87f9f71a4f27b240bde9449baaa946ecad\", \"request\": {\"text\": \"hello\"}, \"packets\": {\"normalize\": {\"status\": \"passed\", \"output\": {\"normalized\": \"HELLO\"}, \"thread_id\": \"01a1bb42-7766-7571-a664-949ac7097295\", \"turn_id\": \"01a1bb42-7773-7d93-b5e5-9697aeb9dd0c\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"normalizer\": \"01a1bb42-7766-7571-a664-949ac7097295\"}, \"tokens\": 9912, \"turns\": 1, \"output\": {\"normalized\": \"HELLO\"}, \"duration_ms\": 3955}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 4373
+        },
+        {
+          "id": "legacy_api_import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-migrate-current-8co183xt/state/evidence/run_c4ec83e5faabec93d10a8d95/approved_candidate/legacy_api_import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('legacy_api')"
+          ],
+          "duration_ms": 398
+        }
+      ],
+      "spec_revision": 3,
+      "snapshot": "49670787e4acfb5b51624729d3333863a17d6d6f58b594d8769b7fd3464c750a",
+      "semantic_review": null,
+      "skills": []
+    }
+  ]
+}

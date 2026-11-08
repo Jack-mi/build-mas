@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OperationResult",
+  "type": "object",
+  "required": [
+    "status",
+    "operation",
+    "run_id",
+    "session_id",
+    "workspace_id",
+    "verification",
+    "changed_files",
+    "checks"
+  ],
+  "properties": {
+    "status": {
+      "enum": [
+        "completed",
+        "partial",
+        "failed",
+        "blocked",
+        "approval_required",
+        "outcome_unknown"
+      ]
+    },
+    "operation": {
+      "type": "string"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "workspace_id": {
+      "type": "string"
+    },
+    "spec_revision": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "verification": {
+      "enum": [
+        "not_run",
+        "pending_live",
+        "passed",
+        "partial",
+        "failed",
+        "blocked"
+      ]
+    },
+    "changed_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

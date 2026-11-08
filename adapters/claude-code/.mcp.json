@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "buildmas": {
+      "command": "python3",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/launch.py", "serve", "--transport", "stdio", "--allow-apply"]
+    }
+  }
+}

@@ -1,0 +1,29 @@
+import importlib.util
+import json
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_evidence_redaction_preserves_status_and_embedded_receipts():
+    spec = importlib.util.spec_from_file_location("redact_evidence", ROOT / "scripts/redact_evidence.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    home = "/" + "Users/example"
+    value = {"status": "failed", "source": home + "/project", "output": json.dumps({"status": "passed", "PATH": home + "/bin", "receipt": {"turn_id": "observed-turn"}})}
+    result = module.redact(value)
+    assert result["status"] == "failed" and result["source"] == "<user-home>/project"
+    embedded = json.loads(result["output"])
+    assert embedded == {"status": "passed", "PATH": "<runtime PATH omitted>", "receipt": {"turn_id": "observed-turn"}}
+    assert module.redact({home: "deny"}) == {"<user-home>": "deny"}
+
+
+def test_public_files_do_not_bind_the_developer_machine():
+    prefixes = [str(Path.home()), "/" + "opt/homebrew", "/" + "private/var/folders", "/" + "var/folders"]
+    paths = [ROOT / "README.md", ROOT / "pyproject.toml", ROOT / "plugin.json", ROOT / "mcp.json"]
+    for folder in ("src", "adapters", "docs", ".agents"):
+        paths.extend(path for path in (ROOT / folder).rglob("*") if path.is_file() and "__pycache__" not in path.parts)
+    for path in paths:
+        text = path.read_text()
+        assert not any(prefix in text for prefix in prefixes), str(path)

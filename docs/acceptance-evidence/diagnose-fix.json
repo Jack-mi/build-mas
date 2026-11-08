@@ -1,0 +1,484 @@
+{
+  "source_base": "<temp-root>/buildmas-diagnose-regression-nkrdoyut",
+  "run": {
+    "id": "run_a2fd3a31eb037b69c412b012",
+    "session_id": "ses_35a4cce2950215e7e59a9661",
+    "workspace_id": "ws_db03274e14f331ae7f283ea2",
+    "operation": "apply",
+    "status": "completed",
+    "started_at": 1794143345.451637,
+    "owner_pid": 49502,
+    "proposal_id": "prop_2f55186900eef25e5ec3ca2a",
+    "before_snapshot": "101bd3e92399a58690210849761b9971925ef6ce69b9c9ca0b9b8a11d0f50716",
+    "finished_at": 1794143357.987798,
+    "result": {
+      "status": "completed",
+      "operation": "apply",
+      "run_id": "run_a2fd3a31eb037b69c412b012",
+      "session_id": "ses_35a4cce2950215e7e59a9661",
+      "workspace_id": "ws_db03274e14f331ae7f283ea2",
+      "spec_revision": 1,
+      "verification": "passed",
+      "changed_files": [
+        "legacy_api.py"
+      ],
+      "artifacts": [],
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null
+        },
+        {
+          "id": "adapter_compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/adapter_compile.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('legacy_api.py').read_text())"
+          ],
+          "duration_ms": 68
+        },
+        {
+          "id": "legacy_api_import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/legacy_api_import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('legacy_api')"
+          ],
+          "duration_ms": 374
+        },
+        {
+          "id": "public_output_regression",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/public_output_regression.json",
+          "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_bug.py"
+          ],
+          "duration_ms": 419
+        },
+        {
+          "id": "compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/compile.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 81
+        },
+        {
+          "id": "import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('workflow')"
+          ],
+          "duration_ms": 400
+        },
+        {
+          "id": "offline_tests",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/offline_tests.json",
+          "output": "...........\n----------------------------------------------------------------------\nRan 11 tests in 0.388s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_workflow.py"
+          ],
+          "duration_ms": 532
+        },
+        {
+          "id": "preserved_spec",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/preserved_spec.json",
+          "sha256": "6f63d78147aa54f620b662a48b8e3b59f4ca94cffd7162bc2c4c63c73892a68b",
+          "duration_ms": 28
+        },
+        {
+          "id": "retirement",
+          "kind": "migration",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/retirement.json",
+          "duration_ms": 39
+        },
+        {
+          "id": "live_normalization",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/live_normalization.json",
+          "output": "{\"identity\": \"8051a489947d0906e798ee46341c9a87f9f71a4f27b240bde9449baaa946ecad\", \"request\": {\"text\": \"hello\"}, \"packets\": {\"normalize\": {\"status\": \"passed\", \"output\": {\"normalized\": \"HELLO\"}, \"thread_id\": \"01a1bb46-fcc5-7e03-998f-fb138f867b58\", \"turn_id\": \"01a1bb46-fcd4-78d3-bcde-5b77f8ab9c65\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"normalizer\": \"01a1bb46-fcc5-7e03-998f-fb138f867b58\"}, \"tokens\": 9876, \"turns\": 1, \"output\": {\"normalized\": \"HELLO\"}, \"duration_ms\": 3867}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 4293
+        }
+      ],
+      "assumptions": [],
+      "unresolved": [],
+      "summary": "Applied the exact approved file proposal and reran deterministic checks",
+      "snapshot": "a75aa38cb73891fa2ae5518540ffba45f99e353283c809b9f81bcdec557967aa",
+      "backup_ref": "run_a2fd3a31eb037b69c412b012"
+    }
+  },
+  "verification": [
+    {
+      "status": "passed",
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null
+        },
+        {
+          "id": "adapter_compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/adapter_compile.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('legacy_api.py').read_text())"
+          ],
+          "duration_ms": 68
+        },
+        {
+          "id": "legacy_api_import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/legacy_api_import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('legacy_api')"
+          ],
+          "duration_ms": 374
+        },
+        {
+          "id": "public_output_regression",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/public_output_regression.json",
+          "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_bug.py"
+          ],
+          "duration_ms": 419
+        },
+        {
+          "id": "compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/compile.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 81
+        },
+        {
+          "id": "import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('workflow')"
+          ],
+          "duration_ms": 400
+        },
+        {
+          "id": "offline_tests",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/offline_tests.json",
+          "output": "...........\n----------------------------------------------------------------------\nRan 11 tests in 0.388s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_workflow.py"
+          ],
+          "duration_ms": 532
+        },
+        {
+          "id": "preserved_spec",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/preserved_spec.json",
+          "sha256": "6f63d78147aa54f620b662a48b8e3b59f4ca94cffd7162bc2c4c63c73892a68b",
+          "duration_ms": 28
+        },
+        {
+          "id": "retirement",
+          "kind": "migration",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/retirement.json",
+          "duration_ms": 39
+        },
+        {
+          "id": "live_normalization",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/live_normalization.json",
+          "output": "{\"identity\": \"8051a489947d0906e798ee46341c9a87f9f71a4f27b240bde9449baaa946ecad\", \"request\": {\"text\": \"hello\"}, \"packets\": {\"normalize\": {\"status\": \"passed\", \"output\": {\"normalized\": \"HELLO\"}, \"thread_id\": \"01a1bb46-fcc5-7e03-998f-fb138f867b58\", \"turn_id\": \"01a1bb46-fcd4-78d3-bcde-5b77f8ab9c65\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"normalizer\": \"01a1bb46-fcc5-7e03-998f-fb138f867b58\"}, \"tokens\": 9876, \"turns\": 1, \"output\": {\"normalized\": \"HELLO\"}, \"duration_ms\": 3867}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 4293
+        }
+      ],
+      "spec_revision": 1,
+      "snapshot": "a75aa38cb73891fa2ae5518540ffba45f99e353283c809b9f81bcdec557967aa",
+      "semantic_review": null,
+      "skills": []
+    },
+    {
+      "status": "passed",
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null
+        },
+        {
+          "id": "adapter_compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/approved_candidate/adapter_compile.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('legacy_api.py').read_text())"
+          ],
+          "duration_ms": 60
+        },
+        {
+          "id": "legacy_api_import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/approved_candidate/legacy_api_import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('legacy_api')"
+          ],
+          "duration_ms": 390
+        },
+        {
+          "id": "public_output_regression",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/approved_candidate/public_output_regression.json",
+          "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_bug.py"
+          ],
+          "duration_ms": 389
+        },
+        {
+          "id": "compile",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/approved_candidate/compile.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 64
+        },
+        {
+          "id": "import",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/approved_candidate/import.json",
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('workflow')"
+          ],
+          "duration_ms": 406
+        },
+        {
+          "id": "offline_tests",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/approved_candidate/offline_tests.json",
+          "output": "...........\n----------------------------------------------------------------------\nRan 11 tests in 0.346s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_workflow.py"
+          ],
+          "duration_ms": 489
+        },
+        {
+          "id": "preserved_spec",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/approved_candidate/preserved_spec.json",
+          "sha256": "6f63d78147aa54f620b662a48b8e3b59f4ca94cffd7162bc2c4c63c73892a68b",
+          "duration_ms": 46
+        },
+        {
+          "id": "retirement",
+          "kind": "migration",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/approved_candidate/retirement.json",
+          "duration_ms": 34
+        },
+        {
+          "id": "live_normalization",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-diagnose-regression-nkrdoyut/state/evidence/run_a2fd3a31eb037b69c412b012/approved_candidate/live_normalization.json",
+          "output": "{\"identity\": \"8051a489947d0906e798ee46341c9a87f9f71a4f27b240bde9449baaa946ecad\", \"request\": {\"text\": \"hello\"}, \"packets\": {\"normalize\": {\"status\": \"passed\", \"output\": {\"normalized\": \"HELLO\"}, \"thread_id\": \"01a1bb46-e425-7d12-978e-8c25a1617e7d\", \"turn_id\": \"01a1bb46-e434-76e1-8304-da3fab03b44a\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"normalizer\": \"01a1bb46-e425-7d12-978e-8c25a1617e7d\"}, \"tokens\": 9912, \"turns\": 1, \"output\": {\"normalized\": \"HELLO\"}, \"duration_ms\": 3905}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 4311
+        }
+      ],
+      "spec_revision": 1,
+      "snapshot": "7ce7775a53e68661f6bf76d3b9f76dd07169f209b379179ff47cdf468bddb174",
+      "semantic_review": null,
+      "skills": []
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "source_base": "<temp-root>/buildmas-sdk-lifecycle-recheck-bl1htz76",
+  "results": {
+    "thread_id": "01a1bb60-0fe8-73d2-8efc-fe50fbdf9e69",
+    "continued": "MAPLE",
+    "resumed": "MAPLE",
+    "forked": "MAPLE",
+    "compact_ack": true,
+    "usage_present": true,
+    "steer_ack": true,
+    "interrupt_ack": true,
+    "terminal": "interrupted"
+  }
+}

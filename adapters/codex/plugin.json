@@ -1,0 +1,6 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "build-mas",
+  "version": "0.2.0",
+  "description": "Build, migrate, edit and verify agentic workflows through a shared Codex SDK CLI and MCP service"
+}

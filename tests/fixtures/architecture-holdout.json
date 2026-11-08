@@ -1,0 +1,16 @@
+{
+  "frozen_on": "2026-11-08",
+  "purpose": "Validation cases excluded from previous normalization/label/triage construction trials. Do not modify based on their outcome.",
+  "cases": [
+    {
+      "id": "single-ticket-priority",
+      "expected_agents": 1,
+      "goal": "Plan a recurring ticket-priority classifier, input {\"subject\":string} and output {\"priority\":\"normal\"|\"urgent\"}. It is a single input and small context, no independent source clusters or distinct permissions. Require public Codex Python SDK only, one read-only agent, gpt-6.1-sol, exact runnable workflow.py check and JSON Schema. Compare the single-thread baseline; use no Skill because this case only tests a one-off priority rule, no tools. No blocking question."
+    },
+    {
+      "id": "parallel-separated-ledgers",
+      "expected_agents": 3,
+      "goal": "Plan a MAS for independently reviewing two private source ledgers without cross-source worker exposure, then independently verify both findings. Input left.records and right.records, worker input_refs strictly input.left and input.right, separate read-only workers with different contexts, final verifier depends on both and receives ExternalMessage. No coordinator model. Require Codex Python SDK only, max_parallel 2, gpt-6.1-sol, CLI MCP, required offline checks and codex_smoke workflow.py run. Describe baseline as unmeasured; context separation is an explicit user requirement and justify exactly three roles, no Skill or tools, no blocking question."
+    }
+  ]
+}

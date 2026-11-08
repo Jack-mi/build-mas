@@ -1,0 +1,300 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Budget": {
+      "additionalProperties": false,
+      "properties": {
+        "max_turns": {
+          "default": 16,
+          "maximum": 200,
+          "minimum": 1,
+          "title": "Max Turns",
+          "type": "integer"
+        },
+        "max_tokens": {
+          "default": 600000,
+          "maximum": 2000000,
+          "minimum": 100,
+          "title": "Max Tokens",
+          "type": "integer"
+        },
+        "timeout_seconds": {
+          "default": 240,
+          "maximum": 3600,
+          "minimum": 1,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        },
+        "max_parallel": {
+          "default": 3,
+          "maximum": 12,
+          "minimum": 1,
+          "title": "Max Parallel",
+          "type": "integer"
+        },
+        "max_repairs": {
+          "default": 2,
+          "maximum": 2,
+          "minimum": 0,
+          "title": "Max Repairs",
+          "type": "integer"
+        }
+      },
+      "title": "Budget",
+      "type": "object"
+    },
+    "Constraints": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_operations": {
+          "items": {
+            "enum": [
+              "auto",
+              "analyze",
+              "review",
+              "explain",
+              "plan",
+              "build",
+              "edit",
+              "diagnose",
+              "migrate",
+              "refactor",
+              "verify"
+            ],
+            "type": "string"
+          },
+          "title": "Allowed Operations",
+          "type": "array"
+        },
+        "allowed_write_roots": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Write Roots",
+          "type": "array"
+        },
+        "forbidden_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Forbidden Actions",
+          "type": "array"
+        },
+        "budget": {
+          "$ref": "#/$defs/Budget"
+        }
+      },
+      "title": "Constraints",
+      "type": "object"
+    },
+    "Material": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "text",
+            "repo",
+            "path",
+            "file",
+            "image",
+            "diff",
+            "trace",
+            "test_failure",
+            "url",
+            "artifact",
+            "conversation"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "content": {
+          "anyOf": [
+            {
+              "maxLength": 500000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content"
+        },
+        "path": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Path"
+        },
+        "uri": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Uri"
+        },
+        "media_type": {
+          "default": "text/plain",
+          "maxLength": 100,
+          "title": "Media Type",
+          "type": "string"
+        },
+        "source": {
+          "default": "external",
+          "enum": [
+            "user",
+            "workspace",
+            "host",
+            "external"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha256"
+        },
+        "asset_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Asset Id"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "Material",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "workspace_id": {
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+      "title": "Workspace Id",
+      "type": "string"
+    },
+    "goal": {
+      "default": "",
+      "maxLength": 100000,
+      "title": "Goal",
+      "type": "string"
+    },
+    "operation": {
+      "default": "auto",
+      "enum": [
+        "auto",
+        "analyze",
+        "review",
+        "explain",
+        "plan",
+        "build",
+        "edit",
+        "diagnose",
+        "migrate",
+        "refactor",
+        "verify"
+      ],
+      "title": "Operation",
+      "type": "string"
+    },
+    "session_id": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Session Id"
+    },
+    "request_id": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Request Id"
+    },
+    "idempotency_key": {
+      "anyOf": [
+        {
+          "maxLength": 160,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Idempotency Key"
+    },
+    "spec_revision": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Spec Revision"
+    },
+    "inputs": {
+      "items": {
+        "$ref": "#/$defs/Material"
+      },
+      "maxItems": 30,
+      "title": "Inputs",
+      "type": "array"
+    },
+    "constraints": {
+      "$ref": "#/$defs/Constraints"
+    }
+  },
+  "required": [
+    "workspace_id"
+  ],
+  "title": "IntakeEnvelope",
+  "type": "object"
+}

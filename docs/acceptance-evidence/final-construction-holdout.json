@@ -1,0 +1,366 @@
+{
+  "source": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws",
+  "frozen_cases": {
+    "frozen_on": "2026-11-08",
+    "cases": [
+      {
+        "id": "case-1-environment-record",
+        "goal": "Build the smallest Codex Python SDK workflow for one supplied record. Input {\"environment\":\"staging\"}; output {\"ack\":\"staging\"} exactly the environment string (host assertion ack input_equals environment). Exactly one read-only fresh gpt-6.1-sol low agent, no Skills/tools and no external writes. library+CLI+task-level stdio MCP. Inherit the explicit caller target budget: 500000 tokens/300seconds/12turns, do not shrink it. Required compile/import/unittest expected OK/codex_smoke workflow.py run --input request.json expected JSON Schema status passed and output.ack staging. Use host template unchanged, deterministic schema/assertions, actual offline fake SDK tests, all state in tempfile. No standalone offline CLI check requiring checkpoint; no exact whole-state expected_json."
+      },
+      {
+        "id": "case-2-feedback-record",
+        "goal": "Build the smallest Codex Python SDK workflow for one user-feedback item. Input {\"feedback\":\"thanks\"}; output {\"received\":\"thanks\"} equals feedback without modification, with host input_equals assertion. Exactly one fresh read-only gpt-6.1-sol low agent, no Skills/tools/verifier. CLI+library, MCP not needed. Inherit caller budget exactly (500000 tokens,12 turns,300seconds) because SDK counts system+input context; no tiny derived token limit. Required compile/import/unittest expected OK/codex_smoke workflow.py run --input request.json expected JSON Schema status passed/output.received thanks. Keep host templates unchanged, no duplicated scheduler. Valid and malformed/offline fake SDK tests use tempfile, no source writes. No expected prose, no exact whole-state expected_json. Do not ask a blocking question."
+      }
+    ],
+    "instructions": "Do not modify these prompts or core in response to outcomes. Tiny holdout sample, no statistical claim."
+  },
+  "results": [
+    {
+      "case": "case-1-environment-record",
+      "architecture_passed": true,
+      "build_status": "approval_required",
+      "applied_verified": true
+    },
+    {
+      "case": "case-2-feedback-record",
+      "architecture_passed": true,
+      "build_status": "approval_required",
+      "applied_verified": true
+    }
+  ],
+  "applied_checks": {
+    "case-1-environment-record": {
+      "status": "completed",
+      "operation": "apply",
+      "run_id": "run_d91fcfc95834a821d145be05",
+      "session_id": "ses_fda3b086695b41cdea7179fe",
+      "workspace_id": "ws_e749654fd5914c36c863e115",
+      "spec_revision": 1,
+      "verification": "passed",
+      "changed_files": [
+        "README.md",
+        "__init__.py",
+        "architecture.json",
+        "mcp_server.py",
+        "pyproject.toml",
+        "request.json",
+        "tests/test_workflow.py",
+        "workflow.py"
+      ],
+      "artifacts": [],
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence": {
+            "template_sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+            "candidate_sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+            "comparison": "Whole-module AST equals the owning package template"
+          }
+        },
+        {
+          "id": "workflow_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/workflow_artifact.json",
+          "sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+          "duration_ms": 24
+        },
+        {
+          "id": "architecture_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/architecture_artifact.json",
+          "sha256": "efca60cc356b851c7b5bc36ac888fa4a7378a8c4a63a9889f12bd8ce233ea446",
+          "duration_ms": 24
+        },
+        {
+          "id": "request_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/request_artifact.json",
+          "sha256": "344e44f4f3b8db7a6022f50e9d84708a8233150dcb0d5a82b784269540dee3a4",
+          "duration_ms": 24
+        },
+        {
+          "id": "tests_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/tests_artifact.json",
+          "sha256": "4ef9b487b7392533114755ae538ff1f071eda50d50b5ff82446bcb0a078a8f1d",
+          "duration_ms": 23
+        },
+        {
+          "id": "compile_workflow",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/compile_workflow.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-5uahjp17",
+            "TMPDIR": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-5uahjp17",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-5uahjp17",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 54
+        },
+        {
+          "id": "import_workflow",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/import_workflow.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-xvwnkfgr",
+            "TMPDIR": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-xvwnkfgr",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-xvwnkfgr",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('workflow')"
+          ],
+          "duration_ms": 343
+        },
+        {
+          "id": "offline_tests",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/offline_tests.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-g4r9j_vr",
+            "TMPDIR": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-g4r9j_vr",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-g4r9j_vr",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": ".......\n----------------------------------------------------------------------\nRan 7 tests in 0.026s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_*.py"
+          ],
+          "duration_ms": 628
+        },
+        {
+          "id": "live_ack",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/live_ack.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-er1nod2s",
+            "TMPDIR": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-er1nod2s",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-er1nod2s",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "{\"identity\": \"c5f8f7c103448e4e692a9acc14f6e99a8b65ba10bde1b00c2ba73a3b68b80135\", \"request\": {\"environment\": \"staging\"}, \"packets\": {\"ack_record\": {\"status\": \"passed\", \"output\": {\"ack\": \"staging\"}, \"thread_id\": \"01a1bb64-c438-73e1-8268-01edd5ec24de\", \"turn_id\": \"01a1bb64-c447-7110-8493-bd70c4464ff2\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"ack_agent\": \"01a1bb64-c438-73e1-8268-01edd5ec24de\"}, \"tokens\": 11246, \"turns\": 1, \"sdk_configuration\": {\"ack_agent\": {\"cwd\": \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record\", \"model\": \"gpt-6.1-sol\", \"effort\": \"low\", \"approval_mode\": \"deny_all\", \"config\": {\"project_doc_max_bytes\": 0, \"sandbox_mode\": \"read-only\", \"default_permissions\": \"workflow\", \"permissions\": {\"workflow\": {\"filesystem\": {\":minimal\": \"read\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-er1nod2s\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record\": \"deny\", \"<user-home>/Projects/build-mas/.venv\": \"read\", \"<user-home>/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none\": \"read\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-er1nod2s/workflow-role-ack_agent-d8ad95g7\": \"read\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record/.env\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record/.git\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record/.codex\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record/.claude\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record/.opencode\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record/.ssh\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record/.aws\": \"deny\"}, \"network\": {\"enabled\": false}}}, \"features\": {\"shell_tool\": false, \"apply_patch_freeform\": false, \"hooks\": false, \"apps\": false, \"multi_agent\": false}, \"web_search\": \"disabled\", \"shell_environment_policy\": {\"inherit\": \"none\", \"set\": {\"PATH\": \"<runtime PATH omitted>\", \"HOME\": \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-er1nod2s/workflow-role-ack_agent-d8ad95g7\", \"TMPDIR\": \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-er1nod2s/workflow-role-ack_agent-d8ad95g7\"}}, \"model_reasoning_effort\": \"low\"}}}, \"output\": {\"ack\": \"staging\"}, \"duration_ms\": 3805, \"checkpoint_location\": \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-1-environment-record-state/evidence/run_d91fcfc95834a821d145be05/buildmas-check-er1nod2s/latest.json\"}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 4260
+        }
+      ],
+      "assumptions": [],
+      "unresolved": [],
+      "summary": "Applied the exact approved file proposal and reran deterministic checks",
+      "snapshot": "2a3ce4418ddf1949d402cfd720f3ce6b07a7a89e91348a80d76b22d61b745dca",
+      "backup_ref": "run_d91fcfc95834a821d145be05"
+    },
+    "case-2-feedback-record": {
+      "status": "completed",
+      "operation": "apply",
+      "run_id": "run_119d6bc965031afa235ff743",
+      "session_id": "ses_f00a495b68d06c0bd5f78f51",
+      "workspace_id": "ws_eed2e82e4c931bc761e3e1aa",
+      "spec_revision": 1,
+      "verification": "passed",
+      "changed_files": [
+        "README.md",
+        "__init__.py",
+        "architecture.json",
+        "pyproject.toml",
+        "request.json",
+        "tests/test_workflow.py",
+        "workflow.py"
+      ],
+      "artifacts": [],
+      "checks": [
+        {
+          "id": "host_structure",
+          "kind": "structure",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence": {
+            "template_sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+            "candidate_sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+            "comparison": "Whole-module AST equals the owning package template"
+          }
+        },
+        {
+          "id": "workflow_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/workflow_artifact.json",
+          "sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+          "duration_ms": 29
+        },
+        {
+          "id": "architecture_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/architecture_artifact.json",
+          "sha256": "bba050d6b9656e306075af44d5ba1d78af6ff87d2bb27c0a4c1710b20f6a0f63",
+          "duration_ms": 23
+        },
+        {
+          "id": "request_artifact",
+          "kind": "artifact",
+          "required": true,
+          "status": "passed",
+          "exit_code": null,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/request_artifact.json",
+          "sha256": "5a5d6cad4bea19bb440d078ebe02051b9d0880e86c4795076e143354d34a338e",
+          "duration_ms": 33
+        },
+        {
+          "id": "compile_workflow",
+          "kind": "compile",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/compile_workflow.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-f20xcqga",
+            "TMPDIR": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-f20xcqga",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-f20xcqga",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+          ],
+          "duration_ms": 62
+        },
+        {
+          "id": "import_workflow",
+          "kind": "import",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/import_workflow.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-g7_n54mw",
+            "TMPDIR": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-g7_n54mw",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-g7_n54mw",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-c",
+            "import importlib; importlib.import_module('workflow')"
+          ],
+          "duration_ms": 389
+        },
+        {
+          "id": "offline_tests",
+          "kind": "unittest",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/offline_tests.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-i53k9dhn",
+            "TMPDIR": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-i53k9dhn",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-i53k9dhn",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.018s\n\nOK\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_*.py"
+          ],
+          "duration_ms": 404
+        },
+        {
+          "id": "feedback_codex_smoke",
+          "kind": "codex_smoke",
+          "required": true,
+          "status": "passed",
+          "exit_code": 0,
+          "evidence_ref": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/feedback_codex_smoke.json",
+          "execution_environment": {
+            "HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-1wdxgdhd",
+            "TMPDIR": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-1wdxgdhd",
+            "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-1wdxgdhd",
+            "PYTHONDONTWRITEBYTECODE": "1"
+          },
+          "output": "{\"identity\": \"f621a7c4d1e3cd8ea2efc524025cb9c6dceb555669749c6fd8e7630830d2b658\", \"request\": {\"feedback\": \"thanks\"}, \"packets\": {\"receive_feedback\": {\"status\": \"passed\", \"output\": {\"received\": \"thanks\"}, \"thread_id\": \"01a1bb63-76fb-77c3-83d6-7e4492762449\", \"turn_id\": \"01a1bb63-770c-7220-964b-ff18abc99a75\", \"attempts\": 1, \"skills\": [], \"tools\": []}}, \"status\": \"passed\", \"threads\": {\"feedback\": \"01a1bb63-76fb-77c3-83d6-7e4492762449\"}, \"tokens\": 11233, \"turns\": 1, \"sdk_configuration\": {\"feedback\": {\"cwd\": \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record\", \"model\": \"gpt-6.1-sol\", \"effort\": \"low\", \"approval_mode\": \"deny_all\", \"config\": {\"project_doc_max_bytes\": 0, \"sandbox_mode\": \"read-only\", \"default_permissions\": \"workflow\", \"permissions\": {\"workflow\": {\"filesystem\": {\":minimal\": \"read\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-1wdxgdhd\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record\": \"deny\", \"<user-home>/Projects/build-mas/.venv\": \"read\", \"<user-home>/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none\": \"read\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-1wdxgdhd/workflow-role-feedback-jqv49qto\": \"read\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record/.env\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record/.git\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record/.codex\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record/.claude\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record/.opencode\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record/.ssh\": \"deny\", \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record/.aws\": \"deny\"}, \"network\": {\"enabled\": false}}}, \"features\": {\"shell_tool\": false, \"apply_patch_freeform\": false, \"hooks\": false, \"apps\": false, \"multi_agent\": false}, \"web_search\": \"disabled\", \"shell_environment_policy\": {\"inherit\": \"none\", \"set\": {\"PATH\": \"<runtime PATH omitted>\", \"HOME\": \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-1wdxgdhd/workflow-role-feedback-jqv49qto\", \"TMPDIR\": \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-1wdxgdhd/workflow-role-feedback-jqv49qto\"}}, \"model_reasoning_effort\": \"low\"}}}, \"output\": {\"received\": \"thanks\"}, \"duration_ms\": 2961, \"checkpoint_location\": \"<temp-root>/buildmas-final-construction-holdout-t8lcwhws/case-2-feedback-record-state/evidence/run_119d6bc965031afa235ff743/buildmas-check-1wdxgdhd/latest.json\"}\n",
+          "argv": [
+            "<user-home>/Projects/build-mas/.venv/bin/python",
+            "workflow.py",
+            "run",
+            "--input",
+            "request.json"
+          ],
+          "duration_ms": 3395
+        }
+      ],
+      "assumptions": [],
+      "unresolved": [],
+      "summary": "Applied the exact approved file proposal and reran deterministic checks",
+      "snapshot": "517bb442d58eddb9b51978f215353f23d3efb66ccdee04e02d0e1cd56adc5cbc",
+      "backup_ref": "run_119d6bc965031afa235ff743"
+    }
+  },
+  "notes": [
+    "Two fresh construction cases: 2/2 observed single-agent selection and 2/2 approved real SDK applications.",
+    "Tiny diagnostic sample with explicit constraints; not a robust benchmark or production reliability estimate."
+  ]
+}

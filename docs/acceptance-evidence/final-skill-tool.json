@@ -1,0 +1,103 @@
+{
+  "source": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9",
+  "report": {
+    "status": "passed",
+    "checks": [
+      {
+        "id": "host_structure",
+        "kind": "structure",
+        "required": true,
+        "status": "passed",
+        "exit_code": null,
+        "evidence": {
+          "template_sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+          "candidate_sha256": "1f000a87e36f32f885cc99e6c37044bd69a6bccf10ebffc670342608508ef508",
+          "comparison": "Whole-module AST equals the owning package template"
+        }
+      },
+      {
+        "id": "compile",
+        "kind": "compile",
+        "required": true,
+        "status": "passed",
+        "exit_code": 0,
+        "evidence_ref": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/compile.json",
+        "execution_environment": {
+          "HOME": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-6j7hmc50",
+          "TMPDIR": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-6j7hmc50",
+          "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-6j7hmc50",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        },
+        "output": "",
+        "argv": [
+          "<user-home>/Projects/build-mas/.venv/bin/python",
+          "-c",
+          "import ast,pathlib; ast.parse(pathlib.Path('workflow.py').read_text())"
+        ],
+        "duration_ms": 61
+      },
+      {
+        "id": "tool",
+        "kind": "tool_smoke",
+        "required": true,
+        "status": "passed",
+        "exit_code": 0,
+        "evidence_ref": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/tool.json",
+        "execution_environment": {
+          "HOME": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-i3ezegys",
+          "TMPDIR": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-i3ezegys",
+          "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-i3ezegys",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        },
+        "output": "{\"tag\": \"LABEL:HELLO\"}\n",
+        "argv": [
+          "<user-home>/Projects/build-mas/.venv/bin/python",
+          "tools/label.py",
+          "{\"text\": \"hello\"}"
+        ],
+        "duration_ms": 86
+      },
+      {
+        "id": "live",
+        "kind": "codex_smoke",
+        "required": true,
+        "status": "passed",
+        "exit_code": 0,
+        "evidence_ref": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/live.json",
+        "execution_environment": {
+          "HOME": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-6cwqxl21",
+          "TMPDIR": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-6cwqxl21",
+          "BUILD_MAS_TEST_HOME": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-6cwqxl21",
+          "PYTHONDONTWRITEBYTECODE": "1"
+        },
+        "output": "{\"identity\": \"8eb62397f9bf522afa6f3ecac1884c9014bc286a4978267f524d5075ccc74837\", \"request\": {\"text\": \"hello\"}, \"packets\": {\"normalize\": {\"status\": \"passed\", \"output\": {\"tag\": \"LABEL:HELLO\"}, \"thread_id\": \"01a1bb62-f5e9-78d3-866f-c14f58499430\", \"turn_id\": \"01a1bb62-f5fd-7100-b926-493d4ede1cc7\", \"attempts\": 1, \"skills\": [{\"name\": \"shipping-label\", \"lifecycle\": \"verified\", \"loading\": \"explicit_SkillInput\", \"eval_cases\": [\"hello produces LABEL:HELLO\"]}], \"tools\": [{\"name\": \"format_label\", \"transport\": \"mcp_cli_registry\", \"exit_code\": 0, \"output\": {\"tag\": \"LABEL:HELLO\"}, \"call_id\": \"exec-d59ab432-cb01-4ef8-b016-688e5666f3ae\"}]}}, \"status\": \"passed\", \"threads\": {\"normalizer\": \"01a1bb62-f5e9-78d3-866f-c14f58499430\"}, \"tokens\": 34243, \"turns\": 1, \"sdk_configuration\": {\"normalizer\": {\"cwd\": \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/target\", \"model\": \"gpt-6.1-sol\", \"effort\": \"low\", \"approval_mode\": \"deny_all\", \"config\": {\"project_doc_max_bytes\": 0, \"sandbox_mode\": \"read-only\", \"default_permissions\": \"workflow\", \"permissions\": {\"workflow\": {\"filesystem\": {\":minimal\": \"read\", \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-6cwqxl21\": \"deny\", \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/target\": \"read\", \"<user-home>/Projects/build-mas/.venv\": \"read\", \"<user-home>/.local/share/uv/python/cpython-3.12.12-macos-aarch64-none\": \"read\", \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-6cwqxl21/workflow-role-normalizer-5211c2v9\": \"read\", \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/target/.env\": \"deny\", \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/target/.git\": \"deny\", \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/target/.codex\": \"deny\", \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/target/.claude\": \"deny\", \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/target/.opencode\": \"deny\", \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/target/.ssh\": \"deny\", \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/target/.aws\": \"deny\"}, \"network\": {\"enabled\": false}}}, \"features\": {\"shell_tool\": false, \"apply_patch_freeform\": false, \"hooks\": false, \"apps\": false, \"multi_agent\": false}, \"web_search\": \"disabled\", \"shell_environment_policy\": {\"inherit\": \"none\", \"set\": {\"PATH\": \"<runtime PATH omitted>\", \"HOME\": \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-6cwqxl21/workflow-role-normalizer-5211c2v9\", \"TMPDIR\": \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-6cwqxl21/workflow-role-normalizer-5211c2v9\"}}, \"mcp_servers\": {\"workflow_tools\": {\"command\": \"<user-home>/Projects/build-mas/.venv/bin/python\", \"args\": [\"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/target/tool_server.py\"], \"enabled_tools\": [\"format_label\"], \"default_tools_approval_mode\": \"approve\", \"env\": {\"WORKFLOW_APPROVE_WRITES\": \"0\", \"BUILD_MAS_OUTER_SANDBOX\": \"1\"}}}, \"model_reasoning_effort\": \"low\"}}}, \"output\": {\"tag\": \"LABEL:HELLO\"}, \"duration_ms\": 23596, \"checkpoint_location\": \"<temp-root>/buildmas-final-skill-tool-8j3oqa_9/evidence/buildmas-check-6cwqxl21/latest.json\"}\n",
+        "argv": [
+          "<user-home>/Projects/build-mas/.venv/bin/python",
+          "workflow.py",
+          "run",
+          "--input",
+          "request.json"
+        ],
+        "duration_ms": 23964
+      }
+    ],
+    "spec_revision": 1,
+    "snapshot": "3cc0be3bd0924473e795f9bc21c48e4770ae28b8b12ee3f051c5a43954e6e507",
+    "semantic_review": null,
+    "skills": [
+      {
+        "name": "shipping-label",
+        "lifecycle": "verified",
+        "path": "<temp-root>/buildmas-final-skill-tool-8j3oqa_9/target/skills/shipping-label/SKILL.md",
+        "sha256": "db32f200583b89bd978091321aff90b8b3c69212bf50bc639ef8b861073cff62",
+        "eval_cases": [
+          "hello produces LABEL:HELLO"
+        ],
+        "loading": "explicit_SkillInput",
+        "turn_id": "01a1bb62-f5fd-7100-b926-493d4ede1cc7",
+        "thread_id": "01a1bb62-f5e9-78d3-866f-c14f58499430",
+        "check_id": "live"
+      }
+    ]
+  }
+}

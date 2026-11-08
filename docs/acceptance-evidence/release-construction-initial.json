@@ -1,0 +1,26 @@
+{
+  "observed_on": "2026-11-09",
+  "scope": "Retained earlier construction failure before builder-interpreter/host-check instructions. No target writes; not a holdout success.",
+  "result": {
+    "status": "failed",
+    "operation": "build",
+    "run_id": "run_38c5857e24a5d011eae27308",
+    "session_id": "ses_3a377af122d0c3627feafbbf",
+    "workspace_id": "ws_8df2a03cf90580c9c79a015c",
+    "spec_revision": 1,
+    "verification": "not_run",
+    "changed_files": [],
+    "artifacts": [],
+    "checks": [],
+    "assumptions": [],
+    "unresolved": [
+      "Offline tests await host execution: available interpreters lack openai_codex.",
+      "Real Codex smoke run and keep.txt byte comparison await host verification."
+    ],
+    "summary": "Builder reported incomplete requirements; no target changes or proposal accepted",
+    "usage": {
+      "turns": 4,
+      "tokens": 300479
+    }
+  }
+}

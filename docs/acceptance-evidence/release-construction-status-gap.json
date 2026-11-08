@@ -1,0 +1,93 @@
+{
+  "observed_on": "2026-11-09",
+  "scope": "Fresh construction before generated-state status guard; target preserved, false expected status correctly rejected",
+  "summary": {
+    "prepare": {
+      "status": "approval_required",
+      "verification": "pending_live",
+      "run_id": "run_c18bd87acd1dc435c5e02ae6",
+      "target_unchanged": true,
+      "agent_count": 1,
+      "runtime": {
+        "source": "none",
+        "target": "codex_sdk",
+        "action": "new",
+        "migration_notes": [],
+        "parity_claim": "not_applicable"
+      },
+      "proposal_files": [
+        "README.md",
+        "__init__.py",
+        "architecture.json",
+        "execution.py",
+        "mcp_server.py",
+        "pyproject.toml",
+        "request.json",
+        "tests/preservation.json",
+        "tests/test_workflow.py",
+        "workflow.py"
+      ]
+    },
+    "apply": {
+      "status": "failed",
+      "verification": "failed",
+      "run_id": "run_8d0474cab3b6792a385f3a72",
+      "changed_files": [],
+      "error": null
+    },
+    "checks": [
+      {
+        "id": "host_structure",
+        "status": "passed",
+        "error": null,
+        "execution": null
+      },
+      {
+        "id": "artifacts",
+        "status": "passed",
+        "error": null,
+        "execution": null
+      },
+      {
+        "id": "architecture",
+        "status": "passed",
+        "error": null,
+        "execution": null
+      },
+      {
+        "id": "request",
+        "status": "passed",
+        "error": null,
+        "execution": null
+      },
+      {
+        "id": "compile",
+        "status": "passed",
+        "error": null,
+        "execution": null
+      },
+      {
+        "id": "import",
+        "status": "passed",
+        "error": null,
+        "execution": null
+      },
+      {
+        "id": "offline",
+        "status": "passed",
+        "error": null,
+        "execution": null
+      },
+      {
+        "id": "live_codex",
+        "status": "failed",
+        "error": {
+          "code": "invalid_check_output",
+          "message": "ValidationError"
+        },
+        "execution": "verified_package_template_with_sandboxed_project_tools"
+      }
+    ],
+    "keep_preserved": true
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "buildmas": {
+        "type": "local",
+        "command": ["build-mas", "serve", "--transport", "stdio", "--allow-apply"],
+        "disabled": false,
+        "codemode": false
+      }
+    }
+  },
+  "permissions": [{"action": "buildmas_buildmas_apply", "resource": "*", "effect": "ask"}],
+  "instructions": ["build-mas-host.md"]
+}

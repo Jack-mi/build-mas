@@ -1,0 +1,49 @@
+{
+  "source_base": "<temp-root>/buildmas-baseline-final-5aw41npd",
+  "results": [
+    {
+      "variant": "direct_single",
+      "success": true,
+      "coverage": 1.0,
+      "tokens": 10354,
+      "duration_ms": 4402,
+      "turns": 1,
+      "exit_code": 0,
+      "human_interventions": 0,
+      "evidence": "<temp-root>/buildmas-baseline-final-5aw41npd/direct_single-evidence/run.json"
+    },
+    {
+      "variant": "generated_single",
+      "success": true,
+      "coverage": 1.0,
+      "tokens": 10033,
+      "duration_ms": 3804,
+      "turns": 1,
+      "exit_code": 0,
+      "human_interventions": 0,
+      "evidence": "<temp-root>/buildmas-baseline-final-5aw41npd/generated_single-evidence/run.json"
+    },
+    {
+      "variant": "parallel_workers",
+      "success": true,
+      "coverage": 1.0,
+      "tokens": 19804,
+      "duration_ms": 11288,
+      "turns": 2,
+      "exit_code": 0,
+      "human_interventions": 0,
+      "evidence": "<temp-root>/buildmas-baseline-final-5aw41npd/parallel_workers-evidence/run.json"
+    },
+    {
+      "variant": "workers_verifier",
+      "success": true,
+      "coverage": 1.0,
+      "tokens": 39896,
+      "duration_ms": 10417,
+      "turns": 4,
+      "exit_code": 0,
+      "human_interventions": 0,
+      "evidence": "<temp-root>/buildmas-baseline-final-5aw41npd/workers_verifier-evidence/run.json"
+    }
+  ]
+}

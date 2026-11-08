@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VerificationReport",
+  "type": "object",
+  "required": [
+    "status",
+    "checks",
+    "spec_revision",
+    "snapshot",
+    "semantic_review",
+    "skills"
+  ],
+  "properties": {
+    "status": {
+      "enum": [
+        "pending_live",
+        "passed",
+        "partial",
+        "failed",
+        "blocked"
+      ]
+    },
+    "spec_revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "snapshot": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "required",
+          "status"
+        ]
+      }
+    },
+    "semantic_review": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

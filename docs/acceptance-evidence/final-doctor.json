@@ -1,0 +1,12 @@
+{
+  "status": "account_unverified",
+  "exit_code": 4,
+  "account_present": null,
+  "error": {
+    "code": "account_check_failed",
+    "message": "Runtime initialized and model catalog loaded, but account validation did not complete",
+    "type": "InternalRpcError"
+  },
+  "source": "fresh private-installed CLI doctor",
+  "model_execution_verified_separately": true
+}

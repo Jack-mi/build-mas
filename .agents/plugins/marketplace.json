@@ -8,7 +8,7 @@
       "name": "build-mas",
       "source": {
         "source": "local",
-        "path": "./"
+        "path": "./adapters/codex"
       },
       "policy": {
         "installation": "AVAILABLE",

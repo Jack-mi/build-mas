@@ -1,0 +1,40 @@
+{
+  "source": "<temp-root>/buildmas-final-unseen-0052m7qw",
+  "frozen_cases": {
+    "frozen_at": "2026-11-08",
+    "scope": "Fresh final cases, do not modify prompts or code based on outcomes. One build + one plan. Small diagnostic sample, not a statistically valid benchmark.",
+    "cases": [
+      {
+        "id": "single-json-brief",
+        "expected_agents": 1,
+        "goal": "Build a tiny Codex Python SDK workflow producing an evidence-free brief from one JSON input: input {\"topic\":\"rain\"}, output {\"brief\":\"Rain falls.\"}. This is one bounded task, no independent sources and no need for a verifier. Choose the smallest architecture, compare single baseline, do not add any Skills/tools. gpt-6.1-sol low, read-only, library CLI only. Fixed output assertion brief equals Rain falls. Keep supplied host unchanged. Required offline unittest and codex_smoke workflow.py run --input request.json; expected is JSON Schema requiring status passed/output brief Rain falls, not a whole-state exact JSON. All tests fake SDK/tempfile. No model call or install during generation."
+      },
+      {
+        "id": "single-service-health",
+        "expected_agents": 1,
+        "goal": "Plan the smallest Codex Python SDK workflow for a single text status summary, input {\"status\":\"healthy\"} output {\"summary\":\"healthy\"}. User has no SDK installed; builder supplies it. One data item/small context, no independent verification or skills needed. Avoid unnecessary MAS, tools, HTTP and worker processes. One read-only gpt-6.1-sol low, library CLI MCP if needed, strict packet assertion input_equals status. Required executable checks and codex_smoke workflow.py run --input request.json, expected JSON Schema on state.status and state.output. No prose expected or exact whole-state expected_json. No offline CLI check requiring a prior checkpoint."
+      }
+    ]
+  },
+  "results": [
+    {
+      "case": "single-json-brief",
+      "architecture_passed": true,
+      "result_status": "approval_required",
+      "observed_agents": 1,
+      "construction_verified": false
+    },
+    {
+      "case": "single-service-health",
+      "architecture_passed": true,
+      "result_status": "completed",
+      "observed_agents": 1,
+      "construction_verified": null
+    }
+  ],
+  "notes": [
+    "No code or prompt was changed during these final cases.",
+    "One new construction failed live acceptance because its model-selected token budget was 4000 while measured usage was 11581. No target was written.",
+    "That failure was then used for the explicit caller-budget correction; do not relabel it as a pass or count later fixes as the same holdout."
+  ]
+}

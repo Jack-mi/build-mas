@@ -112,6 +112,7 @@
     "release-construction.json": "53f97e6a390253e3094330625b0fdca4ee12db500673ecd4fca92185cdc28c0f",
     "release-installed.json": "048645e43b86788ddef0390267e9857d2211f6ad3594ecab993c82bf61ccd911",
     "release-live.json": "5cbab5d8b881b7a212a04393a8a6a8a9404de62a2984d0f43f5fbe7387e8fc55",
+    "release-publication.json": "cffdd06ee859246fbde4afec91ba942f37a34af7761ea0f116ba79259de7dbba",
     "sdk-lifecycle.json": "8e12c4185df52808289b72c12352f9ecb817d278314589feeb46d95d265bbf57",
     "sdk-permissions.json": "b1460753e9cc70219aa2066be4fbcf88d39b8bb3bda7354bd3ac8ca69dc2250c",
     "single-refactor.json": "81b73571a4cb3d72291c9cb7382370a3a062ef22f777a9f9cbfb47bd564f3431",
@@ -135,10 +136,15 @@
       "release-construction.json",
       "release-construction-initial.json",
       "release-construction-status-gap.json",
-      "release-construction-import-gap.json"
+      "release-construction-import-gap.json",
+      "release-publication.json"
     ],
     "publication": {
-      "status": "pending"
+      "status": "verified_public",
+      "visibility": "public",
+      "unauthenticated_status": 200,
+      "implementation_commit": "72a5cdaea79713e2d282903c691557c11b28861a",
+      "evidence": "release-publication.json"
     }
   }
 }

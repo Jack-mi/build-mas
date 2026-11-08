@@ -1,0 +1,14 @@
+{
+  "observed_on": "2026-11-09",
+  "visibility": "public",
+  "unauthenticated_repo_status": 200,
+  "main_sha": "72a5cdaea79713e2d282903c691557c11b28861a",
+  "file_sha256": {
+    "README.md": "234be231d85c1ce917cc76b364c18318cd9851d924c9794d43bede4bb8d4599e",
+    "pyproject.toml": "22cbe99e22a5c7deaf6b0095275ab7f27f31fe3f6b66105ce5e8dc8db99ac5b1",
+    "src/build_mas/cli.py": "d2282982fed0e96bbde54dee4adada3168ebfc2dc6591449b06d0f6bef9f1665",
+    "src/build_mas/mcp_server.py": "15a2c5ea65f00a634691fc74683caea4e7bab1a6ad22ed39072995efe652c3a4",
+    "src/build_mas/templates/workflow.py": "082c361e525a27b248bd7828142d128ebc619037141c653285af1b452172d6a6",
+    "src/build_mas/templates/execution.py": "0dfe33a699d95a21a1028aed1745988856128adc85b68944fef6020fca787782"
+  }
+}

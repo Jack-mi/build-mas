@@ -13,8 +13,8 @@ Current review fixes and acceptance below are dated 2026-11-09.
 - [x] 7. Discover exact executable/runtime dependencies without a Homebrew-prefix grant. Custom executable prefix and actual sandboxed PDF extraction pass; dyld runpaths are resolved from executable metadata.
 - [x] 8. Kill over-limit subprocesses while reading, including stderr/PDF, timeout, and child-process cleanup. No unbounded communicate allocation remains in project execution paths.
 - [x] 9. Redact historical machine paths and full PATH values, preserving original failures/IDs/scope; refresh hashes. Public portability and embedded-receipt redaction regressions pass. Original raw records are retained privately outside the repository.
-- [x] 10. Rewrite the homepage around the CLI/MCP product, distinguish builder from generated workflow, document host adapters and actual supported limits. Remote homepage verification follows the push.
-- [ ] 11. Commit/push all authorized project changes, set repository public, and verify actual remote HEAD, README/source, and unauthenticated access.
+- [x] 10. Rewrite the homepage around the CLI/MCP product, distinguish builder from generated workflow, document host adapters and actual supported limits. Pushed remote README bytes match the local product introduction.
+- [x] 11. Commit/push all authorized project changes, set repository public, and verify actual remote HEAD, README/source, and unauthenticated access. Implementation commit `72a5cdaea79713e2d282903c691557c11b28861a` is on main; unauthenticated repository API returns 200/public and six README/package/CLI/MCP/template files match exactly.
 
 ## Current Acceptance
 
@@ -24,6 +24,7 @@ Current review fixes and acceptance below are dated 2026-11-09.
 - `release-construction-initial.json`, `release-construction-status-gap.json`, and `release-construction-import-gap.json` preserve failed earlier trials. Installed-interpreter/host-check guidance, the passed-versus-completed contract guard, and sandboxed Python-file import support address their earliest boundaries without relabelling outcomes.
 - Final source and independently installed wheel suites: **108 passed + 6 example subtests passed** in each environment. Five exported schemas, package/source bytes, public portability, and secret/whitespace checks agree.
 - `acceptance-evidence/manifest.json` keeps historical 80-test/wheel records separate from current release suite and package hashes.
+- `acceptance-evidence/release-publication.json` records the observed public implementation commit and remote file hashes. A follow-up documentation-only commit records these completed publication checks without amending implementation history.
 
 ## Source And Product Boundaries
 

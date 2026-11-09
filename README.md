@@ -1,5 +1,7 @@
 # build-mas
 
+![build-mas overview: materials to design and build, human-reviewed changes, verification-gated application, and a standalone Codex SDK workflow](docs/promotion/build-mas-workflow-overview.png)
+
 ### Build the workflow. Keep your coding agent.
 
 **Design, build, and evolve agentic workflows with the Codex SDK, from the coding agent you already use.**

@@ -2,15 +2,29 @@
 
 ### Build the workflow. Keep your coding agent.
 
-**An architecture and construction assistant for agentic workflows, delivered as a CLI and MCP service.**
+**Design, build, and evolve agentic workflows with the Codex SDK, from the coding agent you already use.**
 
-Bring a goal, a diagram, a failing trace, or an existing implementation. build-mas decides what should be an Agent, a Skill, a tool, or ordinary code, then turns those decisions into a runnable, verifiable system on the **Codex Python SDK**.
+Bring a goal, a diagram, a failing trace, or an existing implementation. build-mas decides what should be an Agent, a Skill, a tool, or ordinary code, then turns those decisions into a runnable, verifiable system on the **Codex SDK**.
 
 Use it inside **Codex, Claude Code, or OpenCode**, or directly from your terminal. Start from nothing, improve a working system, or rebuild a workflow from another framework. You do not have to start over just to ask for help.
 
-> build-mas 面向 Agent 系统的架构与构建：从目标或已有实现出发，划分 Agent、组织 Skills 与工具、选择服务入口和控制机制，再落实为可运行、可验证的系统。单 Agent 能解决，就不强行搭团队。
+build-mas is a workflow engineering assistant, delivered as a CLI and MCP service with optional host plugins. It helps you create or change your own workflow; it does not require a fixed Agent team or a new coding environment.
 
-`0.2.0` · Python 3.10+ · Codex SDK/runtime `0.167.0` · Local macOS acceptance tested
+`0.2.0` · Codex SDK/runtime `0.167.0` · Local macOS acceptance tested
+
+## Product Positioning
+
+**The product is the ability to engineer an Agent system, not a particular Agent count, framework template, or packaging format.**
+
+- **At any project stage:** call build-mas to inspect, design, build, edit, diagnose, migrate, refactor, or verify a workflow.
+- **From your available material:** start with a goal, existing code, a document, an image, a diff, a trace, or selected task context; no complete specification is required upfront.
+- **Use the smallest sufficient architecture:** choose one Agent when enough, multiple Agents when justified, reusable Skills for procedures, and deterministic tools or ordinary code where they fit.
+- **Keep your host:** CLI, MCP, and thin plugins make the same capability available from Codex, Claude Code, OpenCode, or automation.
+- **Own the result:** receive a standalone Codex SDK workflow and scoped, reviewable changes with verification evidence, not only design advice.
+
+The current release uses Codex SDK for both construction and the target Agent runtime. An existing Codex SDK system is reused; a system built on another Agent runtime is migrated or rebuilt. Broad input support and flexible host integration do not imply an interchangeable target-runtime abstraction.
+
+See [Product positioning and boundaries](docs/product-positioning.md) for the full definition and the distinction between product direction and currently implemented service forms.
 
 ## What You Can Do
 
@@ -43,10 +57,10 @@ Your terminal / Codex / Claude Code / OpenCode
               standalone workflow
             library / CLI / task-level MCP
                      |
-               Codex Python SDK
+                 Codex SDK
 ```
 
-- **Builder:** one shared Python service, first-class `build-mas` CLI and stdio MCP, with thin host adapters. Skills/plugins are optional ways to discover and invoke it, not its implementation.
+- **Builder:** one shared construction service, first-class `build-mas` CLI and stdio MCP, with thin host adapters. Skills/plugins are optional ways to discover and invoke it, not its implementation.
 - **Generated workflow:** a standalone Codex SDK package with library, `mas` CLI, and task-level MCP entrypoints. It does not import build-mas at runtime.
 - **Optional target delivery:** plugins, HTTP endpoints, and resident workers can be requested. They are not default scaffold outputs or prebuilt hosting products in this release.
 - **Host independence:** Claude Code and OpenCode invoke the same builder; their model/runtime does not replace Codex SDK inside the builder or target.
@@ -67,7 +81,7 @@ build-mas --version
 build-mas doctor --json
 ```
 
-The bootstrap installs the builder into `~/.local/share/build-mas/venv`, using `uv` when available or standard `venv`/`pip`. It does not install dependencies into your target project. For a custom location, pass `--environment` and use the executable path printed by the installer.
+The current implementation requires Python 3.10+. The bootstrap installs the builder into `~/.local/share/build-mas/venv`, using `uv` when available or standard `venv`/`pip`. It does not install dependencies into your target project. For a custom location, pass `--environment` and use the executable path printed by the installer.
 
 If authentication is missing, run `build-mas login` or `build-mas login --device` and complete the account interaction yourself. Existing selected Codex provider configuration/auth can be imported into a private runtime; build-mas never copies your entire `.codex` directory or asks for credentials in a prompt. Model availability depends on your account; no particular model is required by the quick start.
 
@@ -168,7 +182,7 @@ Adapters do not rewrite global host settings. `BUILD_MAS_ENV` or `BUILD_MAS_PYTH
 The versioned **ArchitectureSpec** is the executable contract, not just a diagram:
 
 - **Single-Agent first:** `single_agent_sufficient` requires exactly one Agent. Multiple Agents need a reason and baseline comparison, not a fixed team template.
-- **Explicit work packets:** typed input/output, dependencies, conditions, assertions, and integration rules; Python owns the scheduler and stopping conditions.
+- **Explicit work packets:** typed input/output, dependencies, conditions, assertions, and integration rules; the host owns the scheduler and stopping conditions.
 - **Skills where they belong:** reusable procedures are loaded through public `SkillInput`. Generation, discovery, loading, and asserted behavior have distinct evidence.
 - **Narrow tools:** bounded `read_file`/`list_files`, Python CLI modules, and project-local Python stdio MCP servers run through a host-owned registry with schemas, OS sandbox, timeout, output limits, and actual call receipts. General shell is not a builtin tool.
 - **Controls outside the model:** scope, budgets, concurrency, retries, snapshots, approval, and verification are enforced by code. A model verdict alone cannot make a failed run pass.
@@ -236,6 +250,7 @@ python3 -m venv .venv
 
 | Start here | What it contains |
 | --- | --- |
+| [Product positioning](docs/product-positioning.md) | Core value, lifecycle, host integration, target output, and scope |
 | [Architecture blueprint](docs/build-mas-codex-sdk-blueprint.md) | Product boundaries, SDK mapping, contracts, lifecycle |
 | [Implementation ledger](docs/implementation-status.md) | Observed behavior, historical trials, remaining gaps |
 | [Acceptance report](docs/acceptance-report.md) | Requirement mapping and measured local scope |

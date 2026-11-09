@@ -2,6 +2,16 @@
 
 Goal: implement the complete agreed blueprint, including the user's source-runtime and multi-harness corrections. The subsequent release request authorizes all project changes to be committed/pushed and this repository made public. Remote HTTP hosting and resident workers remain optional target outputs, not release requirements.
 
+## Current Product Definition
+
+The [product positioning](product-positioning.md) defines build-mas as an
+architecture and construction assistant for building and evolving Codex SDK
+workflows from an existing coding agent or automation. CLI/MCP are core service
+forms; Skills/plugins are thin adapters. Single-Agent-first, flexible lifecycle
+inputs, exact reviewable changes, and verification remain the core boundaries.
+The README is English-only; implementation language appears only where needed
+for installation or technical compatibility.
+
 ## Release Revalidation: 2026-11-09
 
 The 2026-11-08 trials below are historical. The full review found and fixed gaps
@@ -17,7 +27,7 @@ records for current tests, installed acceptance, and real SDK receipts.
 - Bounded builtin, Python CLI, and local Python stdio MCP tool bindings all have actual smoke/runtime receipts. PDF extraction is bounded while reading, including timeout/process-group cleanup; exact executable dependencies are discovered without a Homebrew-prefix grant.
 - Public evidence is sanitized with `scripts/redact_evidence.py`; machine-path placeholders and omitted PATH values are presentation redaction, not runtime bindings. Original failures and historical measurement scope are preserved.
 - Source and independent installed-wheel final suites each pass 108 tests + 6 example subtests. The installed builder recovers an unchanged fresh candidate after fixing Python-file import checks, applies it with all required live/offline gates passed, and preserves the original user file. Failed earlier construction trials remain separate records; the recovered success is not a holdout.
-- Implementation commit `72a5cdaea79713e2d282903c691557c11b28861a` is pushed to main. Repository visibility is public; unauthenticated repository API returns 200 and README/package/CLI/MCP/template files match local bytes. The follow-up publication-evidence commit changes documentation only.
+- Implementation commit `00e75e6ebea431b7e7fb3e2e6e8167b32dc6580a` identifies the release after the authorized history cleanup. Runtime/source file trees are unchanged by that cleanup; public verification is recorded separately from later README/positioning edits.
 
 ### Remaining Deployment Boundaries
 

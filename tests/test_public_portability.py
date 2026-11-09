@@ -1,9 +1,18 @@
 import importlib.util
 import json
+import re
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_readme_is_english_and_uses_sdk_product_name():
+    text = (ROOT / "README.md").read_text()
+    assert not re.search(r"[\u3400-\u4dbf\u4e00-\u9fff]", text)
+    assert "Codex Python SDK" not in text and "Python Codex SDK" not in text
+    assert "Codex SDK" in text and "docs/product-positioning.md" in text
+    assert (ROOT / "docs/product-positioning.md").is_file()
 
 
 def test_evidence_redaction_preserves_status_and_embedded_receipts():

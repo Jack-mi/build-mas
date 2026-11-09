@@ -1,5 +1,7 @@
 # build-mas 0.2.0 Acceptance
 
+This is historical evidence for 0.2.0. The builder CLI is retired in 0.3.0; see [0.4.0 MCP acceptance](mcp-0.4-acceptance.md) for current contracts and checks, and [MCP-only migration acceptance](mcp-only-acceptance.md) for the earlier migration. Generated workflow CLI interfaces are not retired.
+
 Historical trials: 2026-11-08. Release revalidation: 2026-11-09. Scope: the Codex Python SDK-only CLI/MCP builder and standalone workflows, with single-agent-first architecture. Publication is separate from runtime acceptance and is recorded in the release ledger.
 
 ## Current Release Evidence

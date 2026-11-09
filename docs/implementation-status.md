@@ -1,18 +1,22 @@
 # Implementation Acceptance Ledger
 
-Goal: implement the complete agreed blueprint, including the user's source-runtime and multi-harness corrections. The subsequent release request authorizes all project changes to be committed/pushed and this repository made public. Remote HTTP hosting and resident workers remain optional target outputs, not release requirements.
+Historical goal: implement the complete agreed blueprint, including the user's source-runtime and multi-harness corrections. The earlier release request authorized that release's commit/push/publication; it does not authorize publishing subsequent changes. Version 0.3.0 retired the builder CLI. Current 0.4.0 hardens Skill + MCP contracts, approval/retry, protocol compatibility, bounded output and stage recovery without paid/remote services. See [0.4.0 acceptance](mcp-0.4-acceptance.md) for the current evidence and limits.
 
 ## Current Product Definition
 
 The [product positioning](product-positioning.md) defines build-mas as an
 architecture and construction assistant for building and evolving Codex SDK
-workflows from an existing coding agent or automation. CLI/MCP are core service
-forms; Skills/plugins are thin adapters. Single-Agent-first, flexible lifecycle
+workflows from an existing coding agent or automation. MCP is the builder service
+form; Skills/plugins are thin adapters, and generated workflows retain their CLI. Single-Agent-first, flexible lifecycle
 inputs, exact reviewable changes, and verification remain the core boundaries.
 The README is English-only; implementation language appears only where needed
 for installation or technical compatibility.
 
-## Release Revalidation: 2026-11-09
+## 0.3.0 MCP-Only Migration
+
+The builder command module and console scripts are removed. The standalone MCP module and all host launchers use the private Python interpreter directly. Registration, selected attachment import, secure URL login and retained-run recovery have MCP tools. Application reviews every diff page through human form elicitation and stops without a supporting client; there is no CLI or Hook approval bypass. Builder state and generated workflow interfaces are retained. Commercialization is a document-only proposal, not shipped payment or remote-hosting code. Current migration acceptance is recorded separately in `mcp-only-acceptance.md`; the following 0.2.0 trials are historical.
+
+## Historical 0.2.0 Release Revalidation: 2026-11-09
 
 The 2026-11-08 trials below are historical. The full review found and fixed gaps
 after those trials; they do not independently establish current release safety.

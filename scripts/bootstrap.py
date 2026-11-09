@@ -27,9 +27,9 @@ def main():
     python = environment / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
     command = [uv, "pip", "install", "--python", str(python), str(source)] if uv else [str(python), "-m", "pip", "install", str(source)]
     subprocess.run(command, check=True)
-    entrypoint = environment / ("Scripts/build-mas.exe" if os.name == "nt" else "bin/build-mas")
-    print(f"Builder installed: {entrypoint}")
-    print(f"MCP command: {entrypoint} serve --transport stdio --allow-apply")
+    print(f"Builder installed: {environment}")
+    print(f"MCP command: {python} -m build_mas.mcp_server")
+    print("Set BUILD_MAS_ALLOW_APPLY=1 in the MCP server environment to expose human-approved application.")
     print("Use the printed absolute command in each host's MCP configuration. The target venv is untouched.")
     return 0
 

@@ -28,7 +28,7 @@ def sensitive_paths(root):
     return sorted(paths)
 
 
-def bounded_output(process, *, timeout, max_bytes=1000000):
+def bounded_output(process, *, timeout, max_bytes=1000000, cancel=None):
     chunks = []
     size = 0
     deadline = time.monotonic() + timeout
@@ -38,11 +38,14 @@ def bounded_output(process, *, timeout, max_bytes=1000000):
             if stream is not None:
                 selector.register(stream, selectors.EVENT_READ)
         while selector.get_map():
+            if cancel is not None and cancel.is_set():
+                error = "cancelled"
+                break
             remaining = deadline - time.monotonic()
             if remaining <= 0:
                 error = "timeout"
                 break
-            for key, _ in selector.select(remaining):
+            for key, _ in selector.select(min(remaining, 0.1) if cancel is not None else remaining):
                 data = os.read(key.fd, 65536)
                 if not data:
                     selector.unregister(key.fileobj)
@@ -54,6 +57,13 @@ def bounded_output(process, *, timeout, max_bytes=1000000):
                 chunks.append(data)
             if error:
                 break
+    while cancel is not None and process.poll() is None and error is None:
+        if cancel.is_set():
+            error = "cancelled"
+        elif time.monotonic() >= deadline:
+            error = "timeout"
+        else:
+            time.sleep(0.05)
     if error:
         try:
             os.killpg(process.pid, signal.SIGKILL)

@@ -211,28 +211,63 @@ class CodexRuntime:
                     account = await asyncio.wait_for(client.account(), timeout=30)
                 except Exception as exc:
                     return {"status": "account_unverified", "versions": versions, "account_present": None, "models": [item.model for item in models.data], "sdk_managed_runtime": True, "error": {"code": "account_check_failed", "message": "Runtime initialized and model catalog loaded, but account validation did not complete", "type": type(exc).__name__}, "next_safe_action": "Verify account/network routing or run a separately authorized minimal model task. Catalog availability is not authentication evidence."}
-                return {"status": "ready" if account.account is not None else "authentication_required", "versions": versions, "account_present": account.account is not None, "models": [item.model for item in models.data], "sdk_managed_runtime": True}
+                return {"status": "ready" if account.account is not None else "authentication_required", "versions": versions, "account_present": account.account is not None, "models": [item.model for item in models.data], "selected_model": self.model, "sdk_managed_runtime": True}
         except BuildMasError:
             raise
         except Exception as exc:
-            raise BuildMasError("builder_runtime_unavailable", "Codex runtime could not start; run build-mas doctor", details={"type": type(exc).__name__}) from exc
+            raise BuildMasError("builder_runtime_unavailable", "Codex runtime could not start; inspect buildmas_preflight", details={"type": type(exc).__name__}) from exc
 
-    async def login(self, *, device=False, timeout=300, announce=None):
+    async def login(self, *, device=False, timeout=300, authorize=None):
+        if authorize is None:
+            raise BuildMasError("login_channel_unavailable", "Authentication requires a user-only URL confirmation channel")
+        attempt = await self.start_login(device=device, timeout=timeout)
+        try:
+            await asyncio.wait_for(authorize(attempt["instruction"]), timeout=max(0, attempt["expires"] - time.monotonic()))
+        except asyncio.TimeoutError as exc:
+            await self.cancel_login(attempt)
+            raise BuildMasError("authentication_required", "Login confirmation expired; retry without sharing credentials") from exc
+        except BaseException:
+            await self.cancel_login(attempt)
+            raise
+        return await self.finish_login(attempt)
+
+    async def start_login(self, *, device=False, timeout=300):
+        expires = time.monotonic() + timeout
         root = self.home / "login"
         root.mkdir(parents=True, exist_ok=True, mode=0o700)
-        async with AsyncCodex(self.config(root)) as client:
-            handle = await client.login_chatgpt_device_code() if device else await client.login_chatgpt()
-            instruction = {"verification_url": handle.verification_url, "user_code": handle.user_code} if device else {"auth_url": handle.auth_url}
-            if announce:
-                announce(instruction)
-            try:
-                receipt = await asyncio.wait_for(handle.wait(), timeout=timeout)
-            except (asyncio.TimeoutError, asyncio.CancelledError):
-                await handle.cancel()
-                raise BuildMasError("authentication_required", "Login was not completed; rerun login without sharing credentials")
+        client = AsyncCodex(self.config(root))
+        await asyncio.wait_for(client.__aenter__(), timeout=max(0, expires - time.monotonic()))
+        try:
+            call = client.login_chatgpt_device_code() if device else client.login_chatgpt()
+            handle = await asyncio.wait_for(call, timeout=max(0, expires - time.monotonic()))
+        except BaseException:
+            await client.__aexit__(None, None, None)
+            raise
+        return {"client": client, "handle": handle, "expires": expires, "instruction": {"verification_url": handle.verification_url, "user_code": handle.user_code} if device else {"auth_url": handle.auth_url}}
+
+    async def finish_login(self, attempt):
+        try:
+            receipt = await asyncio.wait_for(attempt["handle"].wait(), timeout=max(0, attempt["expires"] - time.monotonic()))
             if not receipt.success:
                 raise BuildMasError("authentication_required", "Codex account login did not complete")
             return {"status": "ready", "account_present": True, "builder_private_auth": True}
+        except asyncio.TimeoutError as exc:
+            await attempt["handle"].cancel()
+            raise BuildMasError("authentication_required", "Login expired; retry without sharing credentials") from exc
+        except asyncio.CancelledError:
+            await attempt["handle"].cancel()
+            raise
+        except Exception:
+            await attempt["handle"].cancel()
+            raise
+        finally:
+            await attempt["client"].__aexit__(None, None, None)
+
+    async def cancel_login(self, attempt):
+        try:
+            await attempt["handle"].cancel()
+        finally:
+            await attempt["client"].__aexit__(None, None, None)
 
     async def thread(self, cwd, instructions, *, write=False, thread_id=None, ephemeral=False, model=None):
         if time.monotonic() - self.started >= self.budget.timeout_seconds:
@@ -299,7 +334,7 @@ class CodexRuntime:
             last = result.usage.get("last", {})
             self.tokens += last.get("totalTokens", last.get("total_tokens", 0)) if baseline is None else max(0, cumulative - baseline)
             self.thread_tokens[thread.id] = cumulative
-        self.event("turn_completed", thread_id=thread.id, turn_id=handle.id, tokens=self.tokens, status=result.status)
+        self.event("turn_completed", thread_id=thread.id, turn_id=handle.id, tokens=self.tokens, turns=self.turns, status=result.status)
         if self.tokens > self.budget.max_tokens:
             self.event("budget_exceeded", tokens=self.tokens, allowed=self.budget.max_tokens)
             raise BuildMasError("budget_exceeded", "Aggregate token budget exceeded after completed turn")

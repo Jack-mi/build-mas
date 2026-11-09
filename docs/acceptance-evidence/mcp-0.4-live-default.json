@@ -1,0 +1,165 @@
+{
+  "date": "2026-11-09",
+  "fixture": "one-file-read-only-explanation",
+  "installed_package": true,
+  "protocol": "2026-07-28",
+  "tool_count": 9,
+  "all_output_schemas": true,
+  "preflight": {
+    "api_version": "0.4",
+    "status": "ready",
+    "changed_files": [],
+    "proposed_files": [],
+    "checks_summary": {},
+    "questions": [],
+    "unresolved": [],
+    "assumptions": [],
+    "references": [],
+    "omitted": {},
+    "versions": {
+      "openai-codex": "0.167.0",
+      "openai-codex-cli-bin": "0.167.0"
+    },
+    "models": [
+      "gpt-6.1-sol",
+      "gpt-6-astra",
+      "gpt-6-sol",
+      "gpt-6-luna",
+      "gpt-5.6-sol",
+      "gpt-6.1-terra",
+      "gpt-5.6-terra",
+      "gpt-5.6-luna",
+      "gpt-5.5"
+    ],
+    "account_present": true,
+    "sdk_managed_runtime": true,
+    "capabilities": {
+      "apply_exposed": false,
+      "form_elicitation": false,
+      "url_elicitation": false,
+      "progress": false,
+      "protocol_version": "2026-07-28",
+      "human_approval_verified": false
+    }
+  },
+  "invoke": {
+    "api_version": "0.4",
+    "status": "failed",
+    "operation": "explain",
+    "workspace_id": "ws_385b4f851fa99019b71c0cc4",
+    "session_id": "ses_48f52b8a99cc92ee8eade293",
+    "run_id": "run_c36842fd20b3faf04175be47",
+    "spec_revision": 0,
+    "summary": "Codex did not complete the requested turn",
+    "verification": "not_run",
+    "changed_files": [],
+    "proposed_files": [],
+    "checks_summary": {},
+    "questions": [],
+    "unresolved": [],
+    "assumptions": [],
+    "references": [
+      {
+        "category": "runs",
+        "reference": "run_c36842fd20b3faf04175be47"
+      },
+      {
+        "category": "events",
+        "reference": "run_c36842fd20b3faf04175be47"
+      },
+      {
+        "category": "sessions",
+        "reference": "ses_48f52b8a99cc92ee8eade293"
+      }
+    ],
+    "omitted": {},
+    "error": {
+      "code": "codex_turn_failed",
+      "message": "Codex did not complete the requested turn",
+      "details": {
+        "status": "failed",
+        "turn_id": "01a1be39-2b30-7802-a46c-44c38437887c",
+        "error_message": "{\"error\": {\"code\": null, \"message\": \"CatPaw IDE: CatPaw IDE \u6ca1\u6709\u5df2\u9a8c\u8bc1\u7684\u7ed3\u6784\u5316\u8f93\u51fa\u53c2\u6570\", \"param\": null, \"type\": \"invalid_request_error\"}}\n"
+      }
+    },
+    "models": []
+  },
+  "repeat_identical": true,
+  "status": {
+    "api_version": "0.4",
+    "status": "failed",
+    "operation": "explain",
+    "id": "run_c36842fd20b3faf04175be47",
+    "workspace_id": "ws_385b4f851fa99019b71c0cc4",
+    "session_id": "ses_48f52b8a99cc92ee8eade293",
+    "run_id": "run_c36842fd20b3faf04175be47",
+    "spec_revision": 0,
+    "summary": "Codex did not complete the requested turn",
+    "verification": "not_run",
+    "changed_files": [],
+    "proposed_files": [],
+    "checks_summary": {},
+    "questions": [],
+    "unresolved": [],
+    "assumptions": [],
+    "references": [
+      {
+        "category": "runs",
+        "reference": "run_c36842fd20b3faf04175be47"
+      },
+      {
+        "category": "events",
+        "reference": "run_c36842fd20b3faf04175be47"
+      },
+      {
+        "category": "sessions",
+        "reference": "ses_48f52b8a99cc92ee8eade293"
+      }
+    ],
+    "omitted": {},
+    "error": {
+      "code": "codex_turn_failed",
+      "message": "Codex did not complete the requested turn",
+      "details": {
+        "status": "failed",
+        "turn_id": "01a1be39-2b30-7802-a46c-44c38437887c",
+        "error_message": "{\"error\": {\"code\": null, \"message\": \"CatPaw IDE: CatPaw IDE \u6ca1\u6709\u5df2\u9a8c\u8bc1\u7684\u7ed3\u6784\u5316\u8f93\u51fa\u53c2\u6570\", \"param\": null, \"type\": \"invalid_request_error\"}}\n"
+      }
+    },
+    "usage": {
+      "tokens": 8294,
+      "turns": 1
+    },
+    "last_stage": "operation_finished",
+    "stage_sequence": 18,
+    "updated_at": 1794192780.159637,
+    "started_at": 1794192777.3270998,
+    "finished_at": 1794192780.158488,
+    "models": []
+  },
+  "progress": [
+    {
+      "sequence": 1.0,
+      "message": "run_c36842fd20b3faf04175be47: Request admitted"
+    },
+    {
+      "sequence": 2.0,
+      "message": "run_c36842fd20b3faf04175be47: Workspace inspected"
+    },
+    {
+      "sequence": 3.0,
+      "message": "run_c36842fd20b3faf04175be47: Designing architecture"
+    },
+    {
+      "sequence": 8.0,
+      "message": "run_c36842fd20b3faf04175be47: Codex turn active"
+    },
+    {
+      "sequence": 18.0,
+      "message": "run_c36842fd20b3faf04175be47: Operation finished"
+    }
+  ],
+  "event_count": 18,
+  "target_unchanged": true,
+  "duration_seconds": 4.53
+}

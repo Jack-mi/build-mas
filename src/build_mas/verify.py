@@ -192,14 +192,14 @@ def trusted_entrypoint(spec, root, temporary, entrypoint):
     return directory / f"run_{entrypoint}.py"
 
 
-def execute_check(check, root, output, *, runtime_home=None, model_ports=None, python=None, python_roots=None, spec=None):
+def execute_check(check, root, output, *, runtime_home=None, model_ports=None, python=None, python_roots=None, spec=None, cancel=None):
     check = check if isinstance(check, CheckSpec) else CheckSpec.model_validate(check)
     endpoints = model_ports if check.kind == "codex_smoke" else []
     with model_network(endpoints) if check.kind == "codex_smoke" else nullcontext(([], {})) as (ports, proxy):
-        return _execute_check(check, root, output, runtime_home=runtime_home, model_ports=ports, model_proxy=proxy, model_endpoints=endpoints, python=python, python_roots=python_roots, spec=spec)
+        return _execute_check(check, root, output, runtime_home=runtime_home, model_ports=ports, model_proxy=proxy, model_endpoints=endpoints, python=python, python_roots=python_roots, spec=spec, cancel=cancel)
 
 
-def _execute_check(check, root, output, *, runtime_home=None, model_ports=None, model_proxy=None, model_endpoints=None, python=None, python_roots=None, spec=None):
+def _execute_check(check, root, output, *, runtime_home=None, model_ports=None, model_proxy=None, model_endpoints=None, python=None, python_roots=None, spec=None, cancel=None):
     check = check if isinstance(check, CheckSpec) else CheckSpec.model_validate(check)
     root = Path(root).resolve()
     output = Path(output)
@@ -208,6 +208,8 @@ def _execute_check(check, root, output, *, runtime_home=None, model_ports=None, 
     started = time.monotonic()
     before = snapshot(root)
     try:
+        if cancel is not None and cancel.is_set():
+            raise BuildMasError("check_cancelled", "Verification was cancelled before execution")
         if check.kind == "artifact":
             path = relative_file(root, check.target)
             if not path.is_file():
@@ -263,7 +265,10 @@ def _execute_check(check, root, output, *, runtime_home=None, model_ports=None, 
             else:
                 wrapped = sandbox_command(argv, root, temporary, runtime_home=check_runtime_home, model_ports=check_model_ports, python_roots=python_roots)
             process = subprocess.Popen(wrapped, cwd=root, env=environment, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, start_new_session=True)
-            stdout, error = bounded_output(process, timeout=check.timeout_seconds)
+            stdout, error = bounded_output(process, timeout=check.timeout_seconds, cancel=cancel)
+            if error == "cancelled":
+                record["status"] = "blocked"
+                record["error"] = {"code": "check_cancelled", "message": "Verification process group was stopped after cancellation"}
             if error == "timeout":
                 record["status"] = "blocked"
                 record["error"] = {"code": "check_timeout", "message": "Check exceeded timeout and its process group was stopped"}
@@ -316,7 +321,7 @@ def _execute_check(check, root, output, *, runtime_home=None, model_ports=None, 
     return record
 
 
-def verify_project(spec, root, output, *, runtime_home=None, model_ports=None, defer_live=False, python=None, python_roots=None):
+def verify_project(spec, root, output, *, runtime_home=None, model_ports=None, defer_live=False, python=None, python_roots=None, cancel=None):
     records = []
     try:
         skills = structure_check(spec, root)
@@ -330,7 +335,7 @@ def verify_project(spec, root, output, *, runtime_home=None, model_ports=None, d
         elif defer_live and check.kind == "codex_smoke":
             records.append({"id": check.id, "kind": check.kind, "required": check.required, "status": "pending_approval", "exit_code": None, "reason": "Exact generated code must be reviewed before it can receive Codex authentication"})
         else:
-            records.append(execute_check(check, root, output, runtime_home=runtime_home, model_ports=model_ports, python=python, python_roots=python_roots, spec=spec))
+            records.append(execute_check(check, root, output, runtime_home=runtime_home, model_ports=model_ports, python=python, python_roots=python_roots, spec=spec, cancel=cancel))
     required = [record for record in records if record["required"]]
     if not required:
         status = "blocked"

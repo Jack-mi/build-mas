@@ -16,6 +16,7 @@
     "status": {
       "enum": [
         "completed",
+        "running",
         "partial",
         "failed",
         "blocked",

@@ -1,10 +1,13 @@
-"""One application service shared by CLI, MCP, and thin host adapters."""
+"""Shared workflow service; transport adapters never confer authority."""
 
 import asyncio
 import difflib
 import json
 import os
 import time
+import threading
+from contextlib import contextmanager
+from contextvars import ContextVar
 from pathlib import Path
 
 from .contracts import ApplyRequest, ArchitectResult, ArchitectureSpec, Budget, IntakeEnvelope, validate
@@ -16,6 +19,9 @@ from .store import Store, atomic_json, digest, identifier
 from .target import scaffold, staged_changes
 from .verify import verify_project, verification_python
 from .workspace import copy_workspace, discover, snapshot, transaction_apply, validate_changes
+
+_observer = ContextVar("buildmas_observer", default=None)
+_verification_cancel = ContextVar("buildmas_verification_cancel", default=None)
 
 ARCHITECT_INSTRUCTIONS = """You are build-mas, an architecture and implementation advisor for agentic workflows.
 Return the requested structured result, grounded in the actual workspace evidence.
@@ -147,15 +153,42 @@ class BuildService:
         return session
 
     def emit(self, run_id, kind, **fields):
+        try:
+            record = self.store.read("runs", run_id)
+        except BuildMasError as exc:
+            if exc.code != "not_found":
+                raise
+        else:
+            record["updated_at"] = time.time()
+            record["stage_sequence"] = record.get("stage_sequence", 0) + 1
+            fields = {**fields, "stage_sequence": record["stage_sequence"]}
+            if kind in {"operation_started", "discovery_completed", "architecture_started", "construction_started", "verification_started", "application_started", "repair_started", "operation_finished"}:
+                record["last_stage"] = kind
+            if "tokens" in fields:
+                record["usage"] = {"tokens": fields["tokens"], "turns": fields.get("turns", 0)}
+            self.store.write("runs", run_id, record)
         self.store.event(run_id, kind, **fields)
-        self.progress(kind, run_id=run_id, **fields)
+        for observer in (self.progress, _observer.get()):
+            if observer:
+                try:
+                    observer(kind, run_id=run_id, **fields)
+                except Exception:
+                    pass
+
+    @contextmanager
+    def observe(self, callback):
+        token = _observer.set(callback)
+        try:
+            yield
+        finally:
+            _observer.reset(token)
 
     def runtime(self, run_id, budget):
         return self.runtime_factory(self.store.home, budget=budget, model=self.model, event=lambda kind, **fields: self.emit(run_id, kind, **fields))
 
     def run_start(self, operation, session, **fields):
         run_id = identifier("run")
-        record = {"id": run_id, "session_id": session["id"], "workspace_id": session["workspace_id"], "operation": operation, "status": "running", "started_at": time.time(), "owner_pid": os.getpid(), **fields}
+        record = {"record_version": "0.4", "id": run_id, "session_id": session["id"], "workspace_id": session["workspace_id"], "operation": operation, "status": "running", "started_at": time.time(), "owner_pid": os.getpid(), **fields}
         self.store.write("runs", run_id, record)
         session["runs"].append(run_id)
         self.store.write("sessions", session["id"], session)
@@ -169,7 +202,11 @@ class BuildService:
         if has_secret(json.dumps(result, ensure_ascii=False)):
             result = operation_result(result["operation"], run_id, {"id": result["session_id"], "workspace_id": result["workspace_id"]}, status="failed", error={"code": "secret_detected", "message": "Secret-like generated output was rejected"}, summary="Output was not persisted or exposed")
         record = self.store.read("runs", run_id)
+        if not result.get("usage") and record.get("usage"):
+            result = {**result, "usage": record["usage"]}
         record.update(status=result["status"], finished_at=time.time(), result=result)
+        if result.get("usage"):
+            record["usage"] = result["usage"]
         self.store.write("runs", run_id, record)
         self.emit(run_id, "operation_finished", status=result["status"], verification=result.get("verification"))
         return result
@@ -194,16 +231,30 @@ class BuildService:
                 source = original
         python, roots = verification_python(source, spec.verification.python)
         sdk_home, ports = verification_auth(self.store.home, Path(output) / "sdk_runtime") if live else (None, [])
-        return verify_project(spec, root, output, runtime_home=sdk_home, model_ports=ports, defer_live=not live, python=python, python_roots=roots)
+        return verify_project(spec, root, output, runtime_home=sdk_home, model_ports=ports, defer_live=not live, python=python, python_roots=roots, cancel=_verification_cancel.get())
 
     async def checked_verify(self, spec, root, output, *, live=False):
+        relative = Path(root).relative_to(self.store.home) if Path(root).is_relative_to(self.store.home) else None
+        if relative and len(relative.parts) >= 2 and relative.parts[0] in {"staging", "apply_staging"}:
+            self.emit(relative.parts[1], "verification_started")
+        cancel = threading.Event()
+        token = _verification_cancel.set(cancel)
         task = asyncio.create_task(asyncio.to_thread(self.mechanical_verify, spec, root, output, live=live))
         try:
             return await asyncio.shield(task)
         except asyncio.CancelledError:
-            # Keep ownership until the sandboxed subprocess has stopped; cancellation cannot stop a thread.
-            await task
+            cancel.set()
+            # Retain workspace ownership until the process group has actually stopped.
+            while not task.done():
+                try:
+                    await asyncio.shield(task)
+                except asyncio.CancelledError:
+                    continue
+                except Exception:
+                    break
             raise
+        finally:
+            _verification_cancel.reset(token)
 
     def save_spec(self, session, spec):
         spec = spec.model_copy(update={"revision": session["spec_revision"] + 1})
@@ -238,17 +289,18 @@ class BuildService:
         if record.get("result"):
             return record["result"]
         run = self.status(run_id=record["run_id"])
-        return run.get("result") or operation_result(run["operation"], run["id"], {"id": run["session_id"], "workspace_id": run["workspace_id"]}, status="outcome_unknown", summary="This request was already admitted. Reconcile the recorded run; it will not be replayed.", next_safe_action="recover " + run["id"])
+        running = run["status"] == "running" and self.store.owner(run["workspace_id"]) == run["id"]
+        return run.get("result") or operation_result(run["operation"], run["id"], {"id": run["session_id"], "workspace_id": run["workspace_id"]}, status="running" if running else "outcome_unknown", summary="This request was already admitted; it will not be replayed.", next_safe_action="Read original run; recover after ownership ends", recovery_required=not running)
 
     def admit(self, scope, key, request_hash, run_id):
         if key:
             name = "idem_" + digest({"scope": scope, "key": key})[:48]
-            self.store.write("idempotency", name, {"request_hash": request_hash, "run_id": run_id})
+            self.store.write("idempotency", name, {"record_version": "0.4", "request_hash": request_hash, "run_id": run_id})
 
     def cache_result(self, scope, key, request_hash, result):
         if key:
             name = "idem_" + digest({"scope": scope, "key": key})[:48]
-            self.store.write("idempotency", name, {"request_hash": request_hash, "run_id": result["run_id"]})
+            self.store.write("idempotency", name, {"record_version": "0.4", "request_hash": request_hash, "run_id": result["run_id"]})
 
     async def invoke(self, value):
         envelope = validate(IntakeEnvelope, value)
@@ -258,6 +310,9 @@ class BuildService:
             raise BuildMasError("secret_detected", "Secret-like request content was rejected before persistence")
         workspace = self.workspace(envelope.workspace_id)
         request_hash = digest(envelope.model_dump(mode="json"))
+        cached = self.cached("invoke_" + envelope.workspace_id, envelope.idempotency_key, request_hash)
+        if cached:
+            return cached
         with self.store.lock(envelope.workspace_id):
             cached = self.cached("invoke_" + envelope.workspace_id, envelope.idempotency_key, request_hash)
             if cached:
@@ -280,6 +335,7 @@ class BuildService:
                 context = {"request": envelope.model_dump(mode="json"), "profile": profile, "materials": materials, "current_spec": current_spec.model_dump(mode="json") if current_spec else None, "architecture_json_schema": ArchitectureSpec.model_json_schema(), "sdk_capabilities": sdk_capabilities(), "contract_instruction": "spec_json must encode an object matching architecture_json_schema exactly; use its actual field names and no invented aliases."}
                 self.emit(run_id, "discovery_completed", source_runtime=profile["source_runtime"], files=len(profile["files"]))
                 async with self.runtime(run_id, envelope.constraints.budget) as runtime:
+                    self.emit(run_id, "architecture_started")
                     thread = await runtime.thread(stage, ARCHITECT_INSTRUCTIONS, thread_id=session.get("thread_id"))
                     session["thread_id"] = thread.id
                     self.store.write("sessions", session["id"], session)
@@ -354,6 +410,7 @@ class BuildService:
             return result
 
     async def prepare(self, runtime, envelope, session, run_id, stage, spec, baseline, operation, summary):
+        self.emit(run_id, "construction_started")
         before = snapshot(stage)
         if spec.runtime.action in {"new", "migrate"}:
             scaffold(stage, spec)
@@ -445,6 +502,104 @@ class BuildService:
         self.store.write("approvals", approval_id, {"id": approval_id, "proposal_id": proposal_id, "proposal_hash": digest(proposal), "actor": actor, "expires_at": time.time() + expires_seconds, "used": False})
         return {"approval_reference": approval_id, "proposal_id": proposal_id, "workspace_id": proposal["workspace_id"], "expected_spec_revision": proposal["spec_revision"], "expected_workspace_snapshot": proposal["workspace_snapshot"]["sha256"]}
 
+    def public_apply(self, value, *, review_owner=None):
+        """Admit the public identity before asking; approval handles are private."""
+        from .mcp_contracts import PublicApplyRequest
+
+        request = validate(PublicApplyRequest, value)
+        proposal = self.store.read("proposals", request.proposal_id)
+        workspace_id = proposal["workspace_id"]
+        name = "apply_" + digest({"workspace": workspace_id, "key": request.idempotency_key})[:48]
+        try:
+            existing = self.store.read("apply_requests", name)
+        except BuildMasError as exc:
+            if exc.code != "not_found":
+                raise
+        else:
+            if existing["proposal_id"] != request.proposal_id:
+                raise BuildMasError("idempotency_conflict", "Idempotency key names a different proposal")
+            if existing["phase"] == "reviewing" and existing.get("review_owner") != review_owner:
+                raise BuildMasError("review_restarted", "Server restarted during review; use a new key and review every page again", details={"run_id": existing["run_id"]})
+            return existing
+        with self.store.lock(workspace_id):
+            try:
+                record = self.store.read("apply_requests", name)
+            except BuildMasError as exc:
+                if exc.code != "not_found":
+                    raise
+            else:
+                if record["proposal_id"] != request.proposal_id:
+                    raise BuildMasError("idempotency_conflict", "Idempotency key names a different proposal")
+                return record
+            legacy_name = "idem_" + digest({"scope": "apply_" + workspace_id, "key": request.idempotency_key})[:48]
+            try:
+                legacy = self.store.read("idempotency", legacy_name)
+            except BuildMasError as exc:
+                if exc.code != "not_found":
+                    raise
+            else:
+                run = self.store.read("runs", legacy["run_id"])
+                if run.get("workspace_id") != workspace_id or run.get("proposal_id") != request.proposal_id or run.get("operation") != "apply":
+                    raise BuildMasError("recovery_required", "Legacy request cannot be safely associated; inspect its recorded run", details={"run_id": legacy["run_id"]})
+                return {"id": name, "proposal_id": request.proposal_id, "run_id": run["id"], "phase": "executing"}
+            if proposal["status"] != "prepared":
+                raise BuildMasError("stale_proposal", "Only an unapplied proposal can start a new request")
+            session = self.session(proposal["session_id"], workspace_id)
+            run_id = self.run_start("apply", session, proposal_id=proposal["id"], before_snapshot=proposal["workspace_snapshot"]["sha256"])
+            self.store.write("runs", run_id, {**self.store.read("runs", run_id), "status": "approval_required"})
+            record = {"record_version": "0.4", "id": name, "workspace_id": workspace_id, "proposal_id": proposal["id"], "run_id": run_id, "key": request.idempotency_key, "proposal_hash": digest(proposal), "spec_revision": proposal["spec_revision"], "snapshot": proposal["workspace_snapshot"]["sha256"], "review_id": identifier("review"), "review_owner": review_owner, "offset": 0, "expires_at": time.time() + 900, "phase": "reviewing"}
+            return self.store.write("apply_requests", name, record)
+
+    def public_apply_result(self, record):
+        if record["phase"] == "reviewing":
+            return None
+        run = self.status(run_id=record["run_id"])
+        if run.get("result"):
+            return run["result"]
+        running = self.store.owner(run["workspace_id"]) == run["id"]
+        return operation_result("apply", run["id"], {"id": run["session_id"], "workspace_id": run["workspace_id"]}, status="running" if running else "outcome_unknown", summary="This request was admitted; no actions will be replayed", next_safe_action="Read original run; recover only after ownership ends")
+
+    def review_page(self, record):
+        proposal = self.store.read("proposals", record["proposal_id"])
+        if time.time() >= record["expires_at"]:
+            raise BuildMasError("approval_expired", "Review expired; use a new idempotency key")
+        if digest(proposal) != record["proposal_hash"]:
+            raise BuildMasError("stale_proposal", "Proposal changed while it was being reviewed")
+        return self.read("proposals", record["proposal_id"], offset=record["offset"], limit=50000)
+
+    def finish_public_review(self, record, *, accepted, next_offset):
+        with self.store.lock(record["workspace_id"]):
+            current = self.store.read("apply_requests", record["id"])
+            if current["phase"] != "reviewing" or current["review_id"] != record["review_id"] or current["offset"] != record["offset"]:
+                raise BuildMasError("review_state_conflict", "Review was already advanced or consumed")
+            page = self.review_page(current)
+            if page["next_offset"] != next_offset:
+                raise BuildMasError("review_state_conflict", "Review must cover every page in order")
+            if not accepted:
+                result = operation_result("apply", current["run_id"], self.store.read("sessions", self.store.read("proposals", current["proposal_id"])["session_id"]), status="failed", summary="User declined; target unchanged", error={"code": "permission_denied", "message": "User did not approve this proposal"})
+                self.run_finish(current["run_id"], result)
+                current["phase"] = "finished"
+            elif next_offset is not None:
+                current["offset"] = next_offset
+            else:
+                current["approved"] = self.approve(current["proposal_id"], actor="mcp_elicitation", expected_proposal_hash=current["proposal_hash"])
+                current["phase"] = "executing"
+                run = self.store.read("runs", current["run_id"])
+                self.store.write("runs", run["id"], {**run, "status": "running"})
+            return self.store.write("apply_requests", current["id"], current)
+
+    def fail_public_apply(self, record, error):
+        if self.store.owner(record["workspace_id"]) is not None:
+            return
+        with self.store.lock(record["workspace_id"]):
+            current = self.store.read("apply_requests", record["id"])
+            if current["phase"] == "finished" or self.store.read("runs", current["run_id"]).get("result"):
+                return
+            run = self.store.read("runs", current["run_id"])
+            self.run_finish(run["id"], operation_result("apply", run["id"], {"id": run["session_id"], "workspace_id": run["workspace_id"]}, status="approval_required" if error.code == "approval_channel_unavailable" else "failed", error=error.as_dict(), summary=error.message))
+            current["phase"] = "finished"
+            self.store.write("apply_requests", current["id"], current)
+
     async def recover(self, previous_run_id):
         previous = self.status(run_id=previous_run_id)
         workspace = self.workspace(previous["workspace_id"])
@@ -524,9 +679,13 @@ class BuildService:
             result = operation_result("recover", run_id, session, status="approval_required", summary="Candidate recovered without regenerating code; offline checks complete, live checks require approval", proposal_id=proposal_id, verification=report["status"], checks=report["checks"], expected_workspace_snapshot=baseline["sha256"])
         return self.run_finish(run_id, result)
 
-    async def apply(self, value):
+    async def apply(self, value, *, admitted_run_id=None):
         request = validate(ApplyRequest, value)
         workspace = self.workspace(request.workspace_id)
+        request_hash = digest(request.model_dump(mode="json"))
+        cached = self.cached("apply_" + request.workspace_id, request.idempotency_key, request_hash)
+        if cached:
+            return cached
         with self.store.lock(request.workspace_id):
             request_hash = digest(request.model_dump(mode="json"))
             cached = self.cached("apply_" + request.workspace_id, request.idempotency_key, request_hash)
@@ -549,7 +708,14 @@ class BuildService:
             if digest(spec.model_dump(mode="json")) != proposal["spec_hash"]:
                 raise BuildMasError("stale_revision", "Spec contents no longer match proposal")
             validate_changes(workspace["root"], proposal["changes"], proposal["write_roots"])
-            run_id = self.run_start("apply", session, proposal_id=proposal["id"], before_snapshot=request.expected_workspace_snapshot)
+            run_id = admitted_run_id or self.run_start("apply", session, proposal_id=proposal["id"], before_snapshot=request.expected_workspace_snapshot)
+            if admitted_run_id:
+                record = self.store.read("runs", run_id)
+                if record["workspace_id"] != request.workspace_id or record.get("proposal_id") != proposal["id"] or record["status"] != "running" or record.get("result"):
+                    raise BuildMasError("invalid_admission", "Apply admission does not match this proposal")
+                self.store.write("runs", run_id, {**record, "status": "running"})
+                self.store.mark_owner(request.workspace_id, run_id)
+            self.emit(run_id, "application_started")
             self.admit("apply_" + request.workspace_id, request.idempotency_key, request_hash, run_id)
             approval["used"] = True
             self.store.write("approvals", approval["id"], approval)
@@ -603,6 +769,7 @@ class BuildService:
             if spec is None:
                 raise BuildMasError("spec_missing", "Session has no architecture spec")
             run_id = self.run_start("verify", session)
+            self.emit(run_id, "verification_started")
             try:
                 applied = [self.store.read("runs", name) for name in session["runs"] if name != run_id]
                 current = snapshot(workspace["root"])["sha256"]
@@ -629,8 +796,17 @@ class BuildService:
         return {**session, "latest_run": self.status(run_id=session["runs"][-1]) if session["runs"] else None}
 
     def read(self, category, reference, *, offset=0, limit=12000):
-        if category not in {"specs", "proposals", "runs", "sessions"} or offset < 0 or not 1 <= limit <= 50000:
+        if category not in {"specs", "proposals", "runs", "sessions", "events"} or offset < 0 or not 1 <= limit <= 50000:
             raise BuildMasError("invalid_input", "Invalid read category or bounds")
+        if category == "events":
+            self.store.read("runs", reference)
+            path = self.store.path("events", reference).with_suffix(".jsonl")
+            if path.is_symlink():
+                raise BuildMasError("unsafe_state_path", "Event log must not be a symlink")
+            content = path.read_text() if path.exists() else ""
+            if offset > len(content):
+                raise BuildMasError("invalid_input", "Offset exceeds event record length")
+            return {"content": content[offset:offset + limit], "next_offset": offset + limit if offset + limit < len(content) else None, "reference": reference}
         value = self.store.read(category, reference)
         if category == "proposals":
             diff = value.get("diff")
@@ -639,7 +815,10 @@ class BuildService:
                 if snapshot(root)["sha256"] != value["workspace_snapshot"]["sha256"]:
                     raise BuildMasError("workspace_conflict", "Old proposal has no frozen diff; current target cannot reconstruct it safely")
                 diff = self.proposal_diff(value["workspace_snapshot"], value["changes"])
-            value = {key: item for key, item in value.items() if key != "changes"}
-            value["diff"] = diff
+            value = {key: value[key] for key in ("id", "workspace_id", "session_id", "spec_revision", "status", "operation", "write_roots") if key in value}
+            proposal = self.store.read("proposals", reference)
+            value.update(diff=diff, workspace_snapshot=proposal["workspace_snapshot"]["sha256"], verification=proposal.get("verification", {}).get("status"), checks=[{key: check[key] for key in ("id", "kind", "status", "required") if key in check} for check in proposal.get("verification", {}).get("checks", [])])
         content = json.dumps(value, ensure_ascii=False, indent=2)
+        if offset > len(content):
+            raise BuildMasError("invalid_input", "Offset exceeds record length")
         return {"content": content[offset:offset + limit], "next_offset": offset + limit if offset + limit < len(content) else None, "reference": reference}

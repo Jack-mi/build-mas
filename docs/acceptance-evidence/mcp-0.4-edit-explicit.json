@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-09",
+  "model_override": "gpt-6.1-sol",
+  "scope": "real SDK candidate build/edit; no user approval or target application",
+  "cases": [
+    {
+      "case": "existing_sdk",
+      "result": {
+        "api_version": "0.4",
+        "status": "failed",
+        "operation": "edit",
+        "workspace_id": "ws_9f53e5959817f89d084cfebb",
+        "session_id": "ses_de29ef93bc622d98842ec89a",
+        "run_id": "run_cd39a4fedf5ef9918cac78b4",
+        "spec_revision": 1,
+        "summary": "Builder made no actual changes",
+        "verification": "not_run",
+        "changed_files": [],
+        "proposed_files": [],
+        "checks_summary": {},
+        "questions": [],
+        "unresolved": [],
+        "assumptions": [],
+        "references": [
+          {
+            "category": "runs",
+            "reference": "run_cd39a4fedf5ef9918cac78b4"
+          },
+          {
+            "category": "events",
+            "reference": "run_cd39a4fedf5ef9918cac78b4"
+          },
+          {
+            "category": "sessions",
+            "reference": "ses_de29ef93bc622d98842ec89a"
+          },
+          {
+            "category": "specs",
+            "reference": "ses_de29ef93bc622d98842ec89a_r1"
+          }
+        ],
+        "omitted": {},
+        "error": {
+          "code": "empty_proposal",
+          "message": "Builder made no actual changes",
+          "details": {}
+        },
+        "usage": {
+          "tokens": 187015,
+          "turns": 5
+        },
+        "models": []
+      },
+      "architecture": {
+        "runtime": {
+          "source": "codex_sdk",
+          "target": "codex_sdk",
+          "action": "reuse",
+          "migration_notes": [],
+          "parity_claim": "not_applicable"
+        },
+        "agent_count": 1,
+        "single_agent_sufficient": true,
+        "required_checks": [
+          "unittest"
+        ]
+      },
+      "target_unchanged": true,
+      "duration_seconds": 107.2
+    }
+  ]
+}

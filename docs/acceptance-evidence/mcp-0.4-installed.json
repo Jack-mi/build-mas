@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-09",
+  "version": "0.4.0",
+  "wheel_sha256": "f5f7db57090206f5b50592fb9471789364360f85519361326989d005ae5c440d",
+  "package_files": 30,
+  "schema_count": 9,
+  "no_builder_cli": true,
+  "no_console_entrypoints": true,
+  "package_matches_source": true,
+  "independent_suite": {
+    "passed": 164,
+    "subtests": 6,
+    "duration_seconds": 19.01
+  },
+  "host_matrix": {
+    "codex": "adapter/launcher checked; current real UI approval/login pending",
+    "claude_code": "adapter checked; current host commissioning pending",
+    "opencode": "config checked; current host commissioning pending"
+  },
+  "source_suite": {
+    "passed": 164,
+    "subtests": 6,
+    "duration_seconds": 19.09
+  },
+  "local_private_install": {
+    "version": "0.4.0",
+    "state_preserved": true,
+    "console_entrypoints": 0,
+    "package_files_match_source": 30
+  },
+  "codex_plugin": {
+    "version": "0.4.0",
+    "manifest_config_launcher_skill_match_source": true,
+    "human_ui_approval": "not_run",
+    "identity_login": "not_run",
+    "actual_host_preflight_register": "completed"
+  },
+  "actual_plugin_launcher": {
+    "tool_count": 10,
+    "all_descriptions_schemas": true,
+    "registration": "completed",
+    "target_unchanged": true
+  }
+}

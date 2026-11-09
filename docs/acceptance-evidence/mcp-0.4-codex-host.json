@@ -1,0 +1,103 @@
+{
+  "date": "2026-11-09",
+  "host": "Codex ephemeral noninteractive client",
+  "plugin_version": "0.4.0",
+  "exit_code": 0,
+  "target_unchanged": true,
+  "calls": [
+    {
+      "id": "item_1",
+      "type": "mcp_tool_call",
+      "server": "buildmas",
+      "tool": "buildmas_preflight",
+      "arguments": {},
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"api_version\": \"0.4\", \"status\": \"ready\", \"changed_files\": [], \"proposed_files\": [], \"checks_summary\": {}, \"questions\": [], \"unresolved\": [], \"assumptions\": [], \"references\": [], \"omitted\": {}, \"versions\": {\"openai-codex\": \"0.167.0\", \"openai-codex-cli-bin\": \"0.167.0\"}, \"models\": [\"gpt-6.1-sol\", \"gpt-6-astra\", \"gpt-6-sol\", \"gpt-6-luna\", \"gpt-5.6-sol\", \"gpt-6.1-terra\", \"gpt-5.6-terra\", \"gpt-5.6-luna\", \"gpt-5.5\"], \"account_present\": true, \"sdk_managed_runtime\": true, \"capabilities\": {\"apply_exposed\": true, \"form_elicitation\": true, \"url_elicitation\": true, \"progress\": false, \"protocol_version\": \"2025-06-18\", \"human_approval_verified\": false}}"
+          }
+        ],
+        "structured_content": {
+          "api_version": "0.4",
+          "status": "ready",
+          "changed_files": [],
+          "proposed_files": [],
+          "checks_summary": {},
+          "questions": [],
+          "unresolved": [],
+          "assumptions": [],
+          "references": [],
+          "omitted": {},
+          "versions": {
+            "openai-codex": "0.167.0",
+            "openai-codex-cli-bin": "0.167.0"
+          },
+          "models": [
+            "gpt-6.1-sol",
+            "gpt-6-astra",
+            "gpt-6-sol",
+            "gpt-6-luna",
+            "gpt-5.6-sol",
+            "gpt-6.1-terra",
+            "gpt-5.6-terra",
+            "gpt-5.6-luna",
+            "gpt-5.5"
+          ],
+          "account_present": true,
+          "sdk_managed_runtime": true,
+          "capabilities": {
+            "apply_exposed": true,
+            "form_elicitation": true,
+            "url_elicitation": true,
+            "progress": false,
+            "protocol_version": "2025-06-18",
+            "human_approval_verified": false
+          }
+        }
+      },
+      "error": null,
+      "status": "completed"
+    },
+    {
+      "id": "item_2",
+      "type": "mcp_tool_call",
+      "server": "buildmas",
+      "tool": "buildmas_register",
+      "arguments": {
+        "path": "<temp-root>/buildmas-040-host-f394xc40/project"
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"api_version\": \"0.4\", \"status\": \"completed\", \"id\": \"ws_47e8c295addf3f30815f1b94\", \"workspace_id\": \"ws_47e8c295addf3f30815f1b94\", \"changed_files\": [], \"proposed_files\": [], \"checks_summary\": {}, \"questions\": [], \"unresolved\": [], \"assumptions\": [], \"references\": [], \"omitted\": {}, \"root\": \"<temp-root>/buildmas-040-host-f394xc40/project\", \"registered_at\": 1794193681.789657, \"models\": []}"
+          }
+        ],
+        "structured_content": {
+          "api_version": "0.4",
+          "status": "completed",
+          "id": "ws_47e8c295addf3f30815f1b94",
+          "workspace_id": "ws_47e8c295addf3f30815f1b94",
+          "changed_files": [],
+          "proposed_files": [],
+          "checks_summary": {},
+          "questions": [],
+          "unresolved": [],
+          "assumptions": [],
+          "references": [],
+          "omitted": {},
+          "root": "<temp-root>/buildmas-040-host-f394xc40/project",
+          "registered_at": 1794193681.789657,
+          "models": []
+        }
+      },
+      "error": null,
+      "status": "completed"
+    }
+  ],
+  "scope": "actual Codex ephemeral host preflight/register only; no identity or apply",
+  "human_approval": "not_run",
+  "identity_login": "not_run",
+  "unrelated_mcp_startup_warnings": true
+}

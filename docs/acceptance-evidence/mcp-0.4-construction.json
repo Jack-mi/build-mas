@@ -1,0 +1,188 @@
+{
+  "date": "2026-11-09",
+  "model_override": "gpt-6.1-sol",
+  "scope": "real SDK candidate build/edit; no user approval or target application",
+  "cases": [
+    {
+      "case": "new_single",
+      "result": {
+        "api_version": "0.4",
+        "status": "approval_required",
+        "operation": "build",
+        "workspace_id": "ws_7f6f3b5b4286962bd4cd025d",
+        "session_id": "ses_0c68840f882be143d148b301",
+        "run_id": "run_c0443b7409d6eaa5897c97d4",
+        "proposal_id": "prop_ec4ece7f5520ccab78447a31",
+        "spec_revision": 1,
+        "summary": "Candidate prepared; target unchanged. Corrected the verification configuration to use the host-selected Python interpreter. Proposal only; no files changed or live checks run.",
+        "verification": "pending_live",
+        "changed_files": [],
+        "proposed_files": [
+          {
+            "path": "README.md",
+            "action": "write"
+          },
+          {
+            "path": "__init__.py",
+            "action": "write"
+          },
+          {
+            "path": "architecture.json",
+            "action": "write"
+          },
+          {
+            "path": "execution.py",
+            "action": "write"
+          },
+          {
+            "path": "mcp_server.py",
+            "action": "write"
+          },
+          {
+            "path": "pyproject.toml",
+            "action": "write"
+          },
+          {
+            "path": "request.json",
+            "action": "write"
+          },
+          {
+            "path": "tests/test_workflow.py",
+            "action": "write"
+          },
+          {
+            "path": "tool_server.py",
+            "action": "write"
+          },
+          {
+            "path": "workflow.py",
+            "action": "write"
+          }
+        ],
+        "checks_summary": {
+          "passed": 6,
+          "pending_approval": 1
+        },
+        "questions": [],
+        "unresolved": [],
+        "assumptions": [],
+        "references": [
+          {
+            "category": "runs",
+            "reference": "run_c0443b7409d6eaa5897c97d4"
+          },
+          {
+            "category": "events",
+            "reference": "run_c0443b7409d6eaa5897c97d4"
+          },
+          {
+            "category": "sessions",
+            "reference": "ses_0c68840f882be143d148b301"
+          },
+          {
+            "category": "proposals",
+            "reference": "prop_ec4ece7f5520ccab78447a31"
+          },
+          {
+            "category": "specs",
+            "reference": "ses_0c68840f882be143d148b301_r1"
+          }
+        ],
+        "omitted": {},
+        "next_safe_action": "Review exact files and declared checks. Approval permits scoped live SDK execution in isolation before target application.",
+        "usage": {
+          "turns": 5,
+          "tokens": 372775
+        },
+        "models": []
+      },
+      "architecture": {
+        "runtime": {
+          "source": "none",
+          "target": "codex_sdk",
+          "action": "new",
+          "migration_notes": [],
+          "parity_claim": "not_applicable"
+        },
+        "agent_count": 1,
+        "single_agent_sufficient": true,
+        "required_checks": [
+          "artifact",
+          "artifact",
+          "compile",
+          "import",
+          "unittest",
+          "codex_smoke"
+        ]
+      },
+      "target_unchanged": true,
+      "duration_seconds": 196.12
+    },
+    {
+      "case": "existing_sdk",
+      "result": {
+        "api_version": "0.4",
+        "status": "failed",
+        "operation": "edit",
+        "workspace_id": "ws_4193605c32dbf7908deecf6f",
+        "session_id": "ses_60765f560ffce8b1a97bf1e5",
+        "run_id": "run_87f7596f6d28fd856fd001c4",
+        "spec_revision": 1,
+        "summary": "Candidate did not pass verification; no target changes applied",
+        "verification": "failed",
+        "changed_files": [],
+        "proposed_files": [],
+        "checks_summary": {
+          "passed": 1,
+          "failed": 1
+        },
+        "questions": [],
+        "unresolved": [],
+        "assumptions": [],
+        "references": [
+          {
+            "category": "runs",
+            "reference": "run_87f7596f6d28fd856fd001c4"
+          },
+          {
+            "category": "events",
+            "reference": "run_87f7596f6d28fd856fd001c4"
+          },
+          {
+            "category": "sessions",
+            "reference": "ses_60765f560ffce8b1a97bf1e5"
+          },
+          {
+            "category": "specs",
+            "reference": "ses_60765f560ffce8b1a97bf1e5_r1"
+          }
+        ],
+        "omitted": {},
+        "usage": {
+          "turns": 7,
+          "tokens": 185301
+        },
+        "models": []
+      },
+      "architecture": {
+        "runtime": {
+          "source": "codex_sdk",
+          "target": "codex_sdk",
+          "action": "reuse",
+          "migration_notes": [
+            "Preserve workflow.py byte-for-byte; its current identity coroutine does not invoke the SDK or normalizer."
+          ],
+          "parity_claim": "unverified"
+        },
+        "agent_count": 1,
+        "single_agent_sufficient": true,
+        "required_checks": [
+          "unittest"
+        ]
+      },
+      "target_unchanged": true,
+      "duration_seconds": 122.42
+    }
+  ],
+  "default_edit_failure": "Generated unittest pattern normalizer discovered zero tests; verification rejected it after bounded repairs; target stayed unchanged."
+}

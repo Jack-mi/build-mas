@@ -35,7 +35,7 @@ remain pinned to `0.167.0`. No private SDK API is used for policy enforcement.
 RICH [explicit confirmation](https://github.com/ant-design/x/blob/8b76d6a22067945c5d224c02ee1448dfb30144ff/packages/x/docs/spec/confirm.zh-CN.md#L17)
 guidance applies to visible approvals/states, with no hidden reasoning exposed.
 
-CLI/MCP are core service forms for build-mas itself and its generated workflows.
+Historical 0.2.0: CLI/MCP were core service forms for build-mas itself and its generated workflows. In 0.3.0 the builder CLI is removed; Skill + MCP remains, while generated workflow CLI interfaces are unchanged. See [current migration acceptance](mcp-only-acceptance.md).
 Target plugins, HTTP services, and resident workers are optional, not mandatory
 scaffolds. Single-Agent-first is already enforced and was not redesigned.
 

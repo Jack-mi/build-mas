@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-09",
+  "release": "0.4.0",
+  "scope": "local MCP+Skill implementation; no public publish; real user apply/login not performed",
+  "sha256": {
+    "mcp-0.4-codex-host.json": "bb011f60413bc8f6d24bba90292b42ba3779caedcaa62a6b7706e8f02971bed3",
+    "mcp-0.4-construction.json": "b881afe586031fef69bbf4dd754cc170ece5b01caf1f9200639c11c0b9b57886",
+    "mcp-0.4-edit-explicit.json": "8f16a1ca6a76515a0504480a5240598ff76a8466f1c2a8af8f30f42b437f5d59",
+    "mcp-0.4-installed.json": "261398b4e2ae08dc087a6285043ce5c0cb250eb5d413fbda5ac7ee971d2f30a5",
+    "mcp-0.4-lifecycle-plans.json": "df3ef5e8df1d8de2d74f0196dc63a06e1a7dd54b6369f771b4afaa04ef388e25",
+    "mcp-0.4-live-default.json": "6ee56973978c57c437d753b70f9d8bbe4a54a2e7d1ac9770da84463fbf5e8442",
+    "mcp-0.4-live-explicit.json": "91f199f12832a3c21ec0e9ad389d2c97f73c188cd76e1a5a950a47b518038925"
+  },
+  "limits": [
+    "default CatPaw IDE rejected structured output",
+    "real fresh scoped edit failed zero-test pattern; explicit-path retry failed empty proposal",
+    "Claude Code/OpenCode 0.4 commissioning pending",
+    "human UI approval and identity login pending"
+  ]
+}

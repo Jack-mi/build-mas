@@ -1,0 +1,165 @@
+{
+  "date": "2026-11-09",
+  "fixture": "one-file-read-only-explanation",
+  "installed_package": true,
+  "protocol": "2026-07-28",
+  "tool_count": 9,
+  "all_output_schemas": true,
+  "preflight": {
+    "api_version": "0.4",
+    "status": "ready",
+    "changed_files": [],
+    "proposed_files": [],
+    "checks_summary": {},
+    "questions": [],
+    "unresolved": [],
+    "assumptions": [],
+    "references": [],
+    "omitted": {},
+    "versions": {
+      "openai-codex": "0.167.0",
+      "openai-codex-cli-bin": "0.167.0"
+    },
+    "models": [
+      "gpt-6.1-sol",
+      "gpt-6-astra",
+      "gpt-6-sol",
+      "gpt-6-luna",
+      "gpt-5.6-sol",
+      "gpt-6.1-terra",
+      "gpt-5.6-terra",
+      "gpt-5.6-luna",
+      "gpt-5.5"
+    ],
+    "account_present": true,
+    "sdk_managed_runtime": true,
+    "capabilities": {
+      "apply_exposed": false,
+      "form_elicitation": false,
+      "url_elicitation": false,
+      "progress": false,
+      "protocol_version": "2026-07-28",
+      "human_approval_verified": false
+    }
+  },
+  "invoke": {
+    "api_version": "0.4",
+    "status": "completed",
+    "operation": "explain",
+    "workspace_id": "ws_3ba02e50b13c5c915707a954",
+    "session_id": "ses_e035247b6baee43fef59acc1",
+    "run_id": "run_7862b9478feb9d016529ebc1",
+    "spec_revision": 0,
+    "summary": "workflow.py defines normalize(value), which calls value.strip() and then .upper(), returning the result. For a string, this removes leading and trailing whitespace and converts letters to uppercase: \"  hello  \" becomes \"HELLO\". Loading the file only defines the function; it does not call it. The file contains no imports, agent runtime, model calls, orchestration, or CLI entrypoint. Runtime use elsewhere is unknown.",
+    "verification": "not_run",
+    "changed_files": [],
+    "proposed_files": [],
+    "checks_summary": {},
+    "questions": [],
+    "unresolved": [],
+    "assumptions": [],
+    "references": [
+      {
+        "category": "runs",
+        "reference": "run_7862b9478feb9d016529ebc1"
+      },
+      {
+        "category": "events",
+        "reference": "run_7862b9478feb9d016529ebc1"
+      },
+      {
+        "category": "sessions",
+        "reference": "ses_e035247b6baee43fef59acc1"
+      }
+    ],
+    "omitted": {},
+    "usage": {
+      "turns": 2,
+      "tokens": 53498
+    },
+    "models": []
+  },
+  "repeat_identical": true,
+  "status": {
+    "api_version": "0.4",
+    "status": "completed",
+    "operation": "explain",
+    "id": "run_7862b9478feb9d016529ebc1",
+    "workspace_id": "ws_3ba02e50b13c5c915707a954",
+    "session_id": "ses_e035247b6baee43fef59acc1",
+    "run_id": "run_7862b9478feb9d016529ebc1",
+    "spec_revision": 0,
+    "summary": "workflow.py defines normalize(value), which calls value.strip() and then .upper(), returning the result. For a string, this removes leading and trailing whitespace and converts letters to uppercase: \"  hello  \" becomes \"HELLO\". Loading the file only defines the function; it does not call it. The file contains no imports, agent runtime, model calls, orchestration, or CLI entrypoint. Runtime use elsewhere is unknown.",
+    "verification": "not_run",
+    "changed_files": [],
+    "proposed_files": [],
+    "checks_summary": {},
+    "questions": [],
+    "unresolved": [],
+    "assumptions": [],
+    "references": [
+      {
+        "category": "runs",
+        "reference": "run_7862b9478feb9d016529ebc1"
+      },
+      {
+        "category": "events",
+        "reference": "run_7862b9478feb9d016529ebc1"
+      },
+      {
+        "category": "sessions",
+        "reference": "ses_e035247b6baee43fef59acc1"
+      }
+    ],
+    "omitted": {},
+    "usage": {
+      "turns": 2,
+      "tokens": 53498
+    },
+    "last_stage": "operation_finished",
+    "stage_sequence": 27,
+    "updated_at": 1794193115.144783,
+    "started_at": 1794193096.4645371,
+    "finished_at": 1794193115.143455,
+    "models": []
+  },
+  "progress": [
+    {
+      "sequence": 1.0,
+      "message": "run_7862b9478feb9d016529ebc1: Request admitted"
+    },
+    {
+      "sequence": 2.0,
+      "message": "run_7862b9478feb9d016529ebc1: Workspace inspected"
+    },
+    {
+      "sequence": 3.0,
+      "message": "run_7862b9478feb9d016529ebc1: Designing architecture"
+    },
+    {
+      "sequence": 8.0,
+      "message": "run_7862b9478feb9d016529ebc1: Codex turn active"
+    },
+    {
+      "sequence": 16.0,
+      "message": "run_7862b9478feb9d016529ebc1: Codex turn active"
+    },
+    {
+      "sequence": 22.0,
+      "message": "run_7862b9478feb9d016529ebc1: Codex turn active"
+    },
+    {
+      "sequence": 23.0,
+      "message": "run_7862b9478feb9d016529ebc1: Codex turn active"
+    },
+    {
+      "sequence": 27.0,
+      "message": "run_7862b9478feb9d016529ebc1: Operation finished"
+    }
+  ],
+  "event_count": 27,
+  "target_unchanged": true,
+  "duration_seconds": 20.29,
+  "model_override": "gpt-6.1-sol",
+  "global_configuration_changed": false
+}

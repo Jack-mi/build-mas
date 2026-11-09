@@ -1,7 +1,7 @@
 # Product Positioning
 
 Current definition: 2026-11-09. This document describes the agreed product and
-distinguishes it from the service forms implemented in version 0.2.0.
+distinguishes it from the service forms implemented in version 0.4.0.
 
 ## One-Sentence Definition
 
@@ -38,7 +38,7 @@ or selected host conversation. The current material adapters normalize and
 bound these inputs; arbitrary file formats and automatic full-chat access are
 not promised.
 
-The interaction can be conversational or an explicit CLI/MCP operation. A
+The interaction can be conversational or an explicit MCP operation. A
 session preserves the workspace, versioned ArchitectureSpec, and run history,
 so a later request can change one part rather than restart the entire build.
 
@@ -46,11 +46,11 @@ so a later request can change one part rather than restart the entire build.
 
 | Layer | Responsibility | Current implementation |
 | --- | --- | --- |
-| Host integration | Make the capability available where the user works | CLI, stdio MCP, Codex/Claude Code plugins, OpenCode V2 MCP/instructions |
+| Host integration | Make the capability available where the user works | Skill + stdio MCP, Codex/Claude Code plugins, OpenCode V2 MCP/instructions; no builder CLI or hooks |
 | Construction core | Architecture, proposals, approval, editing, and verification | One shared BuildService using the Codex SDK |
 | User's target system | Perform the user's domain task independently | Standalone Codex SDK workflow with library, CLI, and task-level MCP |
 
-The builder itself is a CLI/MCP product, not a Skill-only package. A Skill or
+The builder itself is an MCP service, not a Skill-only package. A Skill or
 plugin is a thin discovery/invocation adapter, not a duplicate builder or an
 alternative target Agent runtime.
 
@@ -100,7 +100,7 @@ interfaces or unverified deployment targets into shipped features.
 ## Owning Sources
 
 The current implementation is defined by `service.py`, `router.py`,
-`contracts.py`, the CLI/MCP entrypoints, and the generated templates under
+`contracts.py`, the MCP entrypoint, and the generated templates under
 `src/build_mas`. The [architecture blueprint](build-mas-codex-sdk-blueprint.md)
 and [implementation ledger](implementation-status.md) provide technical scope
 and recorded evidence.

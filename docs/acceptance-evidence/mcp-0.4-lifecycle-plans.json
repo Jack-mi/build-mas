@@ -1,0 +1,193 @@
+{
+  "date": "2026-11-09",
+  "model_override": "gpt-6.1-sol",
+  "scope": "read-only analysis/plans, no user approval or target application",
+  "cases": [
+    {
+      "case": "new_single",
+      "result": {
+        "api_version": "0.4",
+        "status": "completed",
+        "operation": "plan",
+        "workspace_id": "ws_74e134f1eb3e1e40dadfb925",
+        "session_id": "ses_2eb0e48f1af4f78e5cfba84c",
+        "run_id": "run_22191ec8f318e176a5b4d631",
+        "spec_revision": 1,
+        "summary": "Plan one read-only Codex SDK agent that echoes input.value as a JSON string field. Include request.json and required executable checks; preserve keep.txt. Corrected verification.python to null. No files were edited or checks executed.",
+        "verification": "not_run",
+        "changed_files": [],
+        "proposed_files": [],
+        "checks_summary": {},
+        "questions": [],
+        "unresolved": [],
+        "assumptions": [
+          "The value should echo input.value exactly because no other transformation was specified.",
+          "The proposal relies on supplied workspace and SDK evidence; independent inspection and execution have not occurred."
+        ],
+        "references": [
+          {
+            "category": "runs",
+            "reference": "run_22191ec8f318e176a5b4d631"
+          },
+          {
+            "category": "events",
+            "reference": "run_22191ec8f318e176a5b4d631"
+          },
+          {
+            "category": "sessions",
+            "reference": "ses_2eb0e48f1af4f78e5cfba84c"
+          },
+          {
+            "category": "specs",
+            "reference": "ses_2eb0e48f1af4f78e5cfba84c_r1"
+          }
+        ],
+        "omitted": {},
+        "usage": {
+          "turns": 3,
+          "tokens": 65250
+        },
+        "models": []
+      },
+      "architecture": {
+        "runtime": {
+          "source": "none",
+          "target": "codex_sdk",
+          "action": "new",
+          "migration_notes": [],
+          "parity_claim": "not_applicable"
+        },
+        "agent_count": 1,
+        "single_agent_sufficient": true,
+        "required_checks": [
+          "artifact",
+          "artifact",
+          "compile",
+          "import",
+          "unittest",
+          "codex_smoke"
+        ]
+      },
+      "target_unchanged": true,
+      "duration_seconds": 76.47
+    },
+    {
+      "case": "existing_sdk",
+      "result": {
+        "api_version": "0.4",
+        "status": "completed",
+        "operation": "analyze",
+        "workspace_id": "ws_48087f24a52a56ce5412e93c",
+        "session_id": "ses_04018068b4b6ef89b9f6817a",
+        "run_id": "run_ef6f95ac767db167e97cf357",
+        "spec_revision": 0,
+        "summary": "The Codex SDK can be reused for later authorized local edits, but this workflow does not yet invoke it. workflow.py imports AsyncCodex; its only function, async run(value), immediately returns value unchanged. There is no SDK client creation, thread start/resume, model turn, validation, or permission configuration. The supplied SDK capabilities support thread and turn sandbox configuration, so replacement or migration is unnecessary. Actual edit execution and thread reuse remain unverified. No files were changed or replacement prepared.",
+        "verification": "not_run",
+        "changed_files": [],
+        "proposed_files": [],
+        "checks_summary": {},
+        "questions": [],
+        "unresolved": [],
+        "assumptions": [],
+        "references": [
+          {
+            "category": "runs",
+            "reference": "run_ef6f95ac767db167e97cf357"
+          },
+          {
+            "category": "events",
+            "reference": "run_ef6f95ac767db167e97cf357"
+          },
+          {
+            "category": "sessions",
+            "reference": "ses_04018068b4b6ef89b9f6817a"
+          }
+        ],
+        "omitted": {},
+        "usage": {
+          "turns": 2,
+          "tokens": 53307
+        },
+        "models": []
+      },
+      "architecture": {},
+      "target_unchanged": true,
+      "duration_seconds": 19.99
+    },
+    {
+      "case": "other_framework",
+      "result": {
+        "api_version": "0.4",
+        "status": "completed",
+        "operation": "plan",
+        "workspace_id": "ws_be133b55dd71e6022b9a241a",
+        "session_id": "ses_a2cbc27a3fe699ef6af8bdcc",
+        "run_id": "run_5a1298ef33590da7060a3d5b",
+        "spec_revision": 1,
+        "summary": "Preserve run(value) as an identity function and use one read-only Codex SDK agent through a separate workflow entrypoint. Require source-derived golden tests, live SDK smoke, and an old-runtime retirement gate. CrewAI parity remains unverified.",
+        "verification": "not_run",
+        "changed_files": [],
+        "proposed_files": [],
+        "checks_summary": {},
+        "questions": [],
+        "unresolved": [],
+        "assumptions": [
+          "workflow.py is the complete legacy workflow.",
+          "run(value) remains deterministic; SDK execution uses a separate entrypoint.",
+          "No proposed artifacts or checks have been generated or executed."
+        ],
+        "references": [
+          {
+            "category": "runs",
+            "reference": "run_5a1298ef33590da7060a3d5b"
+          },
+          {
+            "category": "events",
+            "reference": "run_5a1298ef33590da7060a3d5b"
+          },
+          {
+            "category": "sessions",
+            "reference": "ses_a2cbc27a3fe699ef6af8bdcc"
+          },
+          {
+            "category": "specs",
+            "reference": "ses_a2cbc27a3fe699ef6af8bdcc_r1"
+          }
+        ],
+        "omitted": {},
+        "usage": {
+          "turns": 3,
+          "tokens": 87033
+        },
+        "models": []
+      },
+      "architecture": {
+        "runtime": {
+          "source": "other",
+          "target": "codex_sdk",
+          "action": "migrate",
+          "migration_notes": [
+            "Remove unused CrewAI import; preserve def run(value): return value unchanged.",
+            "Keep run synchronous and deterministic for arbitrary Python objects. Add execute(request) as the separate SDK workflow entrypoint.",
+            "Use public openai_codex AsyncCodex, threads.start, thread.turn with output_schema, and public turn completion APIs. No invented agent or tool APIs.",
+            "Archive legacy source as inert evidence. Golden fixtures derive from source, not executed CrewAI outputs.",
+            "Remove CrewAI from active imports and dependency declarations if present."
+          ],
+          "parity_claim": "unverified"
+        },
+        "agent_count": 1,
+        "single_agent_sufficient": true,
+        "required_checks": [
+          "artifact",
+          "compile",
+          "unittest",
+          "migration",
+          "codex_smoke"
+        ]
+      },
+      "target_unchanged": true,
+      "duration_seconds": 100.98
+    }
+  ],
+  "all_targets_unchanged": true
+}

@@ -327,48 +327,28 @@ next_safe_action
 usage / duration
 ```
 
-CLI 用 JSON 表达，MCP 返回结构化 content 和资源引用，插件只负责展示。
+MCP 返回 16 KiB 内的结构化摘要、检查状态统计和详情引用；完整 spec/check/run/events 使用 read 分页。Skill/插件只提供调用指导和展示。builder 从 0.3.0 起不再提供 CLI；生成工作流自身的 CLI 保留。
 
 `completed` 只表示请求的操作已完成；是否经过验证必须另看 `verification`。build/apply 只有在必需检查通过后才可以声明“可运行、已验证”。
 
-ApplyRequest 至少包含：
+0.4.0 MCP 的公开 ApplyRequest 仅包含：
 
 ```text
-session_id
 proposal_id
-expected_spec_revision
-expected_workspace_snapshot
-workspace_id
 idempotency_key
-approval_reference?
 ```
+
+内部 ApplyRequest 仍携带 workspace、revision、snapshot 和 approval reference，由服务端在完整真人审批后绑定，宿主模型不得提供这些内部字段。
 
 `approval_reference` 只关联审批证据，本身不证明真人批准；真实授权由宿主 tool policy 和 build-mas 服务端共同检查。
 
-### 8.2 CLI
+### 8.2 MCP 进程入口（0.4.0）
 
-通用入口：
+唯一 builder 进程入口是私有解释器执行 `python -m build_mas.mcp_server`，不接受操作子命令。bootstrap 仅安装环境，不承担工作流操作。`BUILD_MAS_HOME` 选择状态目录，`BUILD_MAS_MODEL` 可选模型，`BUILD_MAS_ALLOW_APPLY=1` 仅暴露审批后的应用工具，不授予批准。
 
-```bash
-build-mas invoke "把这个现有 workflow 拆成研究员和独立验收员" \
-  --workspace ws_123 --session ses_123 --json
-build-mas apply --proposal prop_456 --json
-```
+Skill 引导宿主先预检、注册用户指定绝对目录，再将 goal、operation、inputs、session_id、idempotency_key 传给 `buildmas_invoke`。`auto` 或显式操作在同一个共享服务中路由，不复制架构/构建逻辑。大结果通过 `buildmas_read` 分页。
 
-确定性快捷入口：
-
-```bash
-build-mas plan "为客服升级流程设计一个 Codex workflow" --workspace ws_123 --json
-build-mas build --proposal prop_456 --workspace ws_123 --json
-build-mas verify --workspace ws_123 --session ses_123 --json
-build-mas status --session ses_123 --json
-build-mas doctor --json
-build-mas serve --transport stdio
-```
-
-`invoke` 是任意阶段的通用入口，不写目标；`apply` 是唯一目标变更入口。`build "goal"` 准备 proposal，`build --proposal ...` 是经过同一审批和 apply 的快捷方式；只有显式本地 `--yes` 才能连用构建与应用，宿主 Agent 不能替用户确认。其他快捷入口只是 `invoke` 的显式操作包装，不复制业务逻辑。CLI 支持 stdin、文件、图片、diff 和 trace 引用；大结果保留引用并支持分页读取。
-
-建议退出码：`0` 成功，`1` 构建/验证失败，`2` 输入或 spec 错误，`3` 需要授权，`4` runtime/环境不可用，`5` 结果未知。部分成功、审批等待和结果未知不得返回 `0`。
+`buildmas_apply` 按页显示完整 diff，最后一页要求真人明确批准并绑定原提案 hash、revision、snapshot；中途拒绝、无 elicitation 或提案变化都不会写入目标。没有 `--yes`、终端审批或 Hook 绕过。身份登录走用户独占 URL elicitation；既有选定 provider 配置仍隔离继承。
 
 ### 8.3 MCP
 
@@ -377,6 +357,10 @@ build-mas serve --transport stdio
 | Tool | 用途 | 副作用 |
 |---|---|---|
 | `buildmas_preflight` | 检查 builder、认证、状态目录和工作区 | 明确网络检查，不修改目标 |
+| `buildmas_register` | 注册用户指定绝对项目路径并返回 workspace_id | 写私有注册记录，不修改项目文件 |
+| `buildmas_import` | 导入用户选定附件，返回资产 ID | 私有资产副本和记录，复用路径/大小/秘密检查 |
+| `buildmas_login` | URL elicitation 中由用户完成 SDK 登录 | 私有登录态，失败或拒绝取消，不把凭据输出给模型 |
+| `buildmas_recover` | 核对原运行和快照，恢复保留候选 | 写私有恢复状态，不盲目重放目标写入 |
 | `buildmas_invoke` | 通用 IntakeEnvelope + auto/显式操作 | 不写目标；可写内部 Session 并调用付费模型 |
 | `buildmas_apply` | 应用指定 build/edit/migrate/refactor 提案 | 唯一目标写入口，要求 revision、snapshot、幂等键和授权 |
 | `buildmas_verify` | 执行声明的测试和验证 | 可运行受限进程和写 artifacts，不改源码 |
@@ -397,10 +381,10 @@ Resources 只是可选优化，不能成为唯一读取方式。Codex 等未声�
 
 ### 8.4 Codex / Claude Code / OpenCode 插件
 
-三类插件都优先复用同一 MCP server 或 CLI：
+三类插件都复用同一 MCP server：
 
-- manifest 只声明 Skill/命令/MCP 和必要展示信息。
-- Skill/命令只说明何时调用 `invoke/apply/verify/status/read`、怎样传当前材料、怎样呈现 spec 和证据。
+- manifest 只声明 Skill/MCP 和必要展示信息，不增加 Hook。
+- Skill 只说明何时调用 `preflight/register/import/login/invoke/apply/verify/status/read/recover`、怎样传当前材料、怎样呈现 spec 和证据。
 - 不在插件提示词中复制架构规则、DAG、验证器或修复逻辑。
 - 插件安装、Skill 发现、MCP 可用和实际调用分别做 smoke test。
 - 各宿主的审批 UI 只作为外部授权来源之一，不被解释为 Codex SDK 的人工审批 API。
@@ -410,10 +394,10 @@ Resources 只是可选优化，不能成为唯一读取方式。Codex 等未声�
 
 用户的目标项目没有 Codex SDK，不妨碍其使用 build-mas：
 
-- build-mas 自身 Python 包显式声明 `openai-codex` 依赖，安装 CLI/MCP 服务时同时安装匹配的 Codex runtime。
+- build-mas 自身 Python 包显式声明 `openai-codex` 依赖，安装 MCP 服务时同时安装匹配的 Codex runtime；移除 builder CLI 不移除 SDK 依赖的 Codex 可执行 runtime。
 - builder runtime 与目标项目环境分离；不能把目标项目尚未安装 SDK 当成无法运行 builder 的理由。
 - 目标项目的新建/迁移由 build-mas 写入自己的 `pyproject.toml` 和锁定依赖，构建后在其隔离环境中验证。
-- `build-mas doctor` 检查 builder SDK、配套 runtime、账户可用性和目标 source runtime；只返回状态，不泄露凭据。
+- `buildmas_preflight` 检查 builder SDK、配套 runtime、账户可用性和目标 source runtime；只返回状态，不泄露凭据。
 - SDK 或认证缺失时返回 `blocked/runtime_unavailable` 和明确修复路径，不能静默回退到宿主 Coding Agent 的模型或旧 Agent 框架。
 
 ## 9. 状态、证据和安全

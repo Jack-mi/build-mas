@@ -75,13 +75,17 @@ class Store:
         return value
 
     def event(self, run_id, kind, **fields):
+        from .workspace import has_secret
+
         directory = self.home / "events"
         directory.mkdir(exist_ok=True, mode=0o700)
         self.path("runs", run_id)
-        path = directory / f"{run_id}.jsonl"
+        path = self.path("events", run_id).with_suffix(".jsonl")
         if path.is_symlink():
             raise BuildMasError("unsafe_state_path", "Event log must not be a symlink")
         payload = {"at": time.time(), "event": kind, **fields}
+        if has_secret(json.dumps(payload, ensure_ascii=False)):
+            payload = {"at": time.time(), "event": "secret_event_rejected"}
         descriptor = os.open(path, os.O_APPEND | os.O_WRONLY | os.O_CREAT, 0o600)
         with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
             stream.write(json.dumps(payload, ensure_ascii=False) + "\n")

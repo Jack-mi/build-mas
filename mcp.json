@@ -4,7 +4,7 @@
     "buildmas": {
       "type": "stdio",
       "command": "./scripts/launch.py",
-      "args": ["serve", "--transport", "stdio", "--allow-apply"]
+      "env": {"BUILD_MAS_ALLOW_APPLY": "1"}
     }
   }
 }

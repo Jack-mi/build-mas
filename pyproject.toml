@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "build-mas"
-version = "0.2.0"
-description = "Codex SDK agentic workflow architect and builder with CLI and MCP harnesses"
+version = "0.4.0"
+description = "Codex SDK agentic workflow architect and builder with Skill and MCP integration"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
@@ -15,10 +15,6 @@ dependencies = [
   "mcp==2.3.0",
   "tomli>=2,<3; python_version < '3.11'",
 ]
-
-[project.scripts]
-build-mas = "build_mas.cli:main"
-buildmas = "build_mas.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -1,5 +1,5 @@
 {
   "name": "build-mas",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "Thin Claude Code harness for the shared Codex SDK workflow builder"
 }

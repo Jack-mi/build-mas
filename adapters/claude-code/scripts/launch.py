@@ -13,7 +13,10 @@ def main():
     if not python.is_file():
         print("build-mas is not installed. Run the repository's scripts/bootstrap.py first, or set BUILD_MAS_PYTHON to its private Python executable. The target project's environment is not used.", file=sys.stderr)
         return 4
-    return subprocess.call([str(python), "-m", "build_mas.cli", *sys.argv[1:]])
+    if len(sys.argv) != 1:
+        print("Start the build-mas MCP launcher without CLI arguments.", file=sys.stderr)
+        return 2
+    return subprocess.call([str(python), "-m", "build_mas.mcp_server"])
 
 
 if __name__ == "__main__":

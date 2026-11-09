@@ -4,7 +4,8 @@
     "servers": {
       "buildmas": {
         "type": "local",
-        "command": ["build-mas", "serve", "--transport", "stdio", "--allow-apply"],
+        "command": ["python", "-m", "build_mas.mcp_server"],
+        "environment": {"BUILD_MAS_ALLOW_APPLY": "1"},
         "disabled": false,
         "codemode": false
       }

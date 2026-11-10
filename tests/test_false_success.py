@@ -1,8 +1,8 @@
 import json
 from pathlib import Path
 
-from build_mas.contracts import ArchitectureSpec, CheckSpec
-from build_mas.verify import verify_project
+from codexwright.contracts import ArchitectureSpec, CheckSpec
+from codexwright.verify import verify_project
 
 
 def test_optional_failure_is_partial_not_complete(tmp_path, spec):

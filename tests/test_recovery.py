@@ -3,9 +3,9 @@ import json
 
 import pytest
 
-from build_mas.service import BuildService
-from build_mas.store import digest, identifier
-from build_mas.workspace import snapshot
+from codexwright.service import BuildService
+from codexwright.store import digest, identifier
+from codexwright.workspace import snapshot
 from test_service import prepared, setup_workspace, FakeRuntime
 
 
@@ -14,7 +14,7 @@ def test_admission_survives_crash_without_replay(tmp_path, spec):
     proposal, session = prepared(service, root, workspace, spec)
     approved = service.approve(proposal["id"])
     request = {**approved, "idempotency_key": "crashed-apply"}
-    from build_mas.contracts import ApplyRequest
+    from codexwright.contracts import ApplyRequest
 
     with service.store.lock(workspace["id"]):
         run_id = service.run_start("apply", session, proposal_id=proposal["id"])

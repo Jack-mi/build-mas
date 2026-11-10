@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from build_mas.contracts import Material
-from build_mas.inputs import normalize_materials, public_url, VisibleText
+from codexwright.contracts import Material
+from codexwright.inputs import normalize_materials, public_url, VisibleText
 
 
 def test_selected_material_and_secret_boundary(tmp_path):
@@ -34,7 +34,7 @@ def test_visible_html_ignores_script():
 
 
 def test_explicit_attachment_import_scope(tmp_path):
-    from build_mas.service import BuildService
+    from codexwright.service import BuildService
 
     root = tmp_path / "target"; root.mkdir()
     external = tmp_path / "selected.md"; external.write_text("User-selected architecture notes")
@@ -52,7 +52,7 @@ def test_explicit_attachment_import_scope(tmp_path):
 def test_url_connection_uses_validated_address(monkeypatch):
     import email.message
     import socket
-    from build_mas.inputs import fetch_text
+    from codexwright.inputs import fetch_text
 
     connections = []
     class Sock:
@@ -74,9 +74,9 @@ def test_url_connection_uses_validated_address(monkeypatch):
             return SimpleNamespace(status=200, headers=headers, read=lambda limit: b"Public notes")
         def close(self):
             self.sock.close()
-    monkeypatch.setattr("build_mas.inputs.socket.getaddrinfo", lambda *args, **kwargs: [(socket.AF_INET, socket.SOCK_STREAM, 6, "", ("93.184.216.34", 80))])
-    monkeypatch.setattr("build_mas.inputs.socket.socket", lambda *args: Sock())
-    monkeypatch.setattr("build_mas.inputs.http.client.HTTPConnection", Connection)
+    monkeypatch.setattr("codexwright.inputs.socket.getaddrinfo", lambda *args, **kwargs: [(socket.AF_INET, socket.SOCK_STREAM, 6, "", ("93.184.216.34", 80))])
+    monkeypatch.setattr("codexwright.inputs.socket.socket", lambda *args: Sock())
+    monkeypatch.setattr("codexwright.inputs.http.client.HTTPConnection", Connection)
     assert fetch_text("http://example.org/notes?q=yes") == "Public notes"
     assert connections == [("93.184.216.34", 80)]
 

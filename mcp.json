@@ -1,10 +1,10 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
   "mcpServers": {
-    "buildmas": {
+    "codexwright": {
       "type": "stdio",
       "command": "./scripts/launch.py",
-      "env": {"BUILD_MAS_ALLOW_APPLY": "1"}
+      "env": {"CODEXWRIGHT_ALLOW_APPLY": "1"}
     }
   }
 }

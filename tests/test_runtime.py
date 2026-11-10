@@ -4,8 +4,8 @@ from types import SimpleNamespace
 
 import pytest
 
-from build_mas.contracts import Budget
-from build_mas.runtime import CodexRuntime, strict_schema
+from codexwright.contracts import Budget
+from codexwright.runtime import CodexRuntime, strict_schema
 
 
 class Phase(Enum):
@@ -42,7 +42,7 @@ def test_public_imports_only():
     import ast
     from pathlib import Path
 
-    root = Path(__file__).resolve().parents[1] / "src/build_mas"
+    root = Path(__file__).resolve().parents[1] / "src/codexwright"
     for path in root.rglob("*.py"):
         for node in ast.walk(ast.parse(path.read_text())):
             if isinstance(node, ast.ImportFrom) and node.module and node.module.startswith("openai_codex"):
@@ -101,7 +101,7 @@ def test_login_requires_user_confirmation_and_cancels_on_failure(tmp_path, monke
         async def login_chatgpt_device_code(self):
             events.append("start")
             return Login()
-    monkeypatch.setattr("build_mas.runtime.AsyncCodex", Client)
+    monkeypatch.setattr("codexwright.runtime.AsyncCodex", Client)
     runtime = CodexRuntime(tmp_path)
     async def authorize(instruction):
         events.append("authorize")
@@ -124,6 +124,6 @@ def test_login_requires_user_confirmation_and_cancels_on_failure(tmp_path, monke
 def test_login_without_confirmation_never_starts_sdk(tmp_path, monkeypatch):
     def forbidden(config):
         pytest.fail("SDK login must not start without a user-only confirmation channel")
-    monkeypatch.setattr("build_mas.runtime.AsyncCodex", forbidden)
+    monkeypatch.setattr("codexwright.runtime.AsyncCodex", forbidden)
     with pytest.raises(Exception, match="confirmation channel"):
         asyncio.run(CodexRuntime(tmp_path).login())

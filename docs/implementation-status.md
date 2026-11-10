@@ -1,16 +1,23 @@
 # Implementation Acceptance Ledger
 
-Historical goal: implement the complete agreed blueprint, including the user's source-runtime and multi-harness corrections. The earlier release request authorized that release's commit/push/publication; it does not authorize publishing subsequent changes. Version 0.3.0 retired the builder CLI. Current 0.4.0 hardens Skill + MCP contracts, approval/retry, protocol compatibility, bounded output and stage recovery without paid/remote services. See [0.4.0 acceptance](mcp-0.4-acceptance.md) for the current evidence and limits.
+Historical goal: implement the complete agreed blueprint, including the user's source-runtime and multi-harness corrections. The earlier release request authorized that release's commit/push/publication; it does not authorize publishing subsequent changes. Version 0.3.0 retired the builder CLI. Version 0.4.0 hardened Skill + MCP contracts, approval/retry, protocol compatibility, bounded output and stage recovery without paid/remote services. Version 0.4.1 added indexed material retrieval, result-only paging, early scope validation and separated usage/progress signals. See [feedback acceptance](mcp-0.4.1-feedback.md) and [historical 0.4.0 acceptance](mcp-0.4-acceptance.md) for their distinct evidence and limits. Version 0.5.0 renames the project and public contract to codexwright.
 
 ## Current Product Definition
 
-The [product positioning](product-positioning.md) defines build-mas as an
+The [product positioning](product-positioning.md) defines codexwright as an
 architecture and construction assistant for building and evolving Codex SDK
 workflows from an existing coding agent or automation. MCP is the builder service
 form; Skills/plugins are thin adapters, and generated workflows retain their CLI. Single-Agent-first, flexible lifecycle
 inputs, exact reviewable changes, and verification remain the core boundaries.
 The README is English-only; implementation language appears only where needed
 for installation or technical compatibility.
+
+
+## 0.5.0 Codexwright Rename
+
+The distribution, Python import package, plugin, Skills, MCP server/tools/resources and host configuration now use `codexwright`. Version 0.5.0 is a public-contract migration, not a claim that historical 0.2-0.4 evidence tested the new identifiers. Existing builder state remains reachable through the legacy state-directory and `BUILD_MAS_HOME` fallbacks. See [the rename and migration guide](codexwright-migration.md).
+
+Source and independent installed-wheel suites each pass 180 tests, one skipped test and six example subtests. The clean wheel contains no old Python package. Independent stdio discovery reports ten `codexwright_*` tools and two `codexwright://` resource templates; bootstrap, launcher, local-link and brand-asset checks pass. Evidence is in `acceptance-evidence/codexwright-0.5-rename.json`. Fresh host UI commissioning and live model behavior were not repeated.
 
 ## 0.3.0 MCP-Only Migration
 

@@ -2,15 +2,15 @@
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
     "servers": {
-      "buildmas": {
+      "codexwright": {
         "type": "local",
-        "command": ["python", "-m", "build_mas.mcp_server"],
-        "environment": {"BUILD_MAS_ALLOW_APPLY": "1"},
+        "command": ["python", "-m", "codexwright.mcp_server"],
+        "environment": {"CODEXWRIGHT_ALLOW_APPLY": "1"},
         "disabled": false,
         "codemode": false
       }
     }
   },
-  "permissions": [{"action": "buildmas_buildmas_apply", "resource": "*", "effect": "ask"}],
-  "instructions": ["build-mas-host.md"]
+  "permissions": [{"action": "codexwright_codexwright_apply", "resource": "*", "effect": "ask"}],
+  "instructions": ["codexwright-host.md"]
 }

@@ -12,6 +12,7 @@ def test_readme_is_english_and_uses_sdk_product_name():
     assert not re.search(r"[\u3400-\u4dbf\u4e00-\u9fff]", text)
     assert "Codex Python SDK" not in text and "Python Codex SDK" not in text
     assert "Codex SDK" in text and "docs/product-positioning.md" in text
+    assert text.startswith("# codexwright\n")
     assert (ROOT / "docs/product-positioning.md").is_file()
 
 
@@ -34,5 +35,7 @@ def test_public_files_do_not_bind_the_developer_machine():
     for folder in ("src", "adapters", "docs", ".agents"):
         paths.extend(path for path in (ROOT / folder).rglob("*") if path.is_file() and "__pycache__" not in path.parts)
     for path in paths:
+        if path.suffix.lower() in {".png", ".jpg", ".jpeg", ".gif", ".webp", ".whl"}:
+            continue
         text = path.read_text()
         assert not any(prefix in text for prefix in prefixes), str(path)

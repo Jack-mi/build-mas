@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2688" height="1520" viewBox="0 0 2688 1520">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FBFCF8"/>
+      <stop offset="0.55" stop-color="#F4F7F1"/>
+      <stop offset="1" stop-color="#EEF4F2"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1264F2"/>
+      <stop offset="1" stop-color="#0738B5"/>
+    </linearGradient>
+    <linearGradient id="mint" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#72EDCB"/>
+      <stop offset="1" stop-color="#39CBA5"/>
+    </linearGradient>
+    <pattern id="dots" width="48" height="48" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="2" fill="#0B55E7" opacity="0.055"/>
+    </pattern>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; }
+      .navy { fill: #082B55; }
+      .muted { fill: #58708A; }
+      .white { fill: #FFFFFF; }
+      .label { font-size: 24px; font-weight: 700; letter-spacing: 2px; }
+      .item { font-size: 28px; font-weight: 700; }
+      .detail { font-size: 22px; font-weight: 400; }
+      .card { fill: #FFFFFF; stroke: #D9E3E2; stroke-width: 3; }
+      .step { fill: #F7FAFF; stroke: #C8D8F5; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect width="2688" height="1520" fill="url(#bg)"/>
+  <rect width="2688" height="1520" fill="url(#dots)"/>
+  <circle cx="120" cy="130" r="250" fill="#59E1BD" opacity="0.08"/>
+  <circle cx="2570" cy="1380" r="340" fill="#0B55E7" opacity="0.055"/>
+
+  <line x1="240" y1="88" x2="1140" y2="88" stroke="#A5B8C6" stroke-width="2"/>
+  <line x1="1548" y1="88" x2="2448" y2="88" stroke="#A5B8C6" stroke-width="2"/>
+  <rect x="1140" y="48" width="408" height="80" rx="40" fill="url(#brand)"/>
+  <text x="1344" y="100" text-anchor="middle" class="white" font-size="36" font-weight="700">codexwright</text>
+  <text x="1344" y="208" text-anchor="middle" class="navy" font-size="64" font-weight="700">Build the workflow. Keep your coding agent.</text>
+  <text x="1344" y="264" text-anchor="middle" class="muted" font-size="27">Agentic workflow engineering on the Codex SDK</text>
+
+  <!-- Input materials -->
+  <rect x="120" y="340" width="560" height="830" rx="30" class="card"/>
+  <rect x="120" y="340" width="560" height="112" rx="30" fill="#082B55"/>
+  <rect x="120" y="410" width="560" height="42" fill="#082B55"/>
+  <text x="400" y="410" text-anchor="middle" class="white label">YOUR MATERIALS</text>
+
+  <g>
+    <rect x="164" y="500" width="472" height="120" rx="20" fill="#F2F7FF"/>
+    <circle cx="224" cy="560" r="30" fill="#0B55E7"/>
+    <text x="224" y="570" text-anchor="middle" class="white" font-size="26" font-weight="700">1</text>
+    <text x="282" y="550" class="navy item">GOAL</text>
+    <text x="282" y="584" class="muted detail">A task or desired outcome</text>
+  </g>
+  <g>
+    <rect x="164" y="656" width="472" height="120" rx="20" fill="#F2F7FF"/>
+    <circle cx="224" cy="716" r="30" fill="#0B55E7"/>
+    <text x="224" y="726" text-anchor="middle" class="white" font-size="26" font-weight="700">2</text>
+    <text x="282" y="706" class="navy item">CODE</text>
+    <text x="282" y="740" class="muted detail">An existing implementation</text>
+  </g>
+  <g>
+    <rect x="164" y="812" width="472" height="120" rx="20" fill="#F2F7FF"/>
+    <circle cx="224" cy="872" r="30" fill="#0B55E7"/>
+    <text x="224" y="882" text-anchor="middle" class="white" font-size="26" font-weight="700">3</text>
+    <text x="282" y="862" class="navy item">DIAGRAM</text>
+    <text x="282" y="896" class="muted detail">A flow, sketch or diff</text>
+  </g>
+  <g>
+    <rect x="164" y="968" width="472" height="120" rx="20" fill="#F2F7FF"/>
+    <circle cx="224" cy="1028" r="30" fill="#0B55E7"/>
+    <text x="224" y="1038" text-anchor="middle" class="white" font-size="26" font-weight="700">4</text>
+    <text x="282" y="1018" class="navy item">FAILING TRACE</text>
+    <text x="282" y="1052" class="muted detail">Evidence that needs diagnosis</text>
+  </g>
+
+  <!-- Directional flow -->
+  <line x1="700" y1="755" x2="776" y2="755" stroke="#0B55E7" stroke-width="12" stroke-linecap="round"/>
+  <path d="M776 755 L748 731 M776 755 L748 779" fill="none" stroke="#0B55E7" stroke-width="12" stroke-linecap="round"/>
+  <line x1="1912" y1="755" x2="1948" y2="755" stroke="#0B55E7" stroke-width="12" stroke-linecap="round"/>
+  <path d="M1948 755 L1924 733 M1948 755 L1924 777" fill="none" stroke="#0B55E7" stroke-width="12" stroke-linecap="round"/>
+
+  <!-- Builder -->
+  <rect x="800" y="340" width="1088" height="830" rx="30" fill="#FFFFFF" stroke="url(#mint)" stroke-width="8"/>
+  <rect x="800" y="340" width="1088" height="180" rx="30" fill="url(#brand)"/>
+  <rect x="800" y="470" width="1088" height="50" fill="url(#brand)"/>
+  <text x="1344" y="424" text-anchor="middle" class="white" font-size="56" font-weight="700">codexwright</text>
+  <text x="1344" y="474" text-anchor="middle" class="white" font-size="25">Architecture, implementation and evidence</text>
+
+  <g>
+    <rect x="856" y="566" width="976" height="156" rx="22" class="step"/>
+    <circle cx="934" cy="644" r="40" fill="url(#brand)"/>
+    <text x="934" y="656" text-anchor="middle" class="white" font-size="32" font-weight="700">1</text>
+    <text x="1010" y="626" class="navy" font-size="32" font-weight="700">DESIGN &amp; BUILD</text>
+    <text x="1010" y="664" class="muted detail">Single Agent first; add Agents, Skills and tools</text>
+    <text x="1010" y="696" class="muted detail">only when the task justifies them.</text>
+  </g>
+  <g>
+    <rect x="856" y="758" width="976" height="156" rx="22" class="step"/>
+    <circle cx="934" cy="836" r="40" fill="url(#brand)"/>
+    <text x="934" y="848" text-anchor="middle" class="white" font-size="32" font-weight="700">2</text>
+    <text x="1010" y="818" class="navy" font-size="32" font-weight="700">REVIEW</text>
+    <text x="1010" y="856" class="muted detail">Exact diff, scoped changes and human approval.</text>
+    <text x="1010" y="888" class="muted detail">No model-generated approval or hidden writes.</text>
+  </g>
+  <g>
+    <rect x="856" y="950" width="976" height="156" rx="22" class="step"/>
+    <circle cx="934" cy="1028" r="40" fill="url(#brand)"/>
+    <text x="934" y="1040" text-anchor="middle" class="white" font-size="32" font-weight="700">3</text>
+    <text x="1010" y="1010" class="navy" font-size="32" font-weight="700">VERIFY &amp; APPLY</text>
+    <text x="1010" y="1048" class="muted detail">Executable checks, real receipts and retained evidence.</text>
+    <text x="1010" y="1080" class="muted detail">Remaining gaps stay visible.</text>
+  </g>
+
+  <!-- Generated workflow -->
+  <rect x="1968" y="340" width="600" height="830" rx="30" class="card"/>
+  <rect x="1968" y="340" width="600" height="112" rx="30" fill="#082B55"/>
+  <rect x="1968" y="410" width="600" height="42" fill="#082B55"/>
+  <text x="2268" y="410" text-anchor="middle" class="white label">YOUR WORKFLOW</text>
+  <rect x="2032" y="492" width="472" height="82" rx="20" fill="url(#mint)"/>
+  <text x="2268" y="546" text-anchor="middle" class="navy" font-size="30" font-weight="700">STANDALONE</text>
+
+  <g>
+    <rect x="2032" y="620" width="472" height="104" rx="18" fill="#F2F8F6"/>
+    <text x="2268" y="666" text-anchor="middle" class="navy item">Codex SDK</text>
+    <text x="2268" y="700" text-anchor="middle" class="muted detail">Independent runtime</text>
+  </g>
+  <g>
+    <rect x="2032" y="756" width="472" height="104" rx="18" fill="#F2F8F6"/>
+    <text x="2268" y="802" text-anchor="middle" class="navy item">LIBRARY</text>
+    <text x="2268" y="836" text-anchor="middle" class="muted detail">Importable workflow</text>
+  </g>
+  <g>
+    <rect x="2032" y="892" width="472" height="104" rx="18" fill="#F2F8F6"/>
+    <text x="2268" y="938" text-anchor="middle" class="navy item">CLI</text>
+    <text x="2268" y="972" text-anchor="middle" class="muted detail">Run, status and verify</text>
+  </g>
+  <g>
+    <rect x="2032" y="1028" width="472" height="104" rx="18" fill="#F2F8F6"/>
+    <text x="2268" y="1074" text-anchor="middle" class="navy" font-size="26" font-weight="700">TASK-LEVEL MCP</text>
+    <text x="2268" y="1108" text-anchor="middle" class="muted detail">Task operations, not internal agents</text>
+  </g>
+  <text x="2268" y="1210" text-anchor="middle" class="muted" font-size="21" font-style="italic">No builder runtime dependency</text>
+
+  <!-- Host boundary -->
+  <line x1="240" y1="1320" x2="2448" y2="1320" stroke="#A5B8C6" stroke-width="2"/>
+  <rect x="1030" y="1286" width="628" height="68" rx="34" fill="#F6F8F3"/>
+  <text x="1344" y="1330" text-anchor="middle" class="navy" font-size="25" font-weight="700">SKILL GUIDANCE + LOCAL MCP</text>
+  <text x="1344" y="1410" text-anchor="middle" class="navy" font-size="28" font-weight="700">Codex  |  Claude Code  |  OpenCode</text>
+  <text x="1344" y="1460" text-anchor="middle" class="muted" font-size="21">One shared builder. Your existing coding agent.</text>
+</svg>

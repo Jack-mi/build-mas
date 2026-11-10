@@ -3,8 +3,8 @@ import threading
 
 import pytest
 
-from build_mas.errors import BuildMasError
-from build_mas.network import model_network
+from codexwright.errors import CodexwrightError
+from codexwright.network import model_network
 
 
 def test_relay_only_connects_to_pinned_host_and_numeric_destination(monkeypatch):
@@ -28,7 +28,7 @@ def test_relay_only_connects_to_pinned_host_and_numeric_destination(monkeypatch)
             return upstream
         return real_connect(address, *args, **kwargs)
 
-    monkeypatch.setattr("build_mas.network.socket.create_connection", connect)
+    monkeypatch.setattr("codexwright.network.socket.create_connection", connect)
     with model_network([{"host": "model.example", "port": 443, "addresses": ["93.184.216.34"]}]) as (ports, env):
         assert env["HTTPS_PROXY"].startswith("http://127.0.0.1:")
         for request in (b"CONNECT evil.example:443 HTTP/1.1", b"GET model.example:443 HTTP/1.1", b"CONNECT model.example:443 INVALID"):
@@ -55,7 +55,7 @@ def test_relay_only_connects_to_pinned_host_and_numeric_destination(monkeypatch)
 
 @pytest.mark.parametrize("endpoint", [True, 0, {"host": "model.example", "port": 443, "addresses": ["10.0.0.1"]}, {"host": "model.example", "port": 443, "addresses": ["model.example"]}, {"host": "model.example/path", "port": 443, "addresses": ["93.184.216.34"]}])
 def test_relay_rejects_invalid_or_private_pins(endpoint):
-    with pytest.raises(BuildMasError, match="public numeric"):
+    with pytest.raises(CodexwrightError, match="public numeric"):
         with model_network([endpoint]):
             pytest.fail("Unsafe relay opened")
 

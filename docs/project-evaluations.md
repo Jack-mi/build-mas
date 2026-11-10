@@ -1,17 +1,17 @@
-# build-mas 参考项目实现评估
+# codexwright 参考项目实现评估
 
 评估日期：2026-11-08。
 
-本文回答两个问题：这些项目实际上怎样工作；其中哪些机制值得进入 build-mas。目标不是选出另一个运行时，而是为 build-mas 形成一套可落地的架构与构建方法。
+本文回答两个问题：这些项目实际上怎样工作；其中哪些机制值得进入 codexwright。目标不是选出另一个运行时，而是为 codexwright 形成一套可落地的架构与构建方法。
 
 ## 0. 目标、证据和边界
 
-build-mas 的目标定位为：用户提供目标或已有实现，系统决定 Agent 划分、Skills、工具、CLI 与必要控制机制，并把决策落实为可运行、可验证的 Agentic workflow。
+codexwright 的目标定位为：用户提供目标或已有实现，系统决定 Agent 划分、Skills、工具、CLI 与必要控制机制，并把决策落实为可运行、可验证的 Agentic workflow。
 
 最新约束：
 
 - 构建内核和生成的目标 workflow 只使用 Codex Python SDK 与宿主 Python，不引入 CrewAI、Claude Agent SDK 等其他 Agent runtime。
-- build-mas 的产品形态不限于 Skill。独立 CLI、MCP、Codex / Claude Code / OpenCode 插件均可成为对外 Harness。
+- codexwright 的产品形态不限于 Skill。独立 CLI、MCP、Codex / Claude Code / OpenCode 插件均可成为对外 Harness。
 - 多种接入层共享同一构建内核；从其他客户端调用时，也不把架构决策或执行转交给该客户端的模型 runtime。
 - 用户目标项目可能没有 Codex SDK 或使用其他 Agent 框架，本期统一新建/迁移为 Codex SDK；目标已经使用 Codex SDK 时才复用并局部修改。builder 自带所需 SDK，不依赖目标项目预装。
 
@@ -19,7 +19,7 @@ build-mas 的目标定位为：用户提供目标或已有实现，系统决定 
 
 - **源码事实**：固定提交中的代码、配置、测试和目录结构。
 - **公开声明**：官方文章或媒体描述的产品机制，不等于独立技术验证。
-- **设计判断**：基于证据提出的 build-mas 方案，不冒充原项目已有能力。
+- **设计判断**：基于证据提出的 codexwright 方案，不冒充原项目已有能力。
 
 固定研究基线：
 
@@ -66,11 +66,11 @@ harness 不是 Python/TypeScript Agent 框架，也不是独立 CLI。它是一�
 
 ### 1.3 应吸收的机制
 
-1. **新建、扩展、维护三分入口**：与 build-mas 接受目标或已有实现高度一致。
+1. **新建、扩展、维护三分入口**：与 codexwright 接受目标或已有实现高度一致。
 2. **按控制流选择编排**：能写成代码的顺序、并行和循环由宿主控制；独立上下文或独立验收才引入新 Agent。
 3. **Agent、Skill、编排职责分离**：Agent 决定谁执行，Skill 提供可复用方法，宿主编排决定数据流和完成条件。
 4. **生产者与消费者联合验收**：检查跨 Agent handoff、CLI 输入输出和文件 schema 的两侧契约。
-5. **Skill 触发与质量评测**：should-trigger、near-miss、With/Without、正常/失败路径、耗时和 token 都应进入 build-mas 测试体系。
+5. **Skill 触发与质量评测**：should-trigger、near-miss、With/Without、正常/失败路径、耗时和 token 都应进入 codexwright 测试体系。
 6. **反馈形成回归**：一次只改一个变量，保留原因并复测，不把单次反馈直接堆成新提示词。
 
 ### 1.4 不应照搬
@@ -81,9 +81,9 @@ harness 不是 Python/TypeScript Agent 框架，也不是独立 CLI。它是一�
 - 不把 Markdown 模板、hash 冻结或模型 verdict 当成构建器、并发控制或最终验收。
 - 不自动应用“演进”结果；候选修改需要独立回归和用户授权。
 
-### 1.5 对 build-mas 的结论
+### 1.5 对 codexwright 的结论
 
-harness 是四个参考项目中最接近 build-mas **构建方法论**的项目，但它不是可执行构建器。build-mas 应把其流程升级为版本化 `ArchitectureSpec`、真实工作包状态、宿主机械检查和可重放构建证据。
+harness 是四个参考项目中最接近 codexwright **构建方法论**的项目，但它不是可执行构建器。codexwright 应把其流程升级为版本化 `ArchitectureSpec`、真实工作包状态、宿主机械检查和可重放构建证据。
 
 ## 2. CrewAI
 
@@ -130,7 +130,7 @@ agents.yaml / tasks.yaml / Python 对象
 - [runtime/__init__.py:2116](https://github.com/crewaiinc/crewai/blob/2fba413623a60d7a2f24a7d21685bbcd8dd45a4f/lib/crewai/src/crewai/flow/runtime/__init__.py#L2116) 是同步/异步入口。
 - [runtime/__init__.py:2924](https://github.com/crewaiinc/crewai/blob/2fba413623a60d7a2f24a7d21685bbcd8dd45a4f/lib/crewai/src/crewai/flow/runtime/__init__.py#L2924) 处理方法执行、持久化和事件。
 - [structured_tool.py:356](https://github.com/crewaiinc/crewai/blob/2fba413623a60d7a2f24a7d21685bbcd8dd45a4f/lib/crewai/src/crewai/tools/structured_tool.py#L356) 负责工具参数验证和调用。
-- Flow 支持 CEL 和显式启用的 inline Python；后者源码明确说明不沙箱，不能进入 build-mas 默认路径。
+- Flow 支持 CEL 和显式启用的 inline Python；后者源码明确说明不沙箱，不能进入 codexwright 默认路径。
 
 ### 2.3 应吸收的机制
 
@@ -144,7 +144,7 @@ agents.yaml / tasks.yaml / Python 对象
 
 ### 2.4 不应照搬
 
-- 不复制 `Flow → Crew → AgentExecutor Flow` 三层嵌套；build-mas 只保留“宿主工作流 + Codex 内层 Agent loop”两层。
+- 不复制 `Flow → Crew → AgentExecutor Flow` 三层嵌套；codexwright 只保留“宿主工作流 + Codex 内层 Agent loop”两层。
 - 不采用 manager 自由委托和隐式历史 raw output 拼接；路由由宿主校验，上游结果以显式 artifact 或 `ExternalMessage` 传递。
 - 不复制多 provider LLM 抽象、统一 Memory、向量库、全局 singleton event bus、CEL、inline Python 和多套持久化机制。
 - 不让最终 Task 输出或 LLM 评分自动等于构建成功。
@@ -156,9 +156,9 @@ agents.yaml / tasks.yaml / Python 对象
 - 本次只读审查未安装大型依赖集合，也未执行其完整测试、真实 LLM 或 CLI，因此不为当前 SHA 的全绿或生产稳定性背书。
 - 文档中的 `crewai test` 默认次数和模型与当前代码存在漂移，进一步说明应以固定源码为准。
 
-### 2.6 对 build-mas 的结论
+### 2.6 对 codexwright 的结论
 
-CrewAI 的主要价值是**规格化、显式 Flow、工具契约和运行事件**。build-mas 只需要一个小型 DAG/状态机，不需要另一个 Agent runtime。
+CrewAI 的主要价值是**规格化、显式 Flow、工具契约和运行事件**。codexwright 只需要一个小型 DAG/状态机，不需要另一个 Agent runtime。
 
 ## 3. Cresta Conductor
 
@@ -197,7 +197,7 @@ Cresta 没有公开 Conductor 的可审计源码。本节能确认的是官方�
 4. **混合评估**：确定性评估器处理精确条件，LLM 评估器处理语义质量，并用人工标注校准。
 5. **CLI 与修订证据**：结构化输出、退出码、稳定资源 ID、测试绑定修订，发布仍走 Git 和审批。
 
-媒体所述“5x faster”等数字是厂商或客户案例声明，缺少任务样本、基线、统计方法和独立复现，不能转化为 build-mas 的收益承诺。
+媒体所述“5x faster”等数字是厂商或客户案例声明，缺少任务样本、基线、统计方法和独立复现，不能转化为 codexwright 的收益承诺。
 
 ### 3.3 应吸收的机制
 
@@ -215,9 +215,9 @@ Cresta 没有公开 Conductor 的可审计源码。本节能确认的是官方�
 - 不把自动修复直接上线，不承诺通用热重载、渐进发布或 rollback。
 - 不沿用其 Claude Agent SDK 实现栈。
 
-### 3.5 对 build-mas 的结论
+### 3.5 对 codexwright 的结论
 
-Cresta 最值得吸收的是**Blueprint 驱动的完整生命周期和证据闭环**，而不是 CX 功能或营销形式。其公开材料无法替代 build-mas 自己在规格、CLI、权限、测试和真实构建评测上的实现。
+Cresta 最值得吸收的是**Blueprint 驱动的完整生命周期和证据闭环**，而不是 CX 功能或营销形式。其公开材料无法替代 codexwright 自己在规格、CLI、权限、测试和真实构建评测上的实现。
 
 ## 4. anthropics/claude-code-setup
 
@@ -255,12 +255,12 @@ Cresta 最值得吸收的是**Blueprint 驱动的完整生命周期和证据闭�
 
 - 不复制 `.claude`、`CLAUDE.md`、Claude Hook frontmatter、`context: fork`、`$ARGUMENTS` 和 Claude CLI 语法。
 - 不把“代码库超过 500 文件”等单一规模信号当成新增 Agent 的充分理由。
-- 不停留在只读建议；build-mas 必须继续完成规格、落地和验证。
+- 不停留在只读建议；codexwright 必须继续完成规格、落地和验证。
 - 不把 references 中的示例脚本当成可靠验证器；例如某些示例可能把失败命令转成文本后继续成功退出。
 
-### 4.4 对 build-mas 的结论
+### 4.4 对 codexwright 的结论
 
-它适合作为**环境检测和能力类型选择**的参考，不是 Agent 系统构建器。build-mas 应将其推荐链扩展为 `Evidence → ArchitectureSpec → Build → Run → Verification`。
+它适合作为**环境检测和能力类型选择**的参考，不是 Agent 系统构建器。codexwright 应将其推荐链扩展为 `Evidence → ArchitectureSpec → Build → Run → Verification`。
 
 ## 5. Codex Python SDK 专项：能做什么，不能做什么
 
@@ -269,7 +269,7 @@ Cresta 最值得吸收的是**Blueprint 驱动的完整生命周期和证据闭�
 官方 Python SDK 是嵌入 Python 应用的本地 Codex 控制库。发布包要求 Python 3.10+，自动安装匹配的 Codex CLI runtime；SDK 启动该 runtime 的 app-server，并通过 stdio JSON-RPC 通信。
 
 ```text
-build-mas Python 宿主
+codexwright Python 宿主
   ├─ 接入层、操作路由、ArchitectureSpec、DAG、状态、权限、CLI、验证
   ├─ Codex / AsyncCodex
   │    └─ 随包 Codex CLI → codex app-server --listen stdio://
@@ -285,7 +285,7 @@ build-mas Python 宿主
 
 ### 5.2 公开 SDK 能力矩阵
 
-| 能力 | 公开 API | build-mas 用途 | 不能误解为 |
+| 能力 | 公开 API | codexwright 用途 | 不能误解为 |
 |---|---|---|---|
 | 生命周期 | `Codex` / `AsyncCodex` | 同步构建、异步并行只读工作包 | 自动任务调度器 |
 | 会话 | `thread_start/resume/fork/list/read/archive` | 角色隔离、连续访谈、候选修订 | 业务工作流数据库；fork 也不是 Git worktree |
@@ -305,7 +305,7 @@ build-mas Python 宿主
 | 压缩 | `thread.compact()` | 长会话压缩 | 返回即表示压缩已完成 |
 | 审计数据 | `items`、usage、duration、thread/turn ID | 宿主证据账本 | 自动跨工作包成本与验收账本 |
 
-公开输入和类型以 [`openai_codex.__init__`](https://github.com/openai/codex/blob/748ab55ca7de0b647d9a7a9d9a8e70e00f28666d/sdk/python/src/openai_codex/__init__.py#L57-L95) 与 `openai_codex.types` 为边界。官方示例测试明确限制 examples 使用私有 `.client`、`.generated` 等模块；build-mas 应采用同样约束。
+公开输入和类型以 [`openai_codex.__init__`](https://github.com/openai/codex/blob/748ab55ca7de0b647d9a7a9d9a8e70e00f28666d/sdk/python/src/openai_codex/__init__.py#L57-L95) 与 `openai_codex.types` 为边界。官方示例测试明确限制 examples 使用私有 `.client`、`.generated` 等模块；codexwright 应采用同样约束。
 
 ### 5.3 多 Agent 的真实实现方式
 
@@ -326,7 +326,7 @@ ArchitectureSpec
 
 `AsyncCodex` 提供异步原语，不负责 DAG、共享状态、并发上限、总预算、失败传播和集成。`thread_resume()` 恢复对话上下文，不是工作流步骤重放；`thread_fork()` 不复制 Git 工作区。
 
-### 5.4 必须由 build-mas 自己实现
+### 5.4 必须由 codexwright 自己实现
 
 - 任意阶段和任意材料形式的 Intake、访谈、操作路由与 ArchitectureSpec。
 - 单 Agent 基线、Agent 拓扑、工作包 DAG、重试、幂等、检查点、总预算和恢复。
@@ -346,7 +346,7 @@ ArchitectureSpec
 | 审批 | `deny_all/auto_review` | 人工提示、权限选择、auto-review UI | 审批请求/响应和实验人工 checkpoint |
 | Worktree | 无公开 API | Desktop managed worktree / Handoff | 不应据此假设 Python 有封装 |
 | 自动化 | 宿主自行实现 | Desktop/Web Scheduled 等产品体验 | 不是完整调度产品 |
-| build-mas 用法 | **唯一 Agent 构建依赖** | 可选接入和人工验收界面 | 不直接依赖其实验 API |
+| codexwright 用法 | **唯一 Agent 构建依赖** | 可选接入和人工验收界面 | 不直接依赖其实验 API |
 
 以下能力不能从客户端或 app-server 反推为公开 Python SDK 能力：
 
@@ -359,9 +359,9 @@ ArchitectureSpec
 
 ### 5.6 对落地有直接影响的安全事实
 
-1. **显式设置权限**：新 Thread 默认 `auto_review`，不是人工审批。build-mas 的分析和验证使用 `read_only + deny_all`；构建只在获得外部授权后使用 `workspace_write + deny_all`。
+1. **显式设置权限**：新 Thread 默认 `auto_review`，不是人工审批。codexwright 的分析和验证使用 `read_only + deny_all`；构建只在获得外部授权后使用 `workspace_write + deny_all`。
 2. **deny_all 不是禁止所有操作**：它拒绝权限升级，sandbox 内已允许的操作仍可执行，因此外部入口仍需区分 plan、build 和 verify。
-3. **公开 Python 层没有人工审批 UI**：人工确认由 build-mas 自己的 CLI/MCP/插件接入层完成，不依赖私有 `CodexClient.approval_handler`。
+3. **公开 Python 层没有人工审批 UI**：人工确认由 codexwright 自己的 CLI/MCP/插件接入层完成，不依赖私有 `CodexClient.approval_handler`。
 4. **完成不等于成功**：`TurnStatus.completed`、合法 JSON、模型 verdict 都不能替代测试、文件检查、退出码和证据。
 5. **副作用不能靠 interrupt 回滚**：中断后仍需检查文件和外部状态。
 6. **版本必须配对**：官方网页、main 源码和实际 PyPI 固定 runtime 可能存在版本差，应锁定发布 SDK 及其配套 runtime，不能混用任意本机 Codex。
@@ -376,7 +376,7 @@ ArchitectureSpec
 - ExternalMessage 启动/加入 Turn 及伪造来源不提权。
 - 宿主 DAG、部分失败、超时、幂等、总预算、恢复和假成功拒绝。
 
-本次为固定源码和官方文档的静态审查，未运行真实账号、模型、审批或端到端构建。上述项目必须通过 build-mas 自己的真实集成测试，不能由参考项目测试代替。
+本次为固定源码和官方文档的静态审查，未运行真实账号、模型、审批或端到端构建。上述项目必须通过 codexwright 自己的真实集成测试，不能由参考项目测试代替。
 
 ## 6. 多 Harness 接入专项：CLI、MCP 与三类宿主插件
 
@@ -394,7 +394,7 @@ ArchitectureSpec
 公开 Codex Python SDK
 ```
 
-builder 与 target 必须分离：builder 自己的隔离环境声明 `openai-codex` 和匹配 runtime；目标项目可以没有 SDK 或使用其他框架。插件首次 setup 只安装固定 build-mas 分发包到插件数据目录，不依赖目标仓库 venv，也不在每次调用时临时联网安装。
+builder 与 target 必须分离：builder 自己的隔离环境声明 `openai-codex` 和匹配 runtime；目标项目可以没有 SDK 或使用其他框架。插件首次 setup 只安装固定 codexwright 分发包到插件数据目录，不依赖目标仓库 venv，也不在每次调用时临时联网安装。
 
 官方 SDK 依据：[Codex SDK](https://learn.chatgpt.com/docs/codex-sdk)。
 
@@ -414,7 +414,7 @@ verify: 执行声明的机械检查和独立 verifier
 
 ### 6.3 各接入机制的真实边界
 
-| 接入 | 官方机制 | build-mas 用法 | 主要限制 |
+| 接入 | 官方机制 | codexwright 用法 | 主要限制 |
 |---|---|---|---|
 | Python CLI | PyPA `[project.scripts]` | CI、调试、脚本化、其他适配器的 canonical 入口 | 宿主 shell 审批不替代内核路径和命令控制 |
 | MCP stdio | 宿主启动本地子进程，tools 结构化调用 | 多宿主共享同一 service | MCP 不是工作流状态机、沙箱或人工审批保证 |
@@ -436,12 +436,12 @@ verify: 执行声明的机械检查和独立 verifier
 
 | Tool | 作用 | 边界 |
 |---|---|---|
-| `buildmas_preflight` | 检查 builder、认证、状态目录和工作区 | 明确网络检查，不修改目标 |
-| `buildmas_invoke` | 通用输入和操作路由 | 不写目标；可写内部 Session 并产生付费模型调用 |
-| `buildmas_apply` | 应用指定提案 | 唯一目标写入口，要求 revision、snapshot 和幂等键 |
-| `buildmas_verify` | 执行声明的验证 profile | 可运行受限测试和写 artifacts，不接受任意 shell |
-| `buildmas_status` | 查询 Session/Run/preflight | 不调用模型，不修改目标 |
-| `buildmas_read` | 有界读取 Spec、诊断、diff、验证报告 | Resources 不可用时的只读 fallback |
+| `codexwright_preflight` | 检查 builder、认证、状态目录和工作区 | 明确网络检查，不修改目标 |
+| `codexwright_invoke` | 通用输入和操作路由 | 不写目标；可写内部 Session 并产生付费模型调用 |
+| `codexwright_apply` | 应用指定提案 | 唯一目标写入口，要求 revision、snapshot 和幂等键 |
+| `codexwright_verify` | 执行声明的验证 profile | 可运行受限测试和写 artifacts，不接受任意 shell |
+| `codexwright_status` | 查询 Session/Run/preflight | 不调用模型，不修改目标 |
+| `codexwright_read` | 有界读取 Spec、诊断、diff、验证报告 | Resources 不可用时的只读 fallback |
 
 `readOnlyHint` 等 MCP 注解不是权限实现。analyze/plan 虽不修改目标，但会写内部 Session 并调用模型，不能简单标为完全只读。
 
@@ -450,9 +450,9 @@ MCP Resources 可作为可选优化，但不能成为唯一状态读取入口。
 ### 6.5 工作区、审批与恢复
 
 - 模型传 `workspace_id`，服务端映射到预注册 canonical root；不能由模型直接指定任意写路径。
-- `BUILD_MAS_HOME` 保存 Session、Spec、Run 和 artifacts，默认与目标仓库分离。
+- `CODEXWRIGHT_HOME` 保存 Session、Spec、Run 和 artifacts，默认与目标仓库分离。
 - `apply` 校验 `proposal_id + expected_spec_revision + expected_workspace_snapshot + idempotency_key`。
-- `approval_reference` 只是证据引用，不能自证真人批准；宿主 tool policy 与 build-mas 服务端都要检查。
+- `approval_reference` 只是证据引用，不能自证真人批准；宿主 tool policy 与 codexwright 服务端都要检查。
 - Codex 可对 apply 配置 prompt 审批，Claude 可使用其专属用户交互元数据，OpenCode 使用权限配置或 V2 `ctx.permission.assert`；这些都不是跨宿主统一标准。
 - spec revision 使用 compare-and-swap，外部修改返回 `stale_revision/workspace_conflict`，不能覆盖用户新改动。
 - Run 状态增加 `waiting_input/waiting_approval/outcome_unknown`；断连或崩溃后先核对状态，不盲目重放。
@@ -471,7 +471,7 @@ MCP Resources 可作为可选优化，但不能成为唯一状态读取入口。
 
 ## 7. 跨项目能力取舍总表
 
-| 能力 | 主要参考 | build-mas 决策 |
+| 能力 | 主要参考 | codexwright 决策 |
 |---|---|---|
 | 任意阶段 intake | harness、claude-code-setup、Cresta | IntakeEnvelope + Session，不强制用户改写模板 |
 | 操作路由 | harness 新建/扩展/维护 | OperationRouter 支持 analyze/plan/build/edit/diagnose/migrate/refactor/verify |
@@ -484,4 +484,4 @@ MCP Resources 可作为可选优化，但不能成为唯一状态读取入口。
 | 验证 | harness A/B、CrewAI guardrail、Cresta 混合评估 | 机械检查优先，独立 verifier 辅助，holdout 防过拟合 |
 | 多 Harness | Cresta CLI、三类插件官方机制 | CLI/MCP 基础入口，Codex/Claude/OpenCode 薄适配 |
 | runtime 迁移 | 用户新增约束 | none/codex_sdk/other/unknown；其他框架重建，Codex 项目复用 |
-| 证据与状态 | harness workspace、CrewAI events、Cresta revisions | BUILD_MAS_HOME 下 Session/Spec/Run/artifacts，支持冲突和未知结果 |
+| 证据与状态 | harness workspace、CrewAI events、Cresta revisions | CODEXWRIGHT_HOME 下 Session/Spec/Run/artifacts，支持冲突和未知结果 |

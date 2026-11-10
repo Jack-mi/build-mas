@@ -5,9 +5,9 @@ from types import SimpleNamespace
 
 import pytest
 
-from build_mas.service import BuildService
-from build_mas.store import digest, identifier
-from build_mas.workspace import snapshot
+from codexwright.service import BuildService
+from codexwright.store import digest, identifier
+from codexwright.workspace import snapshot
 
 
 class FakeRuntime:

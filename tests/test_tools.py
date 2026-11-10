@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from build_mas.contracts import ArchitectureSpec
-from build_mas.target import scaffold
+from codexwright.contracts import ArchitectureSpec
+from codexwright.target import scaffold
 
 
 def tool_project(root, spec_dict):

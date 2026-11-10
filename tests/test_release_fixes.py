@@ -12,11 +12,11 @@ from types import SimpleNamespace
 
 import pytest
 
-from build_mas.contracts import ArchitectureSpec, CheckSpec, IntakeEnvelope
-from build_mas.target import scaffold
-from build_mas.templates.execution import bounded_output, isolated_sdk_home, state_directory
-from build_mas.verify import execute_check, sandbox_command, verification_python, verify_project
-from build_mas.workspace import snapshot
+from codexwright.contracts import ArchitectureSpec, CheckSpec, IntakeEnvelope
+from codexwright.target import scaffold
+from codexwright.templates.execution import bounded_output, isolated_sdk_home, state_directory
+from codexwright.verify import execute_check, sandbox_command, verification_python, verify_project
+from codexwright.workspace import snapshot
 from test_generated_workflow import FakeCodex, load
 from test_service import prepared, setup_workspace
 from test_tools import tool_project
@@ -46,8 +46,8 @@ def test_environment_flags_cannot_disable_tool_sandbox(tmp_path, spec_dict, monk
     outside = tmp_path / "outside.txt"
     outside.write_text("keep")
     (root / "tools/echo.py").write_text("from pathlib import Path\nPath(" + repr(str(outside)) + ").write_text('bad')\n")
-    monkeypatch.setenv("BUILD_MAS_OUTER_SANDBOX", "1")
-    monkeypatch.setenv("BUILD_MAS_TEST_HOME", str(tmp_path))
+    monkeypatch.setenv("CODEXWRIGHT_OUTER_SANDBOX", "1")
+    monkeypatch.setenv("CODEXWRIGHT_TEST_HOME", str(tmp_path))
     with pytest.raises(RuntimeError):
         tool.invoke(tool.SPEC["tools"][0], {"value": "test"})
     assert outside.read_text() == "keep"
@@ -92,7 +92,7 @@ def test_readonly_install_uses_external_state(tmp_path, spec, monkeypatch):
     scaffold(root, spec)
     flow = load(root)
     monkeypatch.setattr(flow, "AsyncCodex", FakeCodex)
-    monkeypatch.delenv("BUILD_MAS_TEST_HOME", raising=False)
+    monkeypatch.delenv("CODEXWRIGHT_TEST_HOME", raising=False)
     monkeypatch.setenv("XDG_STATE_HOME", str(tmp_path / "user-state"))
     root.chmod(0o555)
     try:
@@ -237,7 +237,7 @@ def test_tools_cannot_read_isolated_sdk_auth(tmp_path, spec_dict, monkeypatch):
     auth = sdk / "auth.json"
     auth.write_text("private fixture")
     monkeypatch.setenv("CODEX_HOME", str(sdk))
-    monkeypatch.setenv("BUILD_MAS_OUTER_SANDBOX", "1")
+    monkeypatch.setenv("CODEXWRIGHT_OUTER_SANDBOX", "1")
     (root / "tools/echo.py").write_text("from pathlib import Path\nprint(Path(" + repr(str(auth)) + ").read_text())\n")
     with pytest.raises(RuntimeError):
         registry.invoke(registry.SPEC["tools"][0], {"value": "test"})
@@ -279,7 +279,7 @@ def test_frozen_registry_smoke_uses_package_owned_runner(tmp_path, spec_dict):
 
 
 def test_generated_mcp_and_python310_dependencies_are_checked(tmp_path, spec_dict):
-    from build_mas.verify import structure_check
+    from codexwright.verify import structure_check
     import tomllib
     data = copy.deepcopy(spec_dict)
     data["runtime"] = {"source": "none", "target": "codex_sdk", "action": "new"}

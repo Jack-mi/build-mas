@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from build_mas.contracts import ArchitectureSpec
+from codexwright.contracts import ArchitectureSpec
 
 
 @pytest.fixture

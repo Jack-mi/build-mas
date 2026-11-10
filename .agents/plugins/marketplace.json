@@ -1,11 +1,11 @@
 {
-  "name": "build-mas-local",
+  "name": "codexwright-local",
   "interface": {
-    "displayName": "Build MAS Local"
+    "displayName": "Codexwright Local"
   },
   "plugins": [
     {
-      "name": "build-mas",
+      "name": "codexwright",
       "source": {
         "source": "local",
         "path": "./adapters/codex"

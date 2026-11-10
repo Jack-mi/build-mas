@@ -6,7 +6,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from build_mas.target import scaffold
+from codexwright.target import scaffold
 
 
 def load(root):
@@ -86,11 +86,11 @@ def test_standalone_run_schema_and_checkpoint(tmp_path, spec, monkeypatch):
         asyncio.run(module.run({"value": "changed"}, state_path=checkpoint))
     with pytest.raises(Exception):
         asyncio.run(module.run({"missing": "hello"}))
-    assert "build_mas" not in (root / "workflow.py").read_text()
+    assert "codexwright" not in (root / "workflow.py").read_text()
 
 
 def test_parallel_dag_handoff_and_failure(tmp_path, spec_dict, monkeypatch):
-    from build_mas.contracts import ArchitectureSpec
+    from codexwright.contracts import ArchitectureSpec
     from openai_codex import ExternalMessage
 
     data = copy.deepcopy(spec_dict)

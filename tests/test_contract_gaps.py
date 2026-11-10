@@ -2,7 +2,7 @@ import copy
 
 import pytest
 
-from build_mas.contracts import ArchitectureSpec
+from codexwright.contracts import ArchitectureSpec
 
 
 def test_prose_is_not_executable_verification(spec_dict):

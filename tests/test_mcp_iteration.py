@@ -14,13 +14,13 @@ from mcp import Client
 from mcp.client.stdio import StdioServerParameters
 from mcp.types import ElicitResult, InputRequiredResult
 
-from build_mas.mcp_server import server_for, reply
-from build_mas.service import BuildService
-from build_mas.mcp_contracts import SUMMARY_BYTES, PublicResult, summary
-from build_mas.mcp_interaction import LoginInteraction
-from build_mas.templates.execution import bounded_output
-from build_mas.mcp_progress import progress
-from build_mas.runtime import CodexRuntime
+from codexwright.mcp_server import server_for, reply
+from codexwright.service import BuildService
+from codexwright.mcp_contracts import SUMMARY_BYTES, PublicResult, summary
+from codexwright.mcp_interaction import LoginInteraction
+from codexwright.templates.execution import bounded_output
+from codexwright.mcp_progress import progress
+from codexwright.runtime import CodexRuntime
 from test_service import prepared, setup_workspace
 
 
@@ -35,13 +35,13 @@ def test_public_apply_replay_does_not_ask_or_write_twice(tmp_path, spec, monkeyp
         prompts.append(message)
         return SimpleNamespace(action="accept", data=SimpleNamespace(approve=True))
 
-    monkeypatch.setattr("build_mas.mcp_server.Context.elicit", accept)
+    monkeypatch.setattr("codexwright.mcp_server.Context.elicit", accept)
 
     async def probe():
         server = server_for(service, allow_apply=True)
         request = {"request": {"proposal_id": proposal["id"], "idempotency_key": "one-apply"}}
-        first = await server.call_tool("buildmas_apply", request)
-        second = await server.call_tool("buildmas_apply", request)
+        first = await server.call_tool("codexwright_apply", request)
+        second = await server.call_tool("codexwright_apply", request)
         assert first.structured_content["status"] == "completed"
         assert second.structured_content == first.structured_content
         assert len(prompts) == 1
@@ -115,11 +115,11 @@ def test_apply_refuses_bad_public_fields_before_confirmation(tmp_path, spec, mon
     proposal, _ = prepared(service, root, workspace, spec)
     async def forbidden(*args):
         pytest.fail("Invalid input must not start a confirmation")
-    monkeypatch.setattr("build_mas.mcp_server.Context.elicit", forbidden)
+    monkeypatch.setattr("codexwright.mcp_server.Context.elicit", forbidden)
     async def probe():
         server = server_for(service, allow_apply=True)
         for request in ({"proposal_id": proposal["id"]}, {"proposal_id": proposal["id"], "idempotency_key": "x", "approval_reference": "approval_forged"}):
-            result = await server.call_tool("buildmas_apply", {"request": request})
+            result = await server.call_tool("codexwright_apply", {"request": request})
             assert result.is_error and result.structured_content["error"]["code"] == "invalid_input"
         assert not list(root.iterdir())
     asyncio.run(probe())
@@ -132,14 +132,14 @@ def test_decline_is_retained_and_new_key_is_new_request(tmp_path, spec, monkeypa
     async def decline(*args):
         prompts.append(1)
         return SimpleNamespace(action="decline", data=None)
-    monkeypatch.setattr("build_mas.mcp_server.Context.elicit", decline)
+    monkeypatch.setattr("codexwright.mcp_server.Context.elicit", decline)
     async def probe():
         server = server_for(service, allow_apply=True)
         request = {"request": {"proposal_id": proposal["id"], "idempotency_key": "declined"}}
-        first = await server.call_tool("buildmas_apply", request)
-        repeated = await server.call_tool("buildmas_apply", request)
+        first = await server.call_tool("codexwright_apply", request)
+        repeated = await server.call_tool("codexwright_apply", request)
         assert repeated.structured_content == first.structured_content and len(prompts) == 1
-        await server.call_tool("buildmas_apply", {"request": {"proposal_id": proposal["id"], "idempotency_key": "ask-again"}})
+        await server.call_tool("codexwright_apply", {"request": {"proposal_id": proposal["id"], "idempotency_key": "ask-again"}})
         assert len(prompts) == 2 and not list(root.iterdir())
     asyncio.run(probe())
 
@@ -154,13 +154,13 @@ def test_modern_multiple_pages_and_sealed_state(tmp_path, spec):
             return ElicitResult(action="decline")
         async with Client(server_for(service, allow_apply=True), elicitation_callback=answer) as client:
             arguments = {"request": {"proposal_id": proposal["id"], "idempotency_key": "sealed"}}
-            first = await client.session.call_tool("buildmas_apply", arguments, allow_input_required=True)
+            first = await client.session.call_tool("codexwright_apply", arguments, allow_input_required=True)
             assert isinstance(first, InputRequiredResult) and "EXACT BEGIN" in first.input_requests["confirm"].params.message
             assert "offset" not in first.request_state
-            second = await client.session.call_tool("buildmas_apply", arguments, allow_input_required=True, request_state=first.request_state, input_responses={"confirm": ElicitResult(action="accept", content={"approve": True})})
+            second = await client.session.call_tool("codexwright_apply", arguments, allow_input_required=True, request_state=first.request_state, input_responses={"confirm": ElicitResult(action="accept", content={"approve": True})})
             assert isinstance(second, InputRequiredResult) and "EXACT END" in second.input_requests["confirm"].params.message
             assert not list(root.iterdir())
-            final = await client.session.call_tool("buildmas_apply", arguments, allow_input_required=True, request_state=second.request_state, input_responses={"confirm": ElicitResult(action="decline")})
+            final = await client.session.call_tool("codexwright_apply", arguments, allow_input_required=True, request_state=second.request_state, input_responses={"confirm": ElicitResult(action="decline")})
             assert final.structured_content["status"] == "failed" and not list(root.iterdir())
     asyncio.run(probe())
 
@@ -168,16 +168,16 @@ def test_modern_multiple_pages_and_sealed_state(tmp_path, spec):
 @pytest.mark.parametrize("mode", ["auto", "legacy"])
 def test_stdio_contracts_errors_and_cache_hints(tmp_path, mode):
     async def probe():
-        environment = {**os.environ, "BUILD_MAS_HOME": str(tmp_path / "state")}
-        parameters = StdioServerParameters(command=sys.executable, args=["-m", "build_mas.mcp_server"], env=environment)
+        environment = {**os.environ, "CODEXWRIGHT_HOME": str(tmp_path / "state")}
+        parameters = StdioServerParameters(command=sys.executable, args=["-m", "codexwright.mcp_server"], env=environment)
         async with Client(parameters, mode=mode) as client:
             tools = await client.list_tools()
             assert tools.ttl_ms == (300000 if mode == "auto" else 0) and tools.cache_scope == "private"
             schemas = {tool.name: tool.output_schema for tool in tools.tools}
-            invalid = await client.call_tool("buildmas_invoke", {"envelope": {"workspace_id": "ws_fixture", "goal": "review"}})
+            invalid = await client.call_tool("codexwright_invoke", {"envelope": {"workspace_id": "ws_fixture", "goal": "review"}})
             assert invalid.is_error and invalid.structured_content["error"]["code"] == "invalid_input"
-            Draft202012Validator(schemas["buildmas_invoke"]).validate(invalid.structured_content)
-            result = await client.call_tool("buildmas_read", {"category": "bad", "reference": "run_x"})
+            Draft202012Validator(schemas["codexwright_invoke"]).validate(invalid.structured_content)
+            result = await client.call_tool("codexwright_read", {"category": "bad", "reference": "run_x"})
             assert result.structured_content["error"]["code"] == "invalid_input"
     asyncio.run(probe())
 
@@ -231,7 +231,7 @@ def test_modern_login_user_channel_and_cleanup(tmp_path, monkeypatch, action):
         async def login_chatgpt(self):
             events.append("start")
             return Handle()
-    monkeypatch.setattr("build_mas.runtime.AsyncCodex", Codex)
+    monkeypatch.setattr("codexwright.runtime.AsyncCodex", Codex)
     async def answer(ctx, params):
         events.append("user")
         assert params.mode == "url" and params.url == Handle.auth_url
@@ -239,7 +239,7 @@ def test_modern_login_user_channel_and_cleanup(tmp_path, monkeypatch, action):
     async def probe():
         service = BuildService(tmp_path / "state")
         async with Client(server_for(service), elicitation_callback=answer) as client:
-            result = await client.call_tool("buildmas_login", {})
+            result = await client.call_tool("codexwright_login", {})
             assert result.structured_content["status"] == ("ready" if action == "accept" else "blocked")
             assert Handle.auth_url not in json.dumps(result.structured_content)
         assert events.count("start") == events.count("user") == events.count("close") == 1
@@ -267,7 +267,7 @@ def test_pending_modern_login_is_cancelled_and_unlocks(tmp_path, monkeypatch, ki
         if kind == "timeout":
             async def sleep(_seconds):
                 return
-            monkeypatch.setattr("build_mas.mcp_interaction.asyncio.sleep", sleep)
+            monkeypatch.setattr("codexwright.mcp_interaction.asyncio.sleep", sleep)
         result = await interaction.login(Context())
         assert isinstance(result, InputRequiredResult)
         if kind == "timeout":
@@ -294,13 +294,13 @@ def test_apply_concurrent_retry_reports_original_run(tmp_path, spec, monkeypatch
     service.checked_verify = verify
     async def approve(*args):
         return SimpleNamespace(action="accept", data=SimpleNamespace(approve=True))
-    monkeypatch.setattr("build_mas.mcp_server.Context.elicit", approve)
+    monkeypatch.setattr("codexwright.mcp_server.Context.elicit", approve)
     async def probe():
         server = server_for(service, allow_apply=True)
         arguments = {"request": {"proposal_id": proposal["id"], "idempotency_key": "concurrent"}}
-        first = asyncio.create_task(server.call_tool("buildmas_apply", arguments))
+        first = asyncio.create_task(server.call_tool("codexwright_apply", arguments))
         await ready.wait()
-        repeat = await server.call_tool("buildmas_apply", arguments)
+        repeat = await server.call_tool("codexwright_apply", arguments)
         assert repeat.structured_content["status"] == "running"
         assert not list(root.iterdir())
         proceed.set()
@@ -338,8 +338,8 @@ def test_apply_review_binding_fails_closed(tmp_path, spec, case):
 
 
 def test_legacy_apply_record_reused_only_with_verified_association(tmp_path, spec):
-    from build_mas.contracts import ApplyRequest
-    from build_mas.store import digest
+    from codexwright.contracts import ApplyRequest
+    from codexwright.store import digest
     service, root, workspace = setup_workspace(tmp_path)
     proposal, session = prepared(service, root, workspace, spec)
     approved = service.approve(proposal["id"])
@@ -369,12 +369,12 @@ def test_modern_confirmation_token_cannot_be_forged_or_skipped(tmp_path, spec):
     async def probe():
         arguments = {"request": {"proposal_id": proposal["id"], "idempotency_key": "no-skip"}}
         async with Client(server_for(service, allow_apply=True), elicitation_callback=approve) as client:
-            first = await client.session.call_tool("buildmas_apply", arguments, allow_input_required=True)
+            first = await client.session.call_tool("codexwright_apply", arguments, allow_input_required=True)
             with pytest.raises(MCPError):
-                await client.session.call_tool("buildmas_apply", arguments, allow_input_required=True, request_state=first.request_state + "forged", input_responses={"confirm": ElicitResult(action="accept", content={"approve": True})})
-            second = await client.session.call_tool("buildmas_apply", arguments, allow_input_required=True, request_state=first.request_state, input_responses={"confirm": ElicitResult(action="accept", content={"approve": True})})
+                await client.session.call_tool("codexwright_apply", arguments, allow_input_required=True, request_state=first.request_state + "forged", input_responses={"confirm": ElicitResult(action="accept", content={"approve": True})})
+            second = await client.session.call_tool("codexwright_apply", arguments, allow_input_required=True, request_state=first.request_state, input_responses={"confirm": ElicitResult(action="accept", content={"approve": True})})
             assert isinstance(second, InputRequiredResult)
-            stale = await client.session.call_tool("buildmas_apply", arguments, allow_input_required=True, request_state=first.request_state, input_responses={"confirm": ElicitResult(action="accept", content={"approve": True})})
+            stale = await client.session.call_tool("codexwright_apply", arguments, allow_input_required=True, request_state=first.request_state, input_responses={"confirm": ElicitResult(action="accept", content={"approve": True})})
             assert stale.structured_content["error"]["code"] == "invalid_review_state"
             assert not list(root.iterdir())
     asyncio.run(probe())
@@ -391,7 +391,7 @@ def test_modern_client_round_limit_never_shortens_review(tmp_path, spec):
     async def probe():
         async with Client(server_for(service, allow_apply=True), elicitation_callback=approve, input_required_max_rounds=1) as client:
             with pytest.raises(InputRequiredRoundsExceededError):
-                await client.call_tool("buildmas_apply", {"request": {"proposal_id": proposal["id"], "idempotency_key": "round-limit"}})
+                await client.call_tool("codexwright_apply", {"request": {"proposal_id": proposal["id"], "idempotency_key": "round-limit"}})
             assert not list(root.iterdir())
     asyncio.run(probe())
 
@@ -406,11 +406,11 @@ def test_actual_stdio_modern_approval_and_replay(tmp_path, spec):
         prompts.append(params.message)
         return ElicitResult(action="accept", content={"approve": True})
     async def probe():
-        parameters = StdioServerParameters(command=sys.executable, args=["-m", "build_mas.mcp_server"], env={**os.environ, "BUILD_MAS_HOME": str(service.store.home), "BUILD_MAS_ALLOW_APPLY": "1"})
+        parameters = StdioServerParameters(command=sys.executable, args=["-m", "codexwright.mcp_server"], env={**os.environ, "CODEXWRIGHT_HOME": str(service.store.home), "CODEXWRIGHT_ALLOW_APPLY": "1"})
         async with Client(parameters, elicitation_callback=approve) as client:
             request = {"request": {"proposal_id": proposal["id"], "idempotency_key": "stdio-approved"}}
-            first = await client.call_tool("buildmas_apply", request)
-            repeated = await client.call_tool("buildmas_apply", request)
+            first = await client.call_tool("codexwright_apply", request)
+            repeated = await client.call_tool("codexwright_apply", request)
             assert first.structured_content["status"] == "completed" and first.structured_content == repeated.structured_content
             assert len(prompts) == 1 and (root / "workflow.py").is_file()
     asyncio.run(probe())
@@ -448,7 +448,7 @@ def test_verification_cancel_waits_for_owned_worker(tmp_path):
     started = threading.Event()
     stopped = threading.Event()
     def verify(*args, **kwargs):
-        from build_mas.service import _verification_cancel
+        from codexwright.service import _verification_cancel
         cancel = _verification_cancel.get()
         started.set()
         assert cancel.wait(5)
@@ -496,10 +496,10 @@ def test_tools_publish_descriptions_and_schemas(tmp_path):
             assert tool.output_schema["type"] == "object"
             Draft202012Validator.check_schema(tool.input_schema)
             Draft202012Validator.check_schema(tool.output_schema)
-        invoke = next(tool for tool in tools if tool.name == "buildmas_invoke")
+        invoke = next(tool for tool in tools if tool.name == "codexwright_invoke")
         schema = invoke.input_schema
         assert "idempotency_key" in json.dumps(schema)
-        bad = await server.call_tool("buildmas_invoke", {"envelope": {"workspace_id": "ws_fixture", "goal": "Explain"}})
+        bad = await server.call_tool("codexwright_invoke", {"envelope": {"workspace_id": "ws_fixture", "goal": "Explain"}})
         assert bad.is_error and bad.structured_content["error"]["code"] == "invalid_input"
 
     asyncio.run(probe())
@@ -517,7 +517,7 @@ def test_modern_protocol_approval(tmp_path, spec, action):
 
     async def probe():
         async with Client(server_for(service, allow_apply=True), elicitation_callback=approve) as client:
-            result = await client.call_tool("buildmas_apply", {"request": {"proposal_id": proposal["id"], "idempotency_key": "modern"}})
+            result = await client.call_tool("codexwright_apply", {"request": {"proposal_id": proposal["id"], "idempotency_key": "modern"}})
             assert result.structured_content["status"] == ("completed" if action == "accept" else "failed")
             assert len(messages) == 1
             assert (root / "workflow.py").exists() == (action == "accept")

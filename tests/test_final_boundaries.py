@@ -4,8 +4,8 @@ from types import SimpleNamespace
 
 import pytest
 
-from build_mas.mcp_server import server_for
-from build_mas.runtime import CodexRuntime
+from codexwright.mcp_server import server_for
+from codexwright.runtime import CodexRuntime
 from test_service import prepared, setup_workspace
 
 
@@ -20,9 +20,9 @@ def test_mcp_review_displays_every_page(tmp_path, spec, monkeypatch):
         messages.append(message)
         assert not list(root.iterdir())
         return SimpleNamespace(action="accept", data=SimpleNamespace(approve=True))
-    monkeypatch.setattr("build_mas.mcp_server.Context.elicit", elicit)
+    monkeypatch.setattr("codexwright.mcp_server.Context.elicit", elicit)
     server = server_for(service, allow_apply=True)
-    result = asyncio.run(server.call_tool("buildmas_apply", {"request": {"proposal_id": proposal["id"], "idempotency_key": "paged-approval"}}))
+    result = asyncio.run(server.call_tool("codexwright_apply", {"request": {"proposal_id": proposal["id"], "idempotency_key": "paged-approval"}}))
     assert result.structured_content["status"] == "completed"
     assert len(messages) == 2 and "EXACT BEGIN" in messages[0] and "EXACT END" in messages[-1]
     assert "no files are applied yet" in messages[0] and "live SDK check" in messages[-1]
@@ -43,8 +43,8 @@ def test_paged_approval_rejects_decline_and_changed_proposal(tmp_path, spec, mon
             proposal["changes"][0]["content"] = "print('changed after review')"
             service.store.write("proposals", proposal["id"], proposal)
         return SimpleNamespace(action="accept", data=SimpleNamespace(approve=True))
-    monkeypatch.setattr("build_mas.mcp_server.Context.elicit", elicit)
-    result = asyncio.run(server_for(service, allow_apply=True).call_tool("buildmas_apply", {"request": {"proposal_id": proposal["id"], "idempotency_key": "changed-pages"}}))
+    monkeypatch.setattr("codexwright.mcp_server.Context.elicit", elicit)
+    result = asyncio.run(server_for(service, allow_apply=True).call_tool("codexwright_apply", {"request": {"proposal_id": proposal["id"], "idempotency_key": "changed-pages"}}))
     assert result.is_error and len(pages) == 2
     assert result.structured_content["error"]["code"] == ("permission_denied" if decision == "decline" else "stale_proposal")
     assert not list(root.iterdir())
@@ -80,7 +80,7 @@ def test_account_timeout_is_not_runtime_or_auth_success(tmp_path, monkeypatch):
             return SimpleNamespace(data=[SimpleNamespace(model="fixture-model")])
         async def account(self):
             raise RuntimeError("routing unavailable")
-    monkeypatch.setattr("build_mas.runtime.AsyncCodex", Client)
+    monkeypatch.setattr("codexwright.runtime.AsyncCodex", Client)
     result = asyncio.run(CodexRuntime(tmp_path).preflight(tmp_path))
     assert result["status"] == "account_unverified" and result["account_present"] is None
     assert result["models"] == ["fixture-model"]

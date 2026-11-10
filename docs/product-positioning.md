@@ -5,7 +5,7 @@ distinguishes it from the service forms implemented in version 0.4.0.
 
 ## One-Sentence Definition
 
-**build-mas is an architecture and construction assistant that users can call
+**codexwright is an architecture and construction assistant that users can call
 from their existing coding agent or automation to build and evolve runnable,
 verifiable agentic workflows on the Codex SDK.**
 
@@ -27,7 +27,7 @@ also insufficient: required verification and explicit approval gates must pass.
 
 ## How Users Work With It
 
-Users can invoke build-mas at any stage: exploration, design, implementation,
+Users can invoke codexwright at any stage: exploration, design, implementation,
 debugging, evaluation, maintenance, or refactoring. They need not already have
 a formal task flow, a multi-Agent system, or the Codex SDK installed in the
 target project.
@@ -70,7 +70,7 @@ or always-on service platform.
 - An unknown runtime is inspected before choosing a migration path.
 
 Host flexibility does not mean runtime interchangeability. Codex, Claude Code,
-and OpenCode can all invoke build-mas; the current builder and target Agent
+and OpenCode can all invoke codexwright; the current builder and target Agent
 runtime remain Codex SDK. The implementation language is an installation/API
 detail, not the product category.
 
@@ -101,7 +101,7 @@ interfaces or unverified deployment targets into shipped features.
 
 The current implementation is defined by `service.py`, `router.py`,
 `contracts.py`, the MCP entrypoint, and the generated templates under
-`src/build_mas`. The [architecture blueprint](build-mas-codex-sdk-blueprint.md)
+`src/codexwright`. The [architecture blueprint](codexwright-blueprint.md)
 and [implementation ledger](implementation-status.md) provide technical scope
 and recorded evidence.
 

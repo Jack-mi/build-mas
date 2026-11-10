@@ -3,8 +3,8 @@
 import json
 from pathlib import Path
 
-from build_mas.contracts import ApplyRequest, ArchitectureSpec, IntakeEnvelope
-from build_mas.mcp_contracts import InvokeEnvelope, PageResult, PublicApplyRequest, PublicResult
+from codexwright.contracts import ApplyRequest, ArchitectureSpec, IntakeEnvelope
+from codexwright.mcp_contracts import InvokeEnvelope, PageResult, PublicApplyRequest, PublicResult
 
 
 def schemas():
@@ -18,7 +18,7 @@ def schemas():
 
 
 def main():
-    directory = Path(__file__).resolve().parents[1] / "src/build_mas/schemas"
+    directory = Path(__file__).resolve().parents[1] / "src/codexwright/schemas"
     for name, schema in schemas().items():
         (directory / f"{name}.schema.json").write_text(json.dumps(schema, indent=2) + "\n")
 

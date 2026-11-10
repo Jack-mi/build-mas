@@ -1,9 +1,9 @@
 {
   "mcpServers": {
-    "buildmas": {
+    "codexwright": {
       "command": "python3",
       "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/launch.py"],
-      "env": {"BUILD_MAS_ALLOW_APPLY": "1"}
+      "env": {"CODEXWRIGHT_ALLOW_APPLY": "1"}
     }
   }
 }

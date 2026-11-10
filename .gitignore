@@ -9,5 +9,6 @@ __pycache__/
 dist/
 build/
 .workflow-runs/
+.codexwright/
 .build-mas/
 uv.lock

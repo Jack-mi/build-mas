@@ -4,8 +4,8 @@ import threading
 
 import pytest
 
-from build_mas.contracts import CheckSpec
-from build_mas.verify import execute_check, command_for
+from codexwright.contracts import CheckSpec
+from codexwright.verify import execute_check, command_for
 
 
 def test_artifact_receipt(tmp_path):
@@ -91,7 +91,7 @@ print(json.dumps({"relay": "passed", "undeclared": "denied", "direct": "denied"}
         calls.append(address)
         return upstream
 
-    monkeypatch.setattr("build_mas.network.socket.create_connection", connect)
+    monkeypatch.setattr("codexwright.network.socket.create_connection", connect)
     expected = {"relay": "passed", "undeclared": "denied", "direct": "denied"}
     receipt = execute_check(CheckSpec(id="relay", kind="codex_smoke", target="probe.py", expected_json=expected), root, tmp_path / "evidence", model_ports=pins)
     thread.join(timeout=2)

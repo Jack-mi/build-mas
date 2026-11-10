@@ -6,9 +6,9 @@ from types import SimpleNamespace
 
 import pytest
 
-from build_mas.contracts import ArchitectureSpec
-from build_mas.target import scaffold
-from build_mas.verify import structure_check
+from codexwright.contracts import ArchitectureSpec
+from codexwright.target import scaffold
+from codexwright.verify import structure_check
 from test_generated_workflow import FakeCodex, load
 
 

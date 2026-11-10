@@ -1,0 +1,113 @@
+{
+  "date": "2026-11-09",
+  "package_version": "0.4.1",
+  "api_version": "0.4",
+  "sdk_runtime": "0.167.0",
+  "wheel_sha256": "865e949fde96b179e98afbbd12a4213af7b7ebfecfddad5f285b7db384134e63",
+  "source_regression": {
+    "passed": 178,
+    "example_subtests": 6,
+    "deselected": 2,
+    "seconds": 21.42
+  },
+  "installed_wheel_regression": {
+    "passed": 178,
+    "example_subtests": 6,
+    "deselected": 2,
+    "seconds": 23.23,
+    "package_files_match": 30
+  },
+  "deselected": [
+    "pre_existing_png_utf8_portability_failure",
+    "separately_executed_live_sdk_acceptance"
+  ],
+  "same_material_projection": {
+    "fixture": "same-original-analysis-materials",
+    "status": "passed",
+    "material_count": 18,
+    "imported_files": 15,
+    "complete_material_chars": 159590,
+    "old_context_chars": 192473,
+    "new_context_chars": 38608,
+    "old_context_bytes": 257403,
+    "new_context_bytes": 42594,
+    "context_bytes_reduction_percent": 83.45,
+    "inline_chars": 6155,
+    "all_text_hashes_match": true,
+    "model_quality_compared": false,
+    "actual_tokens_compared": false,
+    "source_project_modified": false
+  },
+  "installed_live_retrieval": {
+    "package_version": "0.4.1",
+    "api_version": "0.4",
+    "fixture": "long-attachment-tail",
+    "sdk_runtime": "0.167.0",
+    "target_unchanged": true,
+    "summary": "FINAL_EVIDENCE: indexed-tail-readable-041. The original Codex SDK project is reused.",
+    "status": "completed",
+    "verification": "not_run",
+    "usage": {
+      "turns": 2,
+      "tokens": 76143,
+      "inference_calls": 4,
+      "input_tokens": 75855,
+      "cached_input_tokens": 40407,
+      "cache_write_input_tokens": 35436,
+      "output_tokens": 288,
+      "reasoning_output_tokens": 0,
+      "uncached_input_tokens": 35448,
+      "tool_calls": 2,
+      "unmeasured_turns": 0
+    },
+    "material_coverage": {
+      "materials": 1,
+      "text_files": 1,
+      "images": 0,
+      "inline_complete": 0,
+      "indexed_only": 1,
+      "available_chars": 220043,
+      "inline_chars": 256,
+      "review_status": "not_measured"
+    },
+    "progress_notifications": 14,
+    "run_id": "run_ee041075ab2dad123dca4bf0",
+    "seconds": 27.16,
+    "wheel_sha256": "865e949fde96b179e98afbbd12a4213af7b7ebfecfddad5f285b7db384134e63"
+  },
+  "fresh_codex_host": {
+    "status": "completed",
+    "ephemeral": true,
+    "preflight_calls": 1,
+    "capabilities": {
+      "apply_exposed": true,
+      "form_elicitation": true,
+      "url_elicitation": true,
+      "progress": false,
+      "request_progress_token": false,
+      "progress_notifications": true,
+      "status_polling": true,
+      "event_replay": true,
+      "protocol_version": "2025-06-18",
+      "human_approval_verified": false
+    }
+  },
+  "plugin_install": {
+    "plugin_id": "build-mas@build-mas-local",
+    "version": "0.4.1",
+    "cached_skill_matches": true
+  },
+  "legacy_result_read": {
+    "result_chars": 12584,
+    "summary_chars": 5035,
+    "original_record_unchanged": true
+  },
+  "limits": [
+    "No source project edits or workflow runs.",
+    "No commit, push, deployment or publication.",
+    "MCP-client progress notifications verified; desktop invoke progress UI still depends on host token delivery.",
+    "Material availability does not prove full semantic review.",
+    "Projection reduction is not a token, billed-cost or model-quality improvement.",
+    "An already-connected MCP process keeps its loaded code/schema until reconnect or a new chat."
+  ]
+}

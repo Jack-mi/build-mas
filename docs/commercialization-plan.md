@@ -1,4 +1,4 @@
-# build-mas 商业化改造方案
+# codexwright 商业化改造方案
 
 方案日期：2026-11-09。状态：方案讨论，未实施收费、远程服务或多租户部署。
 
@@ -20,7 +20,7 @@
 
 ### 2.1 已有基线
 
-截至方案编写时，`0.2.0` 已有本地 stdio MCP、共享核心、私有工作区与暂存提案、精确审批、验证和失败记录。相关来源为 [README](../README.md)、[产品定位](product-positioning.md)、[MCP 实现](../src/build_mas/mcp_server.py)、[业务核心](../src/build_mas/service.py)、[状态存储](../src/build_mas/store.py) 和 [运行时边界](../src/build_mas/runtime.py)。这些文件会随主线程迁移更新，应以对应提交及验收记录为准。
+截至方案编写时，`0.2.0` 已有本地 stdio MCP、共享核心、私有工作区与暂存提案、精确审批、验证和失败记录。相关来源为 [README](../README.md)、[产品定位](product-positioning.md)、[MCP 实现](../src/codexwright/mcp_server.py)、[业务核心](../src/codexwright/service.py)、[状态存储](../src/codexwright/store.py) 和 [运行时边界](../src/codexwright/runtime.py)。这些文件会随主线程迁移更新，应以对应提交及验收记录为准。
 
 当前商业能力的缺口：
 
@@ -39,8 +39,8 @@
 
 主线程正在实施移除 CLI，以下是该次迁移的接口目标，**不是本方案宣告已验收**：
 
-- 用 `python -m build_mas.mcp_server` 直接启动 stdio；home、model、allow-apply 由环境配置选择，不提供 builder 命令行操作。
-- MCP 补充 `buildmas_register`、`buildmas_import`、`buildmas_recover`、`buildmas_login`，保留 preflight、invoke、verify、status、read 及按策略启用的 apply。
+- 用 `python -m codexwright.mcp_server` 直接启动 stdio；home、model、allow-apply 由环境配置选择，不提供 builder 命令行操作。
+- MCP 补充 `codexwright_register`、`codexwright_import`、`codexwright_recover`、`codexwright_login`，保留 preflight、invoke、verify、status、read 及按策略启用的 apply。
 - Skill、各宿主 launcher、插件配置、安装输出、文档与测试不再依赖 builder CLI。
 - 不支持人类确认的客户端必须返回可解释的阻塞，不能退回已删除的 CLI，也不能把模型传入的批准字段当作人类审批。
 
@@ -73,7 +73,7 @@ edge 只做传输与商业控制的薄适配，业务核心不依赖支付厂商
 | `verify` | 任务内约定次数；额外深度验证单独报价 | 候选验证、应用后验证、再次执行分别展示，防止重复收取已包含费用 |
 | `apply`、`recover` | 同一任务范围内不另收操作费 | apply 仍需独立写入审批；recover 对账/取回已有结果免费，新增计算另报价 |
 
-`buildmas_invoke` 内多个 operation 共用一个工具，不必为价目表复制十几个 MCP 工具。`auto` 必须先确定实际 operation 与计费范围，再报价执行；若后续转成更昂贵操作、变更材料或突破授权预算，暂停重新报价，不静默升级。报价前若必须调用模型判别，应使用明确的小额免费预算，不先运行完整付费任务。
+`codexwright_invoke` 内多个 operation 共用一个工具，不必为价目表复制十几个 MCP 工具。`auto` 必须先确定实际 operation 与计费范围，再报价执行；若后续转成更昂贵操作、变更材料或突破授权预算，暂停重新报价，不静默升级。报价前若必须调用模型判别，应使用明确的小额免费预算，不先运行完整付费任务。
 
 **计费单位是一次逻辑任务，不是一次 MCP 请求。** 提交后的 `status/read` 轮询、断线重连、重复投递、读取大 diff 的分页都不重复收费。相同会话中的实质新需求是新任务，必须明确区分，不能把会话做成无限消耗的授权。
 

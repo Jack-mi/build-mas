@@ -2,8 +2,8 @@ import copy
 
 import pytest
 
-from build_mas.contracts import ArchitectureSpec, IntakeEnvelope, validate_schema
-from build_mas.router import resolve_operation
+from codexwright.contracts import ArchitectureSpec, IntakeEnvelope, validate_schema
+from codexwright.router import resolve_operation
 
 
 def test_strict_intake_and_material():

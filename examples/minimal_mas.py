@@ -57,7 +57,7 @@ def run_workflow(codex, task, cwd):
     ))
     return checked_verdict(verifier.run(ExternalMessage(
         tool_name="research_worker",
-        namespace="build_mas",
+        namespace="codexwright",
         content=worker_output,
     ), output_schema=VERDICT_SCHEMA))
 

@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0",
+  "release": "0.5.0",
+  "date": "2026-11-10",
+  "scope": "Complete local build-mas to codexwright rename plus GitHub repository rename and origin migration; no commit, push or publication",
+  "source_tests": {
+    "command": ".venv/bin/python -m pytest -q tests examples --disable-warnings",
+    "passed": 180,
+    "skipped": 1,
+    "example_subtests_passed": 6,
+    "failed": 0,
+    "editable_import": "passed without PYTHONPATH"
+  },
+  "installed_wheel_tests": {
+    "command": "python -m pytest -q tests examples --disable-warnings",
+    "passed": 180,
+    "skipped": 1,
+    "example_subtests_passed": 6,
+    "failed": 0,
+    "import_origin": "independent site-packages",
+    "final_wheel": true
+  },
+  "wheel": {
+    "path": "dist/codexwright-0.5.0-py3-none-any.whl",
+    "sha256": "f448cdc87e6ba6f8c28db985a005d6ec030e4789f08782fe4d80ee5007e25611",
+    "package_entries": 34,
+    "old_package_entries": []
+  },
+  "mcp": {
+    "server": "codexwright",
+    "version": "0.5.0",
+    "tools": [
+      "codexwright_apply",
+      "codexwright_import",
+      "codexwright_invoke",
+      "codexwright_login",
+      "codexwright_preflight",
+      "codexwright_read",
+      "codexwright_recover",
+      "codexwright_register",
+      "codexwright_status",
+      "codexwright_verify"
+    ],
+    "resource_templates": [
+      "codexwright://runs/{run_id}",
+      "codexwright://sessions/{session_id}"
+    ],
+    "transport": "stdio",
+    "installed_wheel": true,
+    "old_import_available": false
+  },
+  "bootstrap": {
+    "result": "passed",
+    "installed_version": "0.5.0",
+    "import_origin": "independent site-packages",
+    "launcher_argument_check_exit": 2
+  },
+  "brand_assets": {
+    "files": [
+      "codexwright-cover-option-1.png",
+      "codexwright-cover-option-2.png",
+      "codexwright-cover-option-3.png",
+      "codexwright-product-logic.png",
+      "codexwright-workflow-overview.png",
+      "codexwright-xhs-cover-minimal.png",
+      "codexwright-xhs-cover.png"
+    ],
+    "count": 7,
+    "ocr_old_brand_matches": 0,
+    "visual_review": "passed",
+    "readme_overview_regenerated": {
+      "source": "docs/promotion/codexwright-workflow-overview.svg",
+      "output": "docs/promotion/codexwright-workflow-overview.png",
+      "method": "new code-native SVG design rendered at 2688x1520; not a patched bitmap",
+      "visual_review": "passed",
+      "ocr_old_brand_matches": 0
+    }
+  },
+  "checks": {
+    "schema_export": "passed",
+    "local_markdown_links": "passed",
+    "git_diff_check": "passed",
+    "readme_old_identifier_count": 0
+  },
+  "historical_evidence": "0.2-0.4 evidence and versioned acceptance documents retain their original identifiers",
+  "external_repository": {
+    "current": "https://github.com/Jack-mi/codexwright",
+    "previous": "https://github.com/Jack-mi/build-mas",
+    "renamed": true,
+    "origin": "git@github.com:Jack-mi/codexwright.git",
+    "remote_head": "a819f77cbc52096f97b04fd791a910960b8e1100",
+    "verification": [
+      "gh repo view Jack-mi/codexwright",
+      "git ls-remote origin HEAD"
+    ],
+    "documentation_links": "updated to the renamed repository",
+    "content_note": "Remote content remains at the recorded HEAD until the local rename changes are explicitly committed and pushed"
+  },
+  "limitations": [
+    "No live model turn or human approval was required or performed for this identifier-only migration",
+    "Codex, Claude Code and OpenCode manifests and launcher contracts have automated coverage; fresh host UI commissioning was not repeated",
+    "The one skipped test remains skipped; no claim is made that the historical live test now passes"
+  ]
+}

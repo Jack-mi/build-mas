@@ -8,15 +8,15 @@ from pathlib import Path
 
 
 def main():
-    environment = Path(os.environ.get("BUILD_MAS_ENV", Path.home() / ".local/share/build-mas/venv")).expanduser()
-    python = Path(os.environ["BUILD_MAS_PYTHON"]) if os.environ.get("BUILD_MAS_PYTHON") else environment / "bin/python"
+    environment = Path(os.environ.get("CODEXWRIGHT_ENV", Path.home() / ".local/share/codexwright/venv")).expanduser()
+    python = Path(os.environ["CODEXWRIGHT_PYTHON"]) if os.environ.get("CODEXWRIGHT_PYTHON") else environment / "bin/python"
     if not python.is_file():
-        print("build-mas is not installed. Run the repository's scripts/bootstrap.py first, or set BUILD_MAS_PYTHON to its private Python executable. The target project's environment is not used.", file=sys.stderr)
+        print("codexwright is not installed. Run the repository's scripts/bootstrap.py first, or set CODEXWRIGHT_PYTHON to its private Python executable. The target project's environment is not used.", file=sys.stderr)
         return 4
     if len(sys.argv) != 1:
-        print("Start the build-mas MCP launcher without CLI arguments.", file=sys.stderr)
+        print("Start the codexwright MCP launcher without CLI arguments.", file=sys.stderr)
         return 2
-    return subprocess.call([str(python), "-m", "build_mas.mcp_server"])
+    return subprocess.call([str(python), "-m", "codexwright.mcp_server"])
 
 
 if __name__ == "__main__":

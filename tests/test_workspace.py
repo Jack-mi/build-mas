@@ -2,9 +2,9 @@ import json
 
 import pytest
 
-from build_mas.service import BuildService
-from build_mas.store import Store, digest
-from build_mas.workspace import discover, snapshot, transaction_apply, validate_changes, relative_file
+from codexwright.service import BuildService
+from codexwright.store import Store, digest
+from codexwright.workspace import discover, snapshot, transaction_apply, validate_changes, relative_file
 
 
 def test_source_runtime_detection(tmp_path):
@@ -72,3 +72,21 @@ def test_store_lock_and_scope(tmp_path):
     workspace = service.register(root)
     assert service.workspace(workspace["id"])["root"] == str(root)
     assert not list(root.iterdir())
+
+
+def test_store_preserves_legacy_state_locations(tmp_path, monkeypatch):
+    monkeypatch.setenv("HOME", str(tmp_path))
+    monkeypatch.delenv("CODEXWRIGHT_HOME", raising=False)
+    monkeypatch.delenv("BUILD_MAS_HOME", raising=False)
+    legacy = tmp_path / ".local/share/build-mas"
+    (legacy / "workspaces").mkdir(parents=True)
+    assert Store().home == legacy
+    current = tmp_path / ".local/share/codexwright"
+    (current / "venv").mkdir(parents=True)
+    assert Store().home == legacy
+    (current / "workspaces").mkdir()
+    assert Store().home == current
+    monkeypatch.setenv("BUILD_MAS_HOME", str(tmp_path / "legacy-env"))
+    assert Store().home == tmp_path / "legacy-env"
+    monkeypatch.setenv("CODEXWRIGHT_HOME", str(tmp_path / "current-env"))
+    assert Store().home == tmp_path / "current-env"

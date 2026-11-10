@@ -3,8 +3,8 @@ import socket
 
 import pytest
 
-from build_mas.errors import BuildMasError
-from build_mas.runtime import verification_auth, verification_environment
+from codexwright.errors import CodexwrightError
+from codexwright.runtime import verification_auth, verification_environment
 
 
 def test_remote_model_network_is_pinned_to_public_numeric_endpoints(tmp_path, monkeypatch):
@@ -39,5 +39,5 @@ def test_verification_passes_only_declared_model_credentials(tmp_path, monkeypat
         monkeypatch.delenv(name, raising=False)
     assert verification_environment(tmp_path) == {"MODEL_KEY": "credential-fixture", "MODEL_PROJECT": "project-fixture"}
     (tmp_path / "config.toml").write_text('model_provider="chosen"\n[model_providers.chosen]\nenv_key="PYTHONPATH"\n')
-    with pytest.raises(BuildMasError, match="cannot override"):
+    with pytest.raises(CodexwrightError, match="cannot override"):
         verification_environment(tmp_path)
